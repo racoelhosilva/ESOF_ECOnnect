@@ -1,11 +1,11 @@
-# 2LEIC16T1 - 
+<h1 align="center"> 2LEIC16T1 - ES 2023/24 </h1> 
 
 ><p align="center">
 > A platform where you can share and discover actions that promote sustainability in your daily life  
 ></p>
 
-Everyday share at least one example of your sustainable and environment-friendly practices related to FEUP, rate others' contributions and compete in weekly and monthly challenges!  
-The app promotes small everyday actions in order to create a positive and supportive community through shared experiences, ideas and photos leading to a better and more sustainable future.
+Every day share at least one example of your sustainable and environment-friendly practices related to FEUP, rate others' contributions and compete in weekly and monthly challenges!  
+The app promotes small everyday actions to create a positive and supportive community through shared experiences, ideas and photos leading to a better and more sustainable future.
 
 ## Members
 
