@@ -14,3 +14,7 @@ The app promotes small everyday actions to create a positive and supportive comm
 - [Nuno Machado](https://github.com/Slyfenon) (up202206186)
 - [Rodrigo Silva](https://github.com/racoelhosilva) (up202205188)
 - [Vítor Pires](https://github.com/vitormpp) (up202207301)
+
+## Development
+
+- [User Stories](./docs/user-stories.md)
