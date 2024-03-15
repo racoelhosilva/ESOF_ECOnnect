@@ -4,10 +4,12 @@
 ## ECOnnect
 
 [//]: <> (Slogan Idea)
-### Small actions, big impact: stay connected for a sustainable tomorrow!
+### Small actions, big impact: stay connected for a  sustainable tomorrow!
 
-[//]: <> (Vision Statement -- follows the provided template for now)
-For the academic community members, who want to share and discover actions that promote sustainability, ECOnnect is a smartphone application that promotes small everyday actions to create a positive and supportive community through shared experiences, ideas and photos leading to a better and more sustainable future. Unlike other content-sharing apps, our product is specifically made for students and sustainability, allowing rating other posts whilst also having challenges and rankings that users can compete in.
+[//]: <> (Vision Statement)
+In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?  
+ECOnnect addresses this question by embracing community and collaboration, encouraging academic members to promote and share eco-friendly actions and ideas.  
+Together, we can achieve meaningful results with simple everyday contributions. Come help us!
 
 [//]: <> (Main Features)
 ## Features

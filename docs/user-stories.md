@@ -4,10 +4,9 @@
 > List of all user stories created for the project
 ></p>
 
-- **As** a user,
-  **I want** to log in on the app
-  (secure, straightforward)
-  **So that** I can use the app from my account
+- **As** a user,  
+  **I want** to login securely and effortlessly  
+  **So that** I can access the app's features seamlessly through my account.
 
 - **As** a user,  
   **I want** to save everything I've shared  
@@ -53,8 +52,12 @@
   **I want** the option to edit or delete posts after publishing  
   **So that** I can manage and control the content I share on the platform.
 
+- **As** a user,  
+  **I want** to search for other users  
+  **So that** I can easily connect to someone in specific on the app and see their status and contributions.
+
 - **As** an administrator,  
-  **I want** to create monthly challenges and trends  
+  **I want** to create monthly challenges  
   **So that** the users are engaged and continue to perform sustainable acts and keep the application's traffic.
 
 - **As** an administrator,  
