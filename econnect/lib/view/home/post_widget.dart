@@ -10,10 +10,36 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(post.user),
-        Text(post.title),
+        Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            Text(
+              post.user,
+              style: Theme.of(context).textTheme.headlineMedium?.apply(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            post.title,
+            style: Theme.of(context).textTheme.headlineLarge?.apply(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
         Image.network(post.image),
-        Text(post.description),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(post.description),
+        ),
       ],
     );
   }

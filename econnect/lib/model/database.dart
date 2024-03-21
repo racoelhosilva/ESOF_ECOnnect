@@ -12,7 +12,6 @@ class Database {
 
   Future<String> storeImage(String path) async {
     final name = 'img/${const Uuid().v4()}.png';
-    Logger().i(name);
     try {
       await _storageRef.child(name).putFile(File(path));
     } on FirebaseException catch (e) {
@@ -40,5 +39,17 @@ class Database {
       'image': post.image,
       'description': post.description,
     });
+  }
+
+  Future<List<Post>> getPosts() async {
+    final posts = _db.collection('posts');
+    final snapshot = await posts.get();
+
+    return snapshot.docs.map((post) => Post(
+        user: post['user'],
+        title: post['title'],
+        image: post['image'],
+        description: post['description']
+    )).toList();
   }
 }

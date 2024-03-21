@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/home/post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +18,18 @@ class _HomePageState extends State<HomePage> {
   final List<Post> _posts = [];
   final DatabaseController _dbController = DatabaseController(db: Database());
 
-  void _takePicture() async {
+  @override
+  void initState() {
+    super.initState();
+    _loadPostsFromDb().then((_) => setState(() {}));
+  }
+
+  Future<void> _loadPostsFromDb() async {
+    _posts.addAll(await _dbController.getPosts());
+    Logger().i(_posts);
+  }
+
+  Future<void> _takePicture() async {
     if (!_picker.supportsImageSource(ImageSource.camera)) {
       return;
     }
@@ -39,10 +49,12 @@ class _HomePageState extends State<HomePage> {
         Center(
           child: Text(
             'ECOnnect',
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: Theme.of(context).textTheme.headlineLarge?.apply(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
-        ...(_posts.map((post) => PostWidget(post: post)).toList()),
+        ...(_posts.map((post) => PostWidget(post: post))),
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: _takePicture,
