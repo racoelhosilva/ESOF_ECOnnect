@@ -1,5 +1,6 @@
 <h1 align="center"> 2LEIC16T1 - ES 2023/24 </h1> 
 
+[//]: <> (Project Summary)
 ><p align="center">
 > A platform where you can share and discover actions that promote sustainability in your daily life  
 ></p>
@@ -7,6 +8,7 @@
 Every day share at least one example of your sustainable and environment-friendly practices related to FEUP, rate others' contributions and compete in weekly and monthly challenges!  
 The app promotes small everyday actions to create a positive and supportive community through shared experiences, ideas and photos leading to a better and more sustainable future.
 
+[//]: <> (Members of the Project)
 ## Members
 
 - [Bruno Oliveira](https://github.com/Process-ing) (up202208700)
@@ -15,6 +17,8 @@ The app promotes small everyday actions to create a positive and supportive comm
 - [Rodrigo Silva](https://github.com/racoelhosilva) (up202205188)
 - [Vítor Pires](https://github.com/vitormpp) (up202207301)
 
+[//]: <> (Links for the Docs/Development stages)
 ## Development
 
+- [Product Vision](./docs/product-vision.md)
 - [User Stories](./docs/user-stories.md)
