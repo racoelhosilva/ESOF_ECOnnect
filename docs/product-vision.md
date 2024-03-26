@@ -4,11 +4,11 @@
 ## ECOnnect
 
 [//]: <> (Slogan Idea)
-### Small actions, big impact: stay connected for a  sustainable tomorrow!
+### Small actions, big impact: stay connected for a sustainable tomorrow!
 
 [//]: <> (Vision Statement)
 In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?  
-ECOnnect addresses this question by embracing community and collaboration, encouraging academic members to promote and share eco-friendly actions and ideas.  
+ECOnnect addresses this question by embracing community and collaboration, and encouraging academic members to promote and share eco-friendly actions and ideas.  
 Together, we can achieve meaningful results with simple everyday contributions. Come help us!
 
 [//]: <> (Main Features)
@@ -26,5 +26,5 @@ Together, we can achieve meaningful results with simple everyday contributions. 
 [//]: <> (Assumptions and Dependencies)
 ## Assumptions and Dependencies
 
-- Firebase (or other Database)
-- Flutter camera plugin
+- Firebase (Firestore and Cloud Storage)
+- Flutter [image_picker](https://pub.dev/packages/image_picker) plugin

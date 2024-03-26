@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "185164156849",
+    "project_id": "econnect-9c51f",
+    "storage_bucket": "econnect-9c51f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185164156849:android:19d6365513e7de0b9db790",
+        "android_client_info": {
+          "package_name": "com.example.econnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqzIFJgN81rffSGTL-FT8xu-624047e9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
