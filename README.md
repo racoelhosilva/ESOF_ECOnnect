@@ -1,17 +1,6 @@
-<!---
-    TODO:
-- Descriptions for the Domain Model (Vítor)
-- Descriptions for the Logical Architecture (Vítor)
-- Descriptions for Physical Architecture (Vítor)
-- Check Vertical Prototype (Bruno, Vítor, João)
-- Check Project Management (Bruno, Vítor, João)
--->
-
 <h1 align="center"> ECOnnect Development Report </h1>
 
-><p align="center">
->Welcome to the <b>documentation</b> pages of <b>ECOnnect</b>!
-></p>
+<p align="center"><b>Welcome to the documentation pages of ECOnnect!</b></p>
 
 You can find here details about **ECOnnect**, from a high-level vision to low-level implementation decisions, a kind of **Software Development Report**, organized by type of activities: 
 
@@ -26,8 +15,8 @@ You can find here details about **ECOnnect**, from a high-level vision to low-le
 - [Architecture and Design](#architecture-and-design)
   - [Logical architecture](#logical-architecture)
   - [Physical architecture](#physical-architecture)
-  - [Vertical Prototype](#vertical-prototype)
-- [Project Management](#project-management)
+  - [Vertical prototype](#vertical-prototype)
+- [Project management](#project-management)
 
 
 Contributions are expected to be made exclusively by the initial team, but we may open them to the community, after the course, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
@@ -39,6 +28,8 @@ Thank you!
 - [Nuno Machado](https://github.com/Slyfenon) (up202206186@up.pt)
 - [Rodrigo Silva](https://github.com/racoelhosilva) (up202205188@up.pt)
 - [Vítor Pires](https://github.com/vitormpp) (up202207301@up.pt)
+> 2LEIC16T1 - ES 2023/24
+
 
 ---
 
@@ -150,12 +141,11 @@ Example:
 </p>
 -->
 
-A `user` is any individual registered on the platform. 
-Users are authenticated via academic email and password.
-They have the option to personalize their profiles by including a description and uploading a profile picture.
-They can create `posts` consisting of pictures along with textual descriptions.
-Users may also follow other users and like each other's posts.
-Furthermore, the platform hosts `challenges` (created by admin users) focused on eco-friendly activities (with defined start/end dates and specific goals). Users can participate in these challenges and earn points. There is a leaderboard that displays users with the highest scores.
+A **user** is any individual registered on the platform. Users are authenticated via academic email and password.
+They have the option to personalize their profiles by including a description and uploading a profile picture.  
+They can also create **posts** consisting of pictures along with textual descriptions. Users may also follow other users and like each other's posts.  
+Furthermore, the platform hosts **challenges** (created by admin users) focused on eco-friendly activities (with defined start/end dates and specific goals).  
+Users can participate in these challenges and earn points. There is a leaderboard that displays users with the highest scores.
 
 <p align="center" justify="center">
   <img src="img/domain-model.png"/>
@@ -186,7 +176,9 @@ Example of _UML package diagram_ showing a _logical view_ of the Electronic Tick
 ![LogicalView](https://user-images.githubusercontent.com/9655877/160585416-b1278ad7-18d7-463c-b8c6-afa4f7ac7639.png)
 -->
 
-This project is based on an MVC architectural pattern. The user interacts with ECOnnect UI (e.g. to create a new post) and the requests are processed through the database logic. The database logic layer is responsible for fetching necessary information from Google Firebase, using Firestore for structured data storage and Cloud Storage for handling multimedia content.
+This project is based on an **MVC architectural pattern**.  
+The user interacts with ECOnnect UI (e.g. to create a new post) and the requests are processed through the database logic.  
+The database logic layer is responsible for fetching necessary information from Google Firebase, using Firestore for structured data storage and Cloud Storage for handling multimedia content.
 
 
 <p align="center" justify="center">
@@ -205,7 +197,9 @@ Example of _UML deployment diagram_ showing a _deployment view_ of the Electroni
 ![DeploymentView](https://user-images.githubusercontent.com/9655877/160592491-20e85af9-0758-4e1e-a704-0db1be3ee65d.png)
 -->
 
-The ECOnnect mobile application runs in the operating system (OS) environment of the user's mobile device. The UI allows users to communicate with the platform, such as creating, editing and viewing posts, seeing other users' profiles, etc. The application is set up with the appropriate logic to handle each of these actions. Persistent data, including user profiles, posts/multimedia content, is stored in a dedicated database server. In the diagram, each component is identified with the hardware on which it should be installed or deployed.
+The ECOnnect mobile application runs in the operating system (OS) environment of the user's mobile device. The UI allows users to communicate with the platform, such as creating, editing and viewing posts, seeing other users' profiles, etc. The application is set up with the appropriate logic to handle each of these actions.  
+Persistent data, including user profiles, posts/multimedia content, is stored in a dedicated database server.  
+In the diagram, each component is identified with the hardware on which it should be installed or deployed.
 
 <p align="center" justify="center">
   <img src="img/physical-model.png"/>
@@ -221,7 +215,8 @@ In this subsection please describe which feature, or part of it, you have implem
 At this phase, instead of a complete user story, you can simply implement a small part of a feature that demonstrates that you can use the technology, for example, show a screen with the app credits (name and authors).
 -->
 
-The vertical prototype we developed was implemented with the integration of the camera and the Firebase technologies in mind (Firestore and Cloud Storage). For that, we developed a simple post creation and visualization system. By opening the app, one can see all the posts currently in the database. When a post is created, by taking a picture with the camera, the image is sent to Cloud Storage and a new `Post` object is stored in the database. 
+The vertical prototype we developed was implemented with the integration of the camera and the Firebase technologies in mind (Firestore and Cloud Storage). For that, we developed a **simple post creation and visualization system**.  
+By opening the app, one can see all the posts currently in the database.  When a post is created, by taking a picture with the camera, the image is sent to Cloud Storage and a new `Post` object is stored in the database. 
 
 <p align="center" justify="center">
   <img width=300 src="img/vertical-prototype.png"/>
@@ -239,9 +234,9 @@ Common practices for managing iterative software development are backlog managem
 You can find below information and references related to the project management in our team: 
 
 - Backlog management: Product backlog and Sprint backlog in our [Github Projects board](https://github.com/orgs/FEUP-LEIC-ES-2023-24/projects/52)
-
+- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype)
+  
 <!---
-- Release management: [v0](#), v1, v2, v3
 - Sprint planning and retrospectives: 
   - plans: screenshots of Github Projects board at the beginning and end of each iteration;
   - retrospectives: meeting notes in a document in the repository;
