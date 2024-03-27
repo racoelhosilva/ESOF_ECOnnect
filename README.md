@@ -2,8 +2,6 @@
 
 <p align="center"><b>Welcome to the documentation pages of ECOnnect!</b></p>
 
-<img style="float: right; border-radius: 16px;" src="img/icon.png" height=75px>
-
 You can find here details about **ECOnnect**, from a high-level vision to low-level implementation decisions, a kind of **Software Development Report**, organized by type of activities: 
 
 - [Business Modelling](#business-modelling)
