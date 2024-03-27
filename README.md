@@ -2,8 +2,6 @@
 
 <p align="center"><b>Welcome to the documentation pages of ECOnnect!</b></p>
 
-<img align="right" width="80" height="80" src="img/icon.png">
-
 You can find here details about **ECOnnect**, from a high-level vision to low-level implementation decisions, a kind of **Software Development Report**, organized by type of activities: 
 
 - [Business Modelling](#business-modelling)
@@ -22,6 +20,9 @@ You can find here details about **ECOnnect**, from a high-level vision to low-le
 
 
 Contributions are expected to be made exclusively by the initial team, but we may open them to the community, after the course, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
+
+
+<img align="right" width="250" height="250" src="img/icon.png">
 
 Please contact us!  
 Thank you!
