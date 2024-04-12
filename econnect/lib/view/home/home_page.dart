@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadPostsFromDb() async {
+    _posts.clear();
     _posts.addAll(await _dbController.getPosts());
     Logger().i(_posts);
   }
@@ -31,25 +32,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        Center(
-          child: Text(
-            'ECOnnect',
-            style: Theme.of(context).textTheme.headlineLarge?.apply(
-              color: Theme.of(context).colorScheme.primary,
+      body: ListView(
+        children: [
+          Center(
+            child: Text(
+              'ECOnnect',
+              style: Theme.of(context).textTheme.headline6?.apply(
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .primary,
+              ),
             ),
           ),
-        ),
-        ...(_posts.map((post) => PostWidget(post: post))),
-      ]),
+          ...(_posts.map((post) => PostWidget(post: post))),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreatePostPage(),),
+            MaterialPageRoute(builder: (context) => CreatePostPage()),
           );
-        }
+          await _loadPostsFromDb();
+          setState(() {});
+        },
       ),
     );
   }
 }
+

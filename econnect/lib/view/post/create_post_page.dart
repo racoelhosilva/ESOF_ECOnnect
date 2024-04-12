@@ -1,11 +1,15 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
+import 'package:econnect/view/post/description_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({super.key});
-  
+  const CreatePostPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _CreatePostPageState();
 }
@@ -14,18 +18,56 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final ImagePicker _picker = ImagePicker();
   final TextEditingController _postController = TextEditingController();
   final DatabaseController _dbController = DatabaseController(db: Database());
-  PickedFile? _imageFile;
-  
+  File? _imageFile;
+
+  int? _imageWidth;
+  int? _imageHeight;
+
+  void _getImageDimensions() async {
+    final Uint8List bytes = await _imageFile!.readAsBytes();
+    final image = await decodeImageFromList(bytes);
+    setState(() {
+      _imageWidth = image.width;
+      _imageHeight = image.height;
+    });
+  }
+
   Future<void> _takePicture(ImageSource source) async {
-    if (!_picker.supportsImageSource(source)){
+    if (!_picker.supportsImageSource(source)) {
       return;
     }
     final file = await _picker.pickImage(source: source);
     if (file != null) {
       setState(() {
-        _imageFile = file as PickedFile?;
+        _imageFile = File(file.path);
       });
-      final post = await _dbController.createPost("user", "title", file.path, "description");
+      _getImageDimensions();
+    }
+  }
+
+  Future<void> _post() async {
+    if (_imageFile != null) {
+      final post = await _dbController.createPost("user", "title", _imageFile!.path, _postController.text);
+      if (post != null) {
+        Navigator.pop(context);
+      } else {
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text('Please select an image before posting.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -38,39 +80,54 @@ class _CreatePostPageState extends State<CreatePostPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: <Widget>[
-            if (_imageFile != null)
-              Image.network(_imageFile!.path),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                FloatingActionButton(
-                  onPressed: () => _takePicture(ImageSource.camera),
-                  tooltip: 'Pick Image from camera',
-                  child: const Icon(Icons.add_a_photo),
-                ),
-                const SizedBox(width: 10),
-                FloatingActionButton(
-                  onPressed: () => _takePicture(ImageSource.gallery),
-                  tooltip: 'Pick Image from gallery',
-                  child: const Icon(Icons.photo_library),
-                ),
-              ],
-            ),
-            TextField(
-              controller: _postController,
-              maxLines: null, 
-              decoration: const InputDecoration(
-                hintText: 'Write a caption here...',
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                    width: _imageWidth?.toDouble(),
+                    height: _imageHeight?.toDouble(),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: _imageFile != null
+                        ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.file(_imageFile!, fit: BoxFit.cover),
+                          )
+                        : Center(child: Text('No image selected')),
+                  ),
+                  Positioned(
+                    bottom: 16.0,
+                    right: 16.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        FloatingActionButton(
+                          onPressed: () => _takePicture(ImageSource.camera),
+                          tooltip: 'Pick Image from camera',
+                          child: const Icon(Icons.add_a_photo),
+                        ),
+                        const SizedBox(width: 10),
+                        FloatingActionButton(
+                          onPressed: () => _takePicture(ImageSource.gallery),
+                          tooltip: 'Pick Image from gallery',
+                          child: const Icon(Icons.photo_library),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16.0),
+            DescriptionWidget(controller: _postController),
+            const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {
-                String postText = _postController.text;
-                Navigator.pop(context); 
-              },
-              child: const Text('Post'),
+              onPressed: _post,
+              child: Text('Post'),
             ),
           ],
         ),
