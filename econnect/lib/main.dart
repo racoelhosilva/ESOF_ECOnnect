@@ -1,8 +1,10 @@
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/view/home/home_page.dart';
+import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,14 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'ECOnnect',
       theme: const MaterialTheme(TextTheme()).dark(),
-      home: const HomePage(),
+      initialRoute: '/login',
+      onGenerateRoute: (settings) {
+        Map<String, Route<Widget>> transitions = {
+          '/login': MaterialPageRoute<LoginPage>(builder: (_) => const LoginPage()),
+          '/home': MaterialPageRoute<HomePage>(builder: (_) => const HomePage()),
+        };
+        return transitions[settings.name];
+      },
     );
   }
 }
