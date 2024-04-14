@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
-class PasswordField extends StatelessWidget {
+class PasswordField extends StatefulWidget {
   const PasswordField({super.key});
+
+  @override
+  State<StatefulWidget> createState() => PasswordFieldState();
+}
+
+class PasswordFieldState extends State<PasswordField> {
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +18,19 @@ class PasswordField extends StatelessWidget {
       child: TextFormField(
         style: const TextStyle(
             color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
-        obscureText: true,
+        obscureText: _isObscured,
         decoration: InputDecoration(
+          suffixIcon: IconButton(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            icon: _isObscured
+                ? const Icon(LucideIcons.eye)
+                : const Icon(LucideIcons.eyeOff),
+            onPressed: () {
+              setState(() {
+                _isObscured = !_isObscured;
+              });
+            },
+          ),
           filled: true,
           fillColor: Colors.white,
           hintText: "Password",
