@@ -1,10 +1,30 @@
+import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
 import 'package:econnect/view/login/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key, required this.dbController});
+
+  final DatabaseController dbController;
+
+  @override
+  State<RegisterPage> createState() => RegisterPageState();
+}
+
+class RegisterPageState extends State<RegisterPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +49,18 @@ class RegisterPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const Center(
+            Center(
                 child: SizedBox(
               width: 270,
               child: Column(
                 children: [
-                  LoginTextField(fieldName: 'Username'),
-                  LoginTextField(fieldName: 'E-mail'),
-                  PasswordField(),
+                  LoginTextField(fieldName: 'Username', controller: usernameController,),
+                  LoginTextField(fieldName: 'E-mail', controller: emailController,),
+                  PasswordField(controller: passwordController,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SubmitButton(),
+                      SubmitButton(dbController: widget.dbController, emailController: emailController, passwordController: passwordController, usernameController: usernameController,),
                     ],
                   )
                 ],

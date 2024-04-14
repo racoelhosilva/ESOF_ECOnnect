@@ -1,11 +1,29 @@
+import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/view/login/widgets/login_button.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
 import 'package:econnect/view/login/widgets/register_button.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key, required this.dbController});
+
+  final DatabaseController dbController;
+  
+  @override
+  State<StatefulWidget> createState() => LoginPageState();
+}
+
+class LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +48,28 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const Center(
-                child: SizedBox(
-              width: 270,
-              child: Column(
-                children: [
-                  LoginTextField(fieldName: 'E-mail'),
-                  PasswordField(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RegisterButton(),
-                      LoginButton(),
-                    ],
-                  )
-                ],
+            Center(
+              child: SizedBox(
+                width: 270,
+                child: Column(
+                  children: [
+                    LoginTextField(fieldName: 'E-mail', controller: emailController),
+                    PasswordField(controller: passwordController),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const RegisterButton(),
+                        LoginButton(
+                          dbController: widget.dbController,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),

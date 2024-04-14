@@ -115,12 +115,14 @@ class Database {
 
     final filteredUsers = await users.where('email', isEqualTo: email).get();
     if (filteredUsers.docs.isEmpty) {
+      Logger().e("No user found with email $email");
       return null;
     }
 
     final user = filteredUsers.docs[0];
 
     if (user['password'] != password) {
+      TODO: Logger().e("Password does not match for user with email $email");
       return null;
     }
 
@@ -132,7 +134,7 @@ class Database {
       profilePicture: user['profilePicture'],
       score: user['score'],
       isBlocked: user['isBlocked'],
-      registerDatetime: user['registerDatetime'],
+      registerDatetime: (user['registerDatetime'] as Timestamp).toDate(),
       admin: user['isAdmin'],
     );
   }

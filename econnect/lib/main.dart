@@ -1,4 +1,6 @@
+import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/firebase_options.dart';
+import 'package:econnect/model/database.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
@@ -12,11 +14,13 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
+
+  final DatabaseController dbController = DatabaseController(db: Database());
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +30,12 @@ class App extends StatelessWidget {
       initialRoute: '/login',
       onGenerateRoute: (settings) {
         final transitions = {
-          '/login':
-              MaterialPageRoute<LoginPage>(builder: (_) => const LoginPage()),
-          '/home':
-              MaterialPageRoute<HomePage>(builder: (_) => const HomePage()),
+          '/login': MaterialPageRoute<LoginPage>(
+              builder: (_) => LoginPage(dbController: dbController)),
+          '/home': MaterialPageRoute<HomePage>(
+              builder: (_) => HomePage(dbController: dbController)),
           '/register': MaterialPageRoute<RegisterPage>(
-              builder: (_) => const RegisterPage()),
+              builder: (_) => RegisterPage(dbController: dbController)),
         };
         return transitions[settings.name];
       },

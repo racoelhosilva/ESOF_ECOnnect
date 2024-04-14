@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key});
+  const PasswordField({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   State<StatefulWidget> createState() => PasswordFieldState();
@@ -16,6 +18,7 @@ class PasswordFieldState extends State<PasswordField> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        controller: widget.controller,
         style: const TextStyle(
             color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
         obscureText: _isObscured,

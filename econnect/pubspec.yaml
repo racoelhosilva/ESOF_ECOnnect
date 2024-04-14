@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.15.9
   firebase_storage: ^11.6.10
   uuid: ^4.3.3
+  fluttertoast: ^8.2.5
   lucide_icons: ^0.257.0
 
 dev_dependencies:

@@ -1,4 +1,4 @@
-import 'package:econnect/controller/password_encryption.dart';
+import 'package:econnect/utils/password_encryption.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
@@ -37,4 +37,7 @@ class DatabaseController {
   }
 
   Future<User?> getUser(String email) async => await db.getUser(email);
+
+  Future<User?> getUserWithPassword(String email, String password) async =>
+      await db.getUserWithPassword(email, encryptPassword(password));
 }
