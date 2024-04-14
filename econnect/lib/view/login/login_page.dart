@@ -6,20 +6,22 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Image.asset('assets/logo_white.png', fit: BoxFit.contain)
-          ),
+              child: Image.asset('assets/png/logo_white.png',
+                  height: 250, fit: BoxFit.contain)),
           Center(
             child: Text(
               'ECOnnect',
-              style: Theme.of(context).textTheme.headlineLarge?.apply(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+              style: TextStyle(
+                  fontFamily: 'K2D',
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold),
             ),
           )
         ],

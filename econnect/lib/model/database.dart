@@ -45,11 +45,12 @@ class Database {
     final posts = _db.collection('posts');
     final snapshot = await posts.get();
 
-    return snapshot.docs.map((post) => Post(
-        user: post['user'],
-        title: post['title'],
-        image: post['image'],
-        description: post['description']
-    )).toList();
+    return snapshot.docs
+        .map((post) => Post(
+            user: post['user'],
+            title: post['title'],
+            image: post['image'],
+            description: post['description']))
+        .toList();
   }
 }

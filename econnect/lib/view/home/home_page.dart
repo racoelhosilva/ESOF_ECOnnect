@@ -35,7 +35,8 @@ class _HomePageState extends State<HomePage> {
     }
     final file = await _picker.pickImage(source: ImageSource.camera);
     if (file != null) {
-      final post = await _dbController.createPost("user", "title", file.path, "description");
+      final post = await _dbController.createPost(
+          "user", "title", file.path, "description");
       setState(() {
         _posts.add(post);
       });
@@ -50,8 +51,8 @@ class _HomePageState extends State<HomePage> {
           child: Text(
             'ECOnnect',
             style: Theme.of(context).textTheme.headlineLarge?.apply(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
         ),
         ...(_posts.map((post) => PostWidget(post: post))),

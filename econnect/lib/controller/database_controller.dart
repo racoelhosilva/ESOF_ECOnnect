@@ -6,15 +6,14 @@ class DatabaseController {
 
   final Database db;
 
-  Future<Post> createPost(String user, String title, String imgPath,
-    String description) async {
+  Future<Post> createPost(
+      String user, String title, String imgPath, String description) async {
     final image = await db.storeImage(imgPath);
     final post = Post(
-      user: user,
-      title: title,
-      image: await db.retrieveFileUrl(image),
-      description: description
-    );
+        user: user,
+        title: title,
+        image: await db.retrieveFileUrl(image),
+        description: description);
     db.addPost(post);
     return post;
   }
