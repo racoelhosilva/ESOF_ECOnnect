@@ -1,5 +1,7 @@
+import 'package:econnect/controller/password_encryption.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/model/user.dart';
 
 class DatabaseController {
   const DatabaseController({required this.db});
@@ -19,4 +21,20 @@ class DatabaseController {
   }
 
   Future<List<Post>> getPosts() async => db.getPosts();
+
+  Future<User?> createUser(
+      String email, String username, String password) async {
+    final user = User(
+      email: email,
+      username: username,
+      password: encryptPassword(password),
+      score: 0,
+      isBlocked: false,
+      registerDatetime: DateTime.now(),
+      admin: false,
+    );
+    return await db.addUser(user) ? user : null;
+  }
+
+  Future<User?> getUser(String email) async => await db.getUser(email);
 }

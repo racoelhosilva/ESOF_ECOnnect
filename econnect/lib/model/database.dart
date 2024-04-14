@@ -56,6 +56,12 @@ class Database {
   }
 
   Future<bool> addUser(User user) async {
+    if (user.password == null) {
+      Logger().e(
+          "Failed to insert user with email ${user.email} on the database: Password is null\n");
+      return false;
+    }
+
     final users = _db.collection('users');
 
     final filteredUsers =
@@ -89,6 +95,35 @@ class Database {
     }
 
     final user = filteredUsers.docs[0];
+    return User(
+      username: user['username'],
+      email: user['email'],
+      description: user['description'],
+      profilePicture: user['profilePicture'],
+      score: user['score'],
+      isBlocked: user['isBlocked'],
+      registerDatetime: user['registerDatetime'],
+      admin: user['isAdmin'],
+    );
+  }
+
+  Future<User?> getUserWithPassword(
+    String email,
+    String password,
+  ) async {
+    final users = _db.collection('users');
+
+    final filteredUsers = await users.where('email', isEqualTo: email).get();
+    if (filteredUsers.docs.isEmpty) {
+      return null;
+    }
+
+    final user = filteredUsers.docs[0];
+
+    if (user['password'] != password) {
+      return null;
+    }
+
     return User(
       username: user['username'],
       email: user['email'],
