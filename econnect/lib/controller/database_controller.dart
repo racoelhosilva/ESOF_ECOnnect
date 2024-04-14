@@ -1,6 +1,5 @@
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
-import 'package:econnect/model/user.dart';
 
 class DatabaseController {
   const DatabaseController({required this.db});

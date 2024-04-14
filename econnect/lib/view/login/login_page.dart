@@ -1,4 +1,5 @@
 import 'package:econnect/view/login/widget/login_button.dart';
+import 'package:econnect/view/login/widget/register_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -25,12 +26,14 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          Center(
-              child: LoginButton(
-            color: Theme.of(context).colorScheme.outline,
-            text: 'Login',
-            onPressed: () {},
-          ))
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RegisterButton(),
+              SizedBox(width: 20),
+              LoginButton(),
+            ],
+          )
         ],
       ),
     );
