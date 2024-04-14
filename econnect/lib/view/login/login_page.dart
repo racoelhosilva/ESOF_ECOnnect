@@ -6,7 +6,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Column(
         children: [
           Center(
@@ -22,6 +22,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
-// bababooeyjfbkbbjkgfbgfbgbgfbgbf
