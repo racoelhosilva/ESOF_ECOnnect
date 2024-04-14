@@ -14,7 +14,9 @@ class LoginPageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
@@ -24,9 +26,10 @@ class LoginPageButton extends StatelessWidget {
         style: const TextStyle(
             fontFamily: 'Karla',
             color: Colors.white,
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.bold),
       ),
+    ),
     );
   }
 }

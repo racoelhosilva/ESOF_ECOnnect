@@ -9,7 +9,9 @@ class LoginButton extends StatelessWidget {
     return LoginPageButton(
       color: Theme.of(context).colorScheme.outline,
       text: 'Login',
-      onPressed: () {},
+      onPressed: () {
+        Navigator.popAndPushNamed(context, '/home');
+      },
     );
   }
 }
