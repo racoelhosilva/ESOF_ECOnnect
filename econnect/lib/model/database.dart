@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/model/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
@@ -31,7 +32,7 @@ class Database {
   }
 
   void addPost(Post post) {
-    CollectionReference posts = _db.collection('posts');
+    final posts = _db.collection('posts');
 
     posts.add({
       'user': post.user,
@@ -52,5 +53,52 @@ class Database {
             image: post['image'],
             description: post['description']))
         .toList();
+  }
+
+  Future<bool> addUser(User user) async {
+    final users = _db.collection('users');
+
+    final filteredUsers =
+        await users.where('email', isEqualTo: user.email).get();
+    if (filteredUsers.docs.isNotEmpty) {
+      Logger().e(
+          "Failed to insert user with email ${user.email} on the database: Alrady exists\n");
+      return false;
+    }
+
+    users.add({
+      'username': user.username,
+      'email': user.email,
+      'password': user.password,
+      'description': user.description,
+      'profilePicture': user.profilePicture,
+      'score': user.score,
+      'isBlocked': user.isBlocked,
+      'registerDatetime': user.registerDatetime,
+      'isAdmin': user.admin,
+    });
+    return true;
+  }
+
+  Future<User?> getUser(String email) async {
+    final users = _db.collection('users');
+
+    final filteredUsers = await users.where('email', isEqualTo: email).get();
+    if (filteredUsers.docs.isEmpty) {
+      return null;
+    }
+
+    final user = filteredUsers.docs[0];
+    return User(
+      username: user['username'],
+      email: user['email'],
+      password: user['password'],
+      description: user['description'],
+      profilePicture: user['profilePicture'],
+      score: user['score'],
+      isBlocked: user['isBlocked'],
+      registerDatetime: user['registerDatetime'],
+      admin: user['isAdmin'],
+    );
   }
 }
