@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LoginTextField extends StatelessWidget {
   const LoginTextField({super.key, required this.fieldName});
@@ -12,20 +11,15 @@ class LoginTextField extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
         style: const TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-          fontFamily: 'Karla'
-        ),
+            color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
           hintText: fieldName,
           hintStyle: const TextStyle(
-            color: Colors.grey,
-            fontSize: 20,
-            fontFamily: 'Karla'
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              color: Colors.grey, fontSize: 20, fontFamily: 'Karla'),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(40.0),
           ),

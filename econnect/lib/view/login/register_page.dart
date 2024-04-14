@@ -1,11 +1,10 @@
-import 'package:econnect/view/login/widgets/login_button.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
-import 'package:econnect/view/login/widgets/register_button.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
+import 'package:econnect/view/login/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +34,18 @@ class LoginPage extends StatelessWidget {
               width: 270,
               child: Column(
                 children: [
+                  LoginTextField(fieldName: 'Username'),
                   LoginTextField(fieldName: 'E-mail'),
                   PasswordField(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      RegisterButton(),
-                      LoginButton(),
+                      SubmitButton(),
                     ],
                   )
                 ],
               ),
-            )),
+            ))
           ],
         ),
       ),

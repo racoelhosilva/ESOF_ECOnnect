@@ -17,19 +17,19 @@ class LoginPageButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+              fontFamily: 'Karla',
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(
-            fontFamily: 'Karla',
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold),
-      ),
-    ),
     );
   }
 }
