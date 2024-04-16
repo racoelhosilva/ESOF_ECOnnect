@@ -1,12 +1,12 @@
 class Post {
   Post(
       {required this.user,
-      required this.title,
       required this.image,
-      required this.description});
+      required this.description,
+      required this.postDateTime});
 
   final String user;
-  final String title;
   final String image;
   final String description;
+  final DateTime postDateTime;
 }
