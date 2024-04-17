@@ -13,7 +13,7 @@ class DatabaseController {
         user: user,
         image: await db.retrieveFileUrl(image),
         description: description,
-        postDateTime: DateTime.now());
+        postDatetime: DateTime.now());
     db.addPost(post);
     return post;
   }

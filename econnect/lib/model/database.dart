@@ -37,7 +37,7 @@ class Database {
       'user': post.user,
       'image': post.image,
       'description': post.description,
-      'postDateTime': post.postDateTime,
+      'postDatetime': post.postDatetime,
     });
   }
 
@@ -49,7 +49,7 @@ class Database {
               user: post['user'],
               image: post['image'],
               description: post['description'],
-              postDateTime: (post['postDateTime'] as Timestamp).toDate(),
+              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
             ))
         .toList();
   }

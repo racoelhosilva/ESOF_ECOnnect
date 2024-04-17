@@ -3,10 +3,10 @@ class Post {
       {required this.user,
       required this.image,
       required this.description,
-      required this.postDateTime});
+      required this.postDatetime});
 
   final String user;
   final String image;
   final String description;
-  final DateTime postDateTime;
+  final DateTime postDatetime;
 }

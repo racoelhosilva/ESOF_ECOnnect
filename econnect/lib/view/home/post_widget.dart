@@ -13,7 +13,7 @@ class PostWidget extends StatelessWidget {
 
   String getTimeElapsed() {
     final now = DateTime.now();
-    final difference = now.difference(post.postDateTime);
+    final difference = now.difference(post.postDatetime);
 
     if (difference.inDays > 7) {
       return formatTime((difference.inDays / 7 as int), 'week');
