@@ -1,5 +1,5 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/controller/profile_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/view/login/widgets/login_page_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +37,11 @@ class SubmitButton extends StatelessWidget {
           );
           return;
         }
-        
+
         try {
-          await sessionController.registerUser(emailController.text, passwordController.text, usernameController.text, dbController);
-        } on FirebaseAuthException catch(e) {
+          await sessionController.registerUser(emailController.text,
+              passwordController.text, usernameController.text, dbController);
+        } on FirebaseAuthException catch (e) {
           if (!context.mounted) {
             Logger().e(e);
             return;

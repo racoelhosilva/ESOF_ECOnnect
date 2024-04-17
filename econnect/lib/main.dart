@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/controller/profile_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/view/home/home_page.dart';
@@ -18,7 +18,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final dbController = DatabaseController(db: Database(FirebaseFirestore.instance, FirebaseStorage.instance));
+  final dbController = DatabaseController(
+      db: Database(FirebaseFirestore.instance, FirebaseStorage.instance));
   final sessionController = SessionController(FirebaseAuth.instance);
   await sessionController.init(dbController);
 

@@ -8,7 +8,6 @@ import 'package:mockito/mockito.dart';
 import 'database_controller_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<Database>()])
-
 void main() {
   late DatabaseController databaseController;
   late Database database;
@@ -17,7 +16,6 @@ void main() {
     database = MockDatabase();
     databaseController = DatabaseController(db: database);
   });
-
 
   test('User is created in the database', () async {
     const id = '123';
@@ -35,7 +33,15 @@ void main() {
 
   test('User is retrieved properly', () async {
     const id = '123';
-    final user = User(id: id, email: 'test@example.com', username: 'testuser', score: 0, isBlocked: false, registerDatetime: DateTime.now(), admin: false, profilePicture: '');
+    final user = User(
+        id: id,
+        email: 'test@example.com',
+        username: 'testuser',
+        score: 0,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '');
 
     when(database.getUser('123')).thenAnswer((_) => Future(() => user));
 

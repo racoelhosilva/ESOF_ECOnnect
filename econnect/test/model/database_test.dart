@@ -16,7 +16,6 @@ import 'database_test.mocks.dart';
   MockSpec<DocumentReference<Map<String, dynamic>>>(),
   MockSpec<DocumentSnapshot<Map<String, dynamic>>>(),
 ])
-
 void main() {
   late FirebaseFirestore firestore;
   late FirebaseStorage storage;
@@ -29,7 +28,7 @@ void main() {
     storage = MockFirebaseStorage();
     storageRef = MockReference();
     collectionReference = MockCollectionReference();
-    
+
     when(storage.ref()).thenReturn(storageRef);
 
     database = Database(firestore, storage);
@@ -40,12 +39,21 @@ void main() {
   });
 
   test('User is created in the database if it does not exist', () async {
-    final user = User(id: '123', email: 'example@example.com', username: 'example', score: 0, isBlocked: false, registerDatetime: DateTime.now(), admin: false, profilePicture: '');
+    final user = User(
+        id: '123',
+        email: 'example@example.com',
+        username: 'example',
+        score: 0,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '');
     final documentReference = MockDocumentReference();
     final documentSnapshot = MockDocumentSnapshot();
 
     when(collectionReference.doc(user.id)).thenReturn(documentReference);
-    when(documentReference.get()).thenAnswer((_) => Future(() => documentSnapshot));
+    when(documentReference.get())
+        .thenAnswer((_) => Future(() => documentSnapshot));
     when(documentSnapshot.exists).thenReturn(false);
 
     await database.addUser(user);
@@ -54,12 +62,21 @@ void main() {
   });
 
   test('User is not created in the database if it exists', () async {
-    final user = User(id: '123', email: 'example@example.com', username: 'example', score: 0, isBlocked: false, registerDatetime: DateTime.now(), admin: false, profilePicture: '');
+    final user = User(
+        id: '123',
+        email: 'example@example.com',
+        username: 'example',
+        score: 0,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '');
     final documentReference = MockDocumentReference();
     final documentSnapshot = MockDocumentSnapshot();
 
     when(collectionReference.doc(user.id)).thenReturn(documentReference);
-    when(documentReference.get()).thenAnswer((_) => Future(() => documentSnapshot));
+    when(documentReference.get())
+        .thenAnswer((_) => Future(() => documentSnapshot));
     when(documentSnapshot.exists).thenReturn(true);
 
     expect(() async => await database.addUser(user), throwsStateError);
@@ -77,15 +94,17 @@ void main() {
       'profilePicture': 'test',
       'score': 0,
       'isBlocked': false,
-      'registerDatetime': Timestamp.fromDate(DateTime.parse('1969-07-20 20:18:04Z')),
+      'registerDatetime':
+          Timestamp.fromDate(DateTime.parse('1969-07-20 20:18:04Z')),
       'isAdmin': false,
     };
 
     when(collectionReference.doc(id)).thenReturn(documentReference);
-    when(documentReference.get()).thenAnswer((_) => Future(() => documentSnapshot));
+    when(documentReference.get())
+        .thenAnswer((_) => Future(() => documentSnapshot));
     when(documentSnapshot.exists).thenReturn(true);
-    when(documentSnapshot[any]).thenAnswer((i) => userInfo[i.positionalArguments[0]]);
-
+    when(documentSnapshot[any])
+        .thenAnswer((i) => userInfo[i.positionalArguments[0]]);
 
     final user = await database.getUser(id);
 
@@ -97,7 +116,8 @@ void main() {
     expect(user.profilePicture, userInfo['profilePicture']);
     expect(user.score, userInfo['score']);
     expect(user.isBlocked, userInfo['isBlocked']);
-    expect(user.registerDatetime, (userInfo['registerDatetime'] as Timestamp).toDate());
+    expect(user.registerDatetime,
+        (userInfo['registerDatetime'] as Timestamp).toDate());
     expect(user.admin, userInfo['isAdmin']);
   });
 
@@ -107,7 +127,8 @@ void main() {
     final documentSnapshot = MockDocumentSnapshot();
 
     when(collectionReference.doc(id)).thenReturn(documentReference);
-    when(documentReference.get()).thenAnswer((_) => Future(() => documentSnapshot));
+    when(documentReference.get())
+        .thenAnswer((_) => Future(() => documentSnapshot));
     when(documentSnapshot.exists).thenReturn(false);
 
     final user = await database.getUser(id);

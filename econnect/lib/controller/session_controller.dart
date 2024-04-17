@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:logger/logger.dart';
 
 class SessionController {
-  FirebaseAuth auth = FirebaseAuth.instance;
+  SessionController(FirebaseAuth auth) : auth_ = auth;
+  final FirebaseAuth auth_;
   User? loggedInUser;
 
   Future<void> init(DatabaseController databaseController) async {
-    final user = auth.currentUser;
+    final user = auth_.currentUser;
     if (user != null) {
       loggedInUser = await databaseController.getUser(user.uid);
       Logger().i("User ${loggedInUser!.email} is already logged in\n");
@@ -17,12 +18,13 @@ class SessionController {
 
   bool isLoggedIn() => loggedInUser != null;
 
-  Future<void> loginUser(String email, String password, DatabaseController databaseController) async {
+  Future<void> loginUser(String email, String password,
+      DatabaseController databaseController) async {
     if (loggedInUser != null) {
       throw StateError("User ${loggedInUser!.email} is already logged in\n");
     }
 
-    final credential = await auth.signInWithEmailAndPassword(
+    final credential = await auth_.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -31,17 +33,14 @@ class SessionController {
     Logger().i("User ${loggedInUser!.email} logged in successfully!\n");
   }
 
-  Future<void> registerUser(String email, String password, String username, DatabaseController databaseController) async {
-    final credential = await auth.createUserWithEmailAndPassword(
-      email: email, 
-      password: password
-    );
-    await auth.signInWithEmailAndPassword(
-      email: email, 
-      password: password
-    );
+  Future<void> registerUser(String email, String password, String username,
+      DatabaseController databaseController) async {
+    final credential = await auth_.createUserWithEmailAndPassword(
+        email: email, password: password);
+    await auth_.signInWithEmailAndPassword(email: email, password: password);
 
-    loggedInUser = await databaseController.createUser(credential.user!.uid, email, username);
+    loggedInUser = await databaseController.createUser(
+        credential.user!.uid, email, username);
     Logger().i("User ${loggedInUser!.email} registered successfully!\n");
   }
 
@@ -50,6 +49,6 @@ class SessionController {
       throw StateError("No user is logged in\n");
     }
     loggedInUser = null;
-    await auth.signOut();
+    await auth_.signOut();
   }
 }

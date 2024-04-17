@@ -8,7 +8,9 @@ import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Database {
-  Database(FirebaseFirestore firestore, FirebaseStorage storage) : _db = firestore, _storageRef = storage.ref();
+  Database(FirebaseFirestore firestore, FirebaseStorage storage)
+      : _db = firestore,
+        _storageRef = storage.ref();
 
   final FirebaseFirestore _db;
   final Reference _storageRef;

@@ -1,12 +1,13 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/controller/profile_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
 import 'package:econnect/view/login/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key, required this.dbController, required this.sessionController});
+  const RegisterPage(
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -56,13 +57,27 @@ class RegisterPageState extends State<RegisterPage> {
               width: 270,
               child: Column(
                 children: [
-                  LoginTextField(fieldName: 'Username', controller: usernameController,),
-                  LoginTextField(fieldName: 'E-mail', controller: emailController,),
-                  PasswordField(controller: passwordController,),
+                  LoginTextField(
+                    fieldName: 'Username',
+                    controller: usernameController,
+                  ),
+                  LoginTextField(
+                    fieldName: 'E-mail',
+                    controller: emailController,
+                  ),
+                  PasswordField(
+                    controller: passwordController,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SubmitButton(dbController: widget.dbController, sessionController: widget.sessionController, emailController: emailController, passwordController: passwordController, usernameController: usernameController,),
+                      SubmitButton(
+                        dbController: widget.dbController,
+                        sessionController: widget.sessionController,
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        usernameController: usernameController,
+                      ),
                     ],
                   )
                 ],
