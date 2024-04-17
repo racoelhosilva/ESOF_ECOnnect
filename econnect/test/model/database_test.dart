@@ -16,7 +16,6 @@ import 'database_test.mocks.dart';
   MockSpec<DocumentReference<Map<String, dynamic>>>(),
   MockSpec<DocumentSnapshot<Map<String, dynamic>>>(),
 ])
-
 void main() {
   late FirebaseFirestore firestore;
   late FirebaseStorage storage;

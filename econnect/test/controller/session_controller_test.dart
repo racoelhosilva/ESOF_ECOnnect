@@ -140,8 +140,12 @@ void main() {
         .thenAnswer((_) async => userCredential);
     when(databaseController.getUser(user1.id)).thenAnswer((_) async => user1);
 
-    await sessionController.loginUser(user1.email, password1, databaseController);
+    await sessionController.loginUser(
+        user1.email, password1, databaseController);
 
-    expect(() async => await sessionController.loginUser(user2.email, password2, databaseController), throwsStateError);
+    expect(
+        () async => await sessionController.loginUser(
+            user2.email, password2, databaseController),
+        throwsStateError);
   });
 }

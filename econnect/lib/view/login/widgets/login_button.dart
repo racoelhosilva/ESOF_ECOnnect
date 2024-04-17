@@ -75,7 +75,8 @@ class LoginButton extends StatelessWidget {
           return;
         }
 
-        Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', (route) => false);
       },
     );
   }
