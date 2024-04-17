@@ -7,6 +7,16 @@ class SessionController {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? loggedInUser;
 
+  Future<void> init(DatabaseController databaseController) async {
+    final user = auth.currentUser;
+    if (user != null) {
+      loggedInUser = await databaseController.getUser(user.uid);
+      Logger().i("User ${loggedInUser!.email} is already logged in\n");
+    }
+  }
+
+  bool isLoggedIn() => loggedInUser != null;
+
   Future<void> loginUser(String email, String password, DatabaseController databaseController) async {
     if (loggedInUser != null) {
       throw StateError("User ${loggedInUser!.email} is already logged in\n");

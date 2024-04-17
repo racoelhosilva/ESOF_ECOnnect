@@ -15,21 +15,27 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(App());
+  final dbController = DatabaseController(db: Database());
+  final sessionController = SessionController();
+  await sessionController.init(dbController);
+
+  runApp(App(dbController: dbController, sessionController: sessionController));
 }
 
 class App extends StatelessWidget {
-  App({super.key});
+  const App({super.key, required this.dbController, required this.sessionController});
 
-  final DatabaseController dbController = DatabaseController(db: Database());
-  final SessionController sessionController = SessionController();
+  final DatabaseController dbController;
+  final SessionController sessionController;
 
   @override
   Widget build(BuildContext context) {
+    sessionController.init(dbController);
+
     return MaterialApp(
       title: 'ECOnnect',
       theme: const MaterialTheme(TextTheme()).dark(),
-      initialRoute: '/login',
+      initialRoute: sessionController.isLoggedIn() ? '/home' : '/login',
       onGenerateRoute: (settings) {
         final transitions = {
           '/login': MaterialPageRoute<LoginPage>(

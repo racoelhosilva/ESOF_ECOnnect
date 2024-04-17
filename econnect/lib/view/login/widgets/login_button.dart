@@ -48,7 +48,7 @@ class LoginButton extends StatelessWidget {
                 backgroundColor: Theme.of(context).colorScheme.error,
               );
               break;
-            case 'user-not-found':
+            case 'invalid-credential':
               Fluttertoast.showToast(
                 msg: 'User not found',
                 backgroundColor: Theme.of(context).colorScheme.error,
