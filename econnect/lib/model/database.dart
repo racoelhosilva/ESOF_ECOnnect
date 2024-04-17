@@ -8,8 +8,10 @@ import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Database {
-  final _db = FirebaseFirestore.instance;
-  final _storageRef = FirebaseStorage.instance.ref();
+  Database(FirebaseFirestore firestore, FirebaseStorage storage) : _db = firestore, _storageRef = storage.ref();
+
+  final FirebaseFirestore _db;
+  final Reference _storageRef;
 
   Future<String> storeImage(String path) async {
     final name = 'img/${const Uuid().v4()}.png';

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/profile_controller.dart';
 import 'package:econnect/firebase_options.dart';
@@ -7,6 +8,8 @@ import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
 import 'package:econnect/view/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -15,15 +18,16 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final dbController = DatabaseController(db: Database());
-  final sessionController = SessionController();
+  final dbController = DatabaseController(db: Database(FirebaseFirestore.instance, FirebaseStorage.instance));
+  final sessionController = SessionController(FirebaseAuth.instance);
   await sessionController.init(dbController);
 
   runApp(App(dbController: dbController, sessionController: sessionController));
 }
 
 class App extends StatelessWidget {
-  const App({super.key, required this.dbController, required this.sessionController});
+  const App(
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -46,7 +50,9 @@ class App extends StatelessWidget {
           '/home': MaterialPageRoute<HomePage>(
               builder: (_) => HomePage(dbController: dbController)),
           '/register': MaterialPageRoute<RegisterPage>(
-              builder: (_) => RegisterPage(dbController: dbController, sessionController: sessionController)),
+              builder: (_) => RegisterPage(
+                  dbController: dbController,
+                  sessionController: sessionController)),
         };
         return transitions[settings.name];
       },
