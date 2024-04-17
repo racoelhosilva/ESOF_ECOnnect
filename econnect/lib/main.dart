@@ -1,4 +1,5 @@
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/profile_controller.dart';
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/view/home/home_page.dart';
@@ -21,6 +22,7 @@ class App extends StatelessWidget {
   App({super.key});
 
   final DatabaseController dbController = DatabaseController(db: Database());
+  final SessionController sessionController = SessionController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +33,14 @@ class App extends StatelessWidget {
       onGenerateRoute: (settings) {
         final transitions = {
           '/login': MaterialPageRoute<LoginPage>(
-              builder: (_) => LoginPage(dbController: dbController)),
+              builder: (_) => LoginPage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  )),
           '/home': MaterialPageRoute<HomePage>(
               builder: (_) => HomePage(dbController: dbController)),
           '/register': MaterialPageRoute<RegisterPage>(
-              builder: (_) => RegisterPage(dbController: dbController)),
+              builder: (_) => RegisterPage(dbController: dbController, sessionController: sessionController)),
         };
         return transitions[settings.name];
       },

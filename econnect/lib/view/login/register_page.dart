@@ -1,13 +1,15 @@
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/profile_controller.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
 import 'package:econnect/view/login/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key, required this.dbController});
+  const RegisterPage({super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
+  final SessionController sessionController;
 
   @override
   State<RegisterPage> createState() => RegisterPageState();
@@ -60,7 +62,7 @@ class RegisterPageState extends State<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SubmitButton(dbController: widget.dbController, emailController: emailController, passwordController: passwordController, usernameController: usernameController,),
+                      SubmitButton(dbController: widget.dbController, sessionController: widget.sessionController, emailController: emailController, passwordController: passwordController, usernameController: usernameController,),
                     ],
                   )
                 ],

@@ -31,10 +31,10 @@ class Database {
     }
   }
 
-  void addPost(Post post) {
+  Future<void> addPost(Post post) async {
     final posts = _db.collection('posts');
 
-    posts.add({
+    await posts.add({
       'user': post.user,
       'title': post.title,
       'image': post.image,
@@ -49,33 +49,25 @@ class Database {
     return snapshot.docs
         .map((post) => Post(
             user: post['user'],
-            title: post['title'],
+            title: '',
             image: post['image'],
             description: post['description']))
         .toList();
   }
 
-  Future<bool> addUser(User user) async {
-    if (user.password == null) {
-      Logger().e(
-          "Failed to insert user with email ${user.email} on the database: Password is null\n");
-      return false;
-    }
-
+  Future<void> addUser(User user) async {
     final users = _db.collection('users');
 
-    final filteredUsers =
-        await users.where('email', isEqualTo: user.email).get();
-    if (filteredUsers.docs.isNotEmpty) {
-      Logger().e(
-          "Failed to insert user with email ${user.email} on the database: Alrady exists\n");
-      return false;
+    final dbUser = users.doc(user.id);
+
+    if ((await dbUser.get()).exists) {
+      throw StateError("User with id ${user.id} already exists");
     }
 
-    users.add({
+    await dbUser.set({
+      'id': user.id,
       'username': user.username,
       'email': user.email,
-      'password': user.password,
       'description': user.description,
       'profilePicture': user.profilePicture,
       'score': user.score,
@@ -83,59 +75,26 @@ class Database {
       'registerDatetime': user.registerDatetime,
       'isAdmin': user.admin,
     });
-    return true;
   }
 
-  Future<User?> getUser(String email) async {
+  Future<User?> getUser(String id) async {
     final users = _db.collection('users');
 
-    final filteredUsers = await users.where('email', isEqualTo: email).get();
-    if (filteredUsers.docs.isEmpty) {
-      return null;
-    }
-
-    final user = filteredUsers.docs[0];
-    return User(
-      username: user['username'],
-      email: user['email'],
-      description: user['description'],
-      profilePicture: user['profilePicture'],
-      score: user['score'],
-      isBlocked: user['isBlocked'],
-      registerDatetime: user['registerDatetime'],
-      admin: user['isAdmin'],
-    );
-  }
-
-  Future<User?> getUserWithPassword(
-    String email,
-    String password,
-  ) async {
-    final users = _db.collection('users');
-
-    final filteredUsers = await users.where('email', isEqualTo: email).get();
-    if (filteredUsers.docs.isEmpty) {
-      Logger().e("No user found with email $email");
-      return null;
-    }
-
-    final user = filteredUsers.docs[0];
-
-    if (user['password'] != password) {
-      TODO: Logger().e("Password does not match for user with email $email");
+    final dbUser = await users.doc(id).get();
+    if (!dbUser.exists) {
       return null;
     }
 
     return User(
-      username: user['username'],
-      email: user['email'],
-      password: user['password'],
-      description: user['description'],
-      profilePicture: user['profilePicture'],
-      score: user['score'],
-      isBlocked: user['isBlocked'],
-      registerDatetime: (user['registerDatetime'] as Timestamp).toDate(),
-      admin: user['isAdmin'],
+      id: dbUser['id'],
+      username: dbUser['username'],
+      email: dbUser['email'],
+      description: dbUser['description'],
+      profilePicture: dbUser['profilePicture'],
+      score: dbUser['score'],
+      isBlocked: dbUser['isBlocked'],
+      registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
+      admin: dbUser['isAdmin'],
     );
   }
 }

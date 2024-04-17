@@ -1,4 +1,5 @@
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/profile_controller.dart';
 import 'package:econnect/view/login/widgets/login_button.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
 import 'package:econnect/view/login/widgets/register_button.dart';
@@ -6,10 +7,11 @@ import 'package:econnect/view/login/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.dbController});
+  const LoginPage({super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
-  
+  final SessionController sessionController;
+
   @override
   State<StatefulWidget> createState() => LoginPageState();
 }
@@ -53,7 +55,8 @@ class LoginPageState extends State<LoginPage> {
                 width: 270,
                 child: Column(
                   children: [
-                    LoginTextField(fieldName: 'E-mail', controller: emailController),
+                    LoginTextField(
+                        fieldName: 'E-mail', controller: emailController),
                     PasswordField(controller: passwordController),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,6 +64,7 @@ class LoginPageState extends State<LoginPage> {
                         const RegisterButton(),
                         LoginButton(
                           dbController: widget.dbController,
+                          sessionController: widget.sessionController,
                           emailController: emailController,
                           passwordController: passwordController,
                         ),

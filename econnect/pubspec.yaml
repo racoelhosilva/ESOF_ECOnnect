@@ -48,6 +48,7 @@ dependencies:
   uuid: ^4.3.3
   fluttertoast: ^8.2.5
   lucide_icons: ^0.257.0
+  firebase_auth: ^4.19.2
 
 dev_dependencies:
   flutter_test:
