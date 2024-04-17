@@ -10,7 +10,7 @@ class RegisterButton extends StatelessWidget {
       color: Theme.of(context).colorScheme.tertiaryContainer,
       text: 'Register',
       onPressed: () {
-        Navigator.pushNamed(context, '/register');
+        Navigator.of(context).pushNamed('/register');
       },
     );
   }

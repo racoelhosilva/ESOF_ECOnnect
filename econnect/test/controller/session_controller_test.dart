@@ -109,4 +109,39 @@ void main() {
     verify(databaseController.getUser(id)).called(1);
     expect(sessionController.isLoggedIn(), true);
   });
+
+  test('User is not logged in another is already logged in', () async {
+    final user1 = User(
+        id: '123',
+        email: 'test1@example.com',
+        username: 'test1',
+        score: 0,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '');
+    const password1 = 'abc123';
+
+    final user2 = User(
+        id: '456',
+        email: 'test2@example.com',
+        username: 'test2',
+        score: 0,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '');
+    const password2 = 'def456';
+
+    when(userCredential.user).thenReturn(fauser);
+    when(fauser.uid).thenReturn(user1.id);
+    when(firebaseAuth.signInWithEmailAndPassword(
+            email: user1.email, password: password1))
+        .thenAnswer((_) async => userCredential);
+    when(databaseController.getUser(user1.id)).thenAnswer((_) async => user1);
+
+    await sessionController.loginUser(user1.email, password1, databaseController);
+
+    expect(() async => await sessionController.loginUser(user2.email, password2, databaseController), throwsStateError);
+  });
 }

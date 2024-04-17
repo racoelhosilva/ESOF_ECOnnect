@@ -80,7 +80,7 @@ class SubmitButton extends StatelessWidget {
           return;
         }
 
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (_) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
       },
     );
   }

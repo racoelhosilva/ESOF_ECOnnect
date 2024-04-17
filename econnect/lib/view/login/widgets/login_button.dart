@@ -25,7 +25,7 @@ class LoginButton extends StatelessWidget {
       color: Theme.of(context).colorScheme.outline,
       text: 'Login',
       onPressed: () async {
-        if (emailController.text.isEmpty && passwordController.text.isEmpty) {
+        if (emailController.text.isEmpty || passwordController.text.isEmpty) {
           Fluttertoast.showToast(
             msg: 'Please fill all the fields',
             backgroundColor: Theme.of(context).colorScheme.error,
@@ -75,7 +75,7 @@ class LoginButton extends StatelessWidget {
           return;
         }
 
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
       },
     );
   }
