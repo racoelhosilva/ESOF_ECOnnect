@@ -1,9 +1,10 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/view/commons/logo_widget.dart';
 import 'package:econnect/view/home/post_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.dbController});
@@ -15,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ImagePicker _picker = ImagePicker();
   final List<Post> _posts = [];
 
   @override
@@ -25,41 +25,33 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadPostsFromDb() async {
-    _posts.addAll(await widget.dbController.getPosts());
+    _posts
+      ..clear()
+      ..addAll(await widget.dbController.getPosts())
+      ..sort(
+          (post1, post2) => post2.postDatetime.compareTo(post1.postDatetime));
     Logger().i(_posts);
-  }
-
-  Future<void> _takePicture() async {
-    if (!_picker.supportsImageSource(ImageSource.camera)) {
-      return;
-    }
-    final file = await _picker.pickImage(source: ImageSource.camera);
-    if (file != null) {
-      final post = await widget.dbController
-          .createPost("user", "title", file.path, "description");
-      setState(() {
-        _posts.add(post);
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        Center(
-          child: Text(
-            'ECOnnect',
-            style: Theme.of(context).textTheme.headlineLarge?.apply(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-          ),
-        ),
-        ...(_posts.map((post) => PostWidget(post: post))),
-      ]),
+      body: ListView(
+        children: [
+          const LogoWidget(),
+          ...(_posts.map((post) => PostWidget(post: post))),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _takePicture,
-        child: const Icon(Icons.camera),
+        child: const Icon(LucideIcons.copyPlus),
+        onPressed: () async {
+          Navigator.of(context).pushNamed('/createpost').then(
+            (value) async {
+              await _loadPostsFromDb();
+              setState(() {});
+            },
+          );
+        },
       ),
     );
   }

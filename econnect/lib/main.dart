@@ -6,10 +6,11 @@ import 'package:econnect/model/database.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
+import 'package:econnect/view/post/create_post_page.dart';
 import 'package:econnect/view/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -52,6 +53,10 @@ class App extends StatelessWidget {
               builder: (_) => HomePage(dbController: dbController)),
           '/register': MaterialPageRoute<RegisterPage>(
               builder: (_) => RegisterPage(
+                  dbController: dbController,
+                  sessionController: sessionController)),
+          '/createpost': MaterialPageRoute<RegisterPage>(
+              builder: (_) => CreatePostPage(
                   dbController: dbController,
                   sessionController: sessionController)),
         };

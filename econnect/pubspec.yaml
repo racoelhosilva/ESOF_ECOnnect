@@ -115,13 +115,12 @@ flutter:
         - asset: assets/ttf/K2D-Italic.ttf
           style: italic
         - asset: assets/ttf/K2D-Light.ttf
-          weight: 300      
+          weight: 300
     - family: Karla
-      fonts: 
+      fonts:
         - asset: assets/ttf/Karla-Regular.ttf
         - asset: assets/ttf/Karla-Bold.ttf
           weight: 700
         - asset: assets/ttf/Karla-Light.ttf
           weight: 300
 
-          

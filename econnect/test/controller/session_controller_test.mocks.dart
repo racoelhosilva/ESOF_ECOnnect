@@ -153,7 +153,6 @@ class MockDatabaseController extends _i1.Mock
   @override
   _i8.Future<_i3.Post> createPost(
     String? user,
-    String? title,
     String? imgPath,
     String? description,
   ) =>
@@ -162,7 +161,6 @@ class MockDatabaseController extends _i1.Mock
           #createPost,
           [
             user,
-            title,
             imgPath,
             description,
           ],
@@ -173,7 +171,6 @@ class MockDatabaseController extends _i1.Mock
             #createPost,
             [
               user,
-              title,
               imgPath,
               description,
             ],
@@ -185,7 +182,6 @@ class MockDatabaseController extends _i1.Mock
             #createPost,
             [
               user,
-              title,
               imgPath,
               description,
             ],
