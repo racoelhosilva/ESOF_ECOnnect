@@ -7,11 +7,13 @@ class PostButton extends StatelessWidget {
       {super.key,
       required this.dbController,
       required this.postController,
-      required this.imagePath});
+      required this.imagePath,
+      required this.username});
 
   final DatabaseController dbController;
   final TextEditingController postController;
   final String? imagePath;
+  final String? username;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,17 @@ class PostButton extends StatelessWidget {
             return;
           }
 
-          final post = await dbController.createPost(
-            "user",
-            "title",
+          await dbController.createPost(
+            username!,
             imagePath!,
             postController.text,
           );
 
-          Navigator.pop(context);
+          if (!context.mounted) {
+            return;
+          }
+
+          Navigator.of(context).pop();
         },
         child: const Text(
           'Publish',

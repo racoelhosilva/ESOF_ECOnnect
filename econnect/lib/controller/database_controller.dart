@@ -7,18 +7,18 @@ class DatabaseController {
   final Database db;
 
   Future<Post> createPost(
-      String user, String title, String imgPath, String description) async {
+      String user, String imgPath, String description) async {
     final image = await db.storeImage(imgPath);
     final post = Post(
         user: user,
         image: await db.retrieveFileUrl(image),
         description: description,
         postDatetime: DateTime.now());
-    db.addPost(post);
+    await db.addPost(post);
     return post;
   }
 
-  Future<List<Post>> getPosts() async => db.getPosts();
+  Future<List<Post>> getPosts() async => await db.getPosts();
 
   Future<User?> createUser(String id, String email, String username) async {
     final user = User(
@@ -36,5 +36,4 @@ class DatabaseController {
   }
 
   Future<User?> getUser(String id) async => await db.getUser(id);
-
 }

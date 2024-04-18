@@ -54,12 +54,14 @@ class _ImageWidgetState extends State<ImageWidget> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               FloatingActionButton(
+                heroTag: "btn1",
                 onPressed: () => _takePicture(ImageSource.gallery),
                 tooltip: 'Pick Image from gallery',
                 child: const Icon(LucideIcons.imagePlus),
               ),
               const SizedBox(width: 8.0),
               FloatingActionButton(
+                heroTag: "btn2",
                 onPressed: () => _takePicture(ImageSource.camera),
                 tooltip: 'Pick Image from camera',
                 child: const Icon(LucideIcons.aperture),

@@ -1,16 +1,13 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/logo_widget.dart';
 import 'package:econnect/view/home/post_widget.dart';
-import 'package:econnect/view/post/create_post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.dbController});
-
 
   final DatabaseController dbController;
 
@@ -20,7 +17,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Post> _posts = [];
-
 
   @override
   void initState() {
@@ -33,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       ..clear()
       ..addAll(await widget.dbController.getPosts())
       ..sort(
-              (post1, post2) => post2.postDatetime.compareTo(post1.postDatetime));
+          (post1, post2) => post2.postDatetime.compareTo(post1.postDatetime));
     Logger().i(_posts);
   }
 
@@ -49,12 +45,12 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(LucideIcons.copyPlus),
         onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreatePostPage(dbController: widget.dbController)),
+          Navigator.of(context).pushNamed('/createpost').then(
+            (value) async {
+              await _loadPostsFromDb();
+              setState(() {});
+            },
           );
-          await _loadPostsFromDb();
-          setState(() {});
         },
       ),
     );

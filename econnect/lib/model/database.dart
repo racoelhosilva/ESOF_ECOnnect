@@ -59,7 +59,6 @@ class Database {
         .toList();
   }
 
-
   Future<void> addUser(User user) async {
     final users = _db.collection('users');
 
