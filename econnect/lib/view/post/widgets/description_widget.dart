@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class DescriptionWidget extends StatelessWidget {
   final TextEditingController controller;
 
-  const DescriptionWidget({Key? key, required this.controller})
-      : super(key: key);
+  const DescriptionWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
