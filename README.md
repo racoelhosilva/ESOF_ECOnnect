@@ -88,7 +88,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 
 #### Assumptions and Dependencies
 
-- Firebase (Firestore and Cloud Storage)
+- Firebase (Firestore, Cloud Storage and Authentication)
 - Flutter [image_picker plugin](https://pub.dev/packages/image_picker)
 
 <!---
