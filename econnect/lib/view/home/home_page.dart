@@ -1,5 +1,4 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/home/post_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.dbController});
+
+  final DatabaseController dbController;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,7 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ImagePicker _picker = ImagePicker();
   final List<Post> _posts = [];
-  final DatabaseController _dbController = DatabaseController(db: Database());
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadPostsFromDb() async {
-    _posts.addAll(await _dbController.getPosts());
+    _posts.addAll(await widget.dbController.getPosts());
     Logger().i(_posts);
   }
 
@@ -35,7 +35,8 @@ class _HomePageState extends State<HomePage> {
     }
     final file = await _picker.pickImage(source: ImageSource.camera);
     if (file != null) {
-      final post = await _dbController.createPost("user", "title", file.path, "description");
+      final post = await widget.dbController
+          .createPost("user", "title", file.path, "description");
       setState(() {
         _posts.add(post);
       });
@@ -50,8 +51,8 @@ class _HomePageState extends State<HomePage> {
           child: Text(
             'ECOnnect',
             style: Theme.of(context).textTheme.headlineLarge?.apply(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
         ),
         ...(_posts.map((post) => PostWidget(post: post))),

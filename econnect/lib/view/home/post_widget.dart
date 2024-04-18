@@ -21,8 +21,8 @@ class PostWidget extends StatelessWidget {
             Text(
               post.user,
               style: Theme.of(context).textTheme.headlineMedium?.apply(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
             ),
           ],
         ),
@@ -31,8 +31,8 @@ class PostWidget extends StatelessWidget {
           child: Text(
             post.title,
             style: Theme.of(context).textTheme.headlineLarge?.apply(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
         ),
         Image.network(post.image),
