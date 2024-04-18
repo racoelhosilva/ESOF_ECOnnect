@@ -1,8 +1,9 @@
+import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
+import 'package:econnect/model/user.dart';
 import 'package:econnect/view/post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:econnect/controller/database_controller.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../controller/database_controller_test.mocks.dart';
@@ -17,6 +18,16 @@ void main() {
   });
 
   testWidgets('Creates post', (WidgetTester tester) async {
+    final user = User(
+        id: '123',
+        email: 'test@example.com',
+        username: 'testuser',
+        profilePicture: '',
+        score: 0,
+        registerDatetime: DateTime.now(),
+        isBlocked: false,
+        admin: false);
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -24,6 +35,7 @@ void main() {
             dbController: databaseController,
             postController: TextEditingController(),
             imagePath: 'testImagePath',
+            user: user,
           ),
         ),
       ),
@@ -32,12 +44,22 @@ void main() {
     await tester.tap(find.byType(PostButton));
     await tester.pump();
 
-    verify(databaseController.createPost("user", "", 'testImagePath', ''))
+    verify(databaseController.createPost("user", 'testImagePath', ''))
         .called(1);
   });
 
   testWidgets('No image selected when imagePath is null',
       (WidgetTester tester) async {
+    final user = User(
+        id: '123',
+        email: 'test@example.com',
+        username: 'testuser',
+        profilePicture: '',
+        score: 0,
+        registerDatetime: DateTime.now(),
+        isBlocked: false,
+        admin: false);
+
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -45,6 +67,7 @@ void main() {
             dbController: databaseController,
             postController: TextEditingController(),
             imagePath: null,
+            user: user,
           ),
         ),
       ),
@@ -53,6 +76,6 @@ void main() {
     await tester.tap(find.text('Publish'));
     await tester.pump();
 
-    verifyNever(databaseController.createPost("user", "", 'testImagePath', ''));
+    verifyNever(databaseController.createPost("user", 'testImagePath', ''));
   });
 }
