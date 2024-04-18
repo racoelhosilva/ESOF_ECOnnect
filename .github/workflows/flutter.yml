@@ -9,6 +9,7 @@ jobs:
     defaults:
       run:
         working-directory: ./econnect
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -20,7 +21,7 @@ jobs:
           flutter-version: ./econnect/pubspec.yaml
           cache: true
 
-      -run: flutter build
+      - run: flutter build
 
   format:
     name: Format
