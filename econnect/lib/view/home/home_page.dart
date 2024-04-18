@@ -1,5 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/home/post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const BottomNavbar(),
       body: ListView(children: [
         Center(
           child: Text(
