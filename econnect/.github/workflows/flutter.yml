@@ -1,6 +1,6 @@
-name: Build
+name: Flutter CI
 
-on: Flutter CI
+on: pull_request
 
 jobs:
   build:
