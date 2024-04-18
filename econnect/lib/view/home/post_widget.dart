@@ -55,6 +55,7 @@ class PostWidget extends StatelessWidget {
                 children: [
                   Text(
                     post.user,
+                    overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Text(

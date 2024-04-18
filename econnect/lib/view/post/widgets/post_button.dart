@@ -40,7 +40,7 @@ class PostButton extends StatelessWidget {
             return;
           }
 
-          Navigator.of(context).pop();
+          Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
         },
         child: const Text(
           'Publish',

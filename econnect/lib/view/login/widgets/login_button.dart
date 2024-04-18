@@ -4,7 +4,6 @@ import 'package:econnect/view/login/widgets/login_page_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton(
@@ -38,7 +37,6 @@ class LoginButton extends StatelessWidget {
               emailController.text, passwordController.text, dbController);
         } on FirebaseAuthException catch (e) {
           if (!context.mounted) {
-            Logger().e(e);
             return;
           }
 
@@ -62,7 +60,6 @@ class LoginButton extends StatelessWidget {
               );
               break;
             default:
-              Logger().e(e);
               Fluttertoast.showToast(
                 msg: 'Unknown error',
                 backgroundColor: Theme.of(context).colorScheme.error,

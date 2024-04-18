@@ -12,7 +12,7 @@ class BottomNavbar extends StatelessWidget {
 
   final List<String> _routes = const [
     '/home',
-    '/new-post',
+    '/createpost',
   ];
 
   String? _getCurrentRoute(BuildContext context) {
