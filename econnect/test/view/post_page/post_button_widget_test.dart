@@ -29,20 +29,17 @@ void main() {
         admin: false);
 
     await tester.pumpWidget(
-      MaterialApp(
-        initialRoute: '/createpost',
-        routes: {
-          '/home': (_) => const Text('Home Page'),
-          '/createpost': (_) => Scaffold(
-            body: PostButton(
-              dbController: databaseController,
-              postController: TextEditingController(),
-              imagePath: 'testImagePath',
-              user: user,
+      MaterialApp(initialRoute: '/createpost', routes: {
+        '/home': (_) => const Text('Home Page'),
+        '/createpost': (_) => Scaffold(
+              body: PostButton(
+                dbController: databaseController,
+                postController: TextEditingController(),
+                imagePath: 'testImagePath',
+                user: user,
+              ),
             ),
-          ),
-        }
-      ),
+      }),
     );
 
     await tester.tap(find.byType(PostButton));
