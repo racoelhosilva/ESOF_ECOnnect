@@ -30,14 +30,18 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(
-          body: PostButton(
-            dbController: databaseController,
-            postController: TextEditingController(),
-            imagePath: 'testImagePath',
-            user: user,
+        initialRoute: '/createpost',
+        routes: {
+          '/home': (_) => const Text('Home Page'),
+          '/createpost': (_) => Scaffold(
+            body: PostButton(
+              dbController: databaseController,
+              postController: TextEditingController(),
+              imagePath: 'testImagePath',
+              user: user,
+            ),
           ),
-        ),
+        }
       ),
     );
 

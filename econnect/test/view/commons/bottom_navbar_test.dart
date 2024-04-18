@@ -43,7 +43,7 @@ void main() {
                     bottomNavigationBar: BottomNavbar(),
                   ),
                 );
-              case '/new-post':
+              case '/createpost':
                 return MaterialPageRoute(
                   settings: settings,
                   builder: (_) => Scaffold(
