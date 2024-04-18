@@ -4,51 +4,53 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:logger/logger.dart';
 
 class SessionController {
-  SessionController(FirebaseAuth auth) : auth_ = auth;
-  final FirebaseAuth auth_;
-  User? loggedInUser;
+  SessionController(FirebaseAuth auth) : _auth = auth;
+  final FirebaseAuth _auth;
+  User? _loggedInUser;
+
+  User? get loggedInUser => _loggedInUser;
 
   Future<void> init(DatabaseController databaseController) async {
-    final user = auth_.currentUser;
+    final user = _auth.currentUser;
     if (user != null) {
-      loggedInUser = await databaseController.getUser(user.uid);
-      Logger().i("User ${loggedInUser!.email} is already logged in\n");
+      _loggedInUser = await databaseController.getUser(user.uid);
+      Logger().i("User ${_loggedInUser!.email} is already logged in\n");
     }
   }
 
-  bool isLoggedIn() => loggedInUser != null;
+  bool isLoggedIn() => _loggedInUser != null;
 
   Future<void> loginUser(String email, String password,
       DatabaseController databaseController) async {
-    if (loggedInUser != null) {
-      throw StateError("User ${loggedInUser!.email} is already logged in\n");
+    if (_loggedInUser != null) {
+      throw StateError("User ${_loggedInUser!.email} is already logged in\n");
     }
 
-    final credential = await auth_.signInWithEmailAndPassword(
+    final credential = await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
 
-    loggedInUser = await databaseController.getUser(credential.user!.uid);
-    Logger().i("User ${loggedInUser!.email} logged in successfully!\n");
+    _loggedInUser = await databaseController.getUser(credential.user!.uid);
+    Logger().i("User ${_loggedInUser!.email} logged in successfully!\n");
   }
 
   Future<void> registerUser(String email, String password, String username,
       DatabaseController databaseController) async {
-    final credential = await auth_.createUserWithEmailAndPassword(
+    final credential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    await auth_.signInWithEmailAndPassword(email: email, password: password);
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-    loggedInUser = await databaseController.createUser(
+    _loggedInUser = await databaseController.createUser(
         credential.user!.uid, email, username);
-    Logger().i("User ${loggedInUser!.email} registered successfully!\n");
+    Logger().i("User ${_loggedInUser!.email} registered successfully!\n");
   }
 
   Future<void> logoutUser() async {
-    if (loggedInUser == null) {
+    if (_loggedInUser == null) {
       throw StateError("No user is logged in\n");
     }
-    loggedInUser = null;
-    await auth_.signOut();
+    _loggedInUser = null;
+    await _auth.signOut();
   }
 }

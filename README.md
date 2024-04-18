@@ -88,7 +88,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 
 #### Assumptions and Dependencies
 
-- Firebase (Firestore and Cloud Storage)
+- Firebase (Firestore, Cloud Storage and Authentication)
 - Flutter [image_picker plugin](https://pub.dev/packages/image_picker)
 
 <!---
@@ -245,3 +245,11 @@ You can find below information and references related to the project management 
   - plans: screenshots of Github Projects board at the beginning and end of each iteration;
   - retrospectives: meeting notes in a document in the repository;
 -->
+
+### Sprint 1 Overview
+
+> Goal: Implement login page; implement adding photos to the app/database; implement draft of the main page
+
+<p align="center" justify="center">
+  <img src="img/sprint1_start.png"/>
+</p>

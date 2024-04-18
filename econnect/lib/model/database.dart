@@ -40,22 +40,22 @@ class Database {
 
     await posts.add({
       'user': post.user,
-      'title': post.title,
       'image': post.image,
       'description': post.description,
+      'postDatetime': post.postDatetime,
     });
   }
 
   Future<List<Post>> getPosts() async {
     final posts = _db.collection('posts');
     final snapshot = await posts.get();
-
     return snapshot.docs
         .map((post) => Post(
-            user: post['user'],
-            title: '',
-            image: post['image'],
-            description: post['description']))
+              user: post['user'],
+              image: post['image'],
+              description: post['description'],
+              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+            ))
         .toList();
   }
 
