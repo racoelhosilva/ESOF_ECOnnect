@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class BottomNavbar extends StatelessWidget {  
+class BottomNavbar extends StatelessWidget {
   const BottomNavbar({super.key});
 
   final List<BottomNavigationBarItem> _items = const [
