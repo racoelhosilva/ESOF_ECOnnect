@@ -1,14 +1,10 @@
-import 'dart:io';
 
 import 'package:econnect/view/post/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'description_widget_test.dart';
 import 'image_widget_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<ImageWidget>()])
@@ -32,7 +28,7 @@ void main() {
 
   testWidgets('ImageWidget displays the selected image',
       (WidgetTester tester) async {
-    // Set up a mock image path
+
     const String imagePath = 'mock_image_path.jpg';
 
     await tester.pumpWidget(MaterialApp(
@@ -45,7 +41,7 @@ void main() {
   });
 
   testWidgets('ImageWidget calls setImagePath', (WidgetTester tester) async {
-    String? filepath = null;
+    String? filepath;
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: ImageWidget(filepath, setImagePath: (_) {}),
@@ -60,7 +56,7 @@ void main() {
   testWidgets(
       'ImageWidget calls setImagePath with non-null path when an image is selected from gallery',
       (WidgetTester tester) async {
-    // Set up
+
     const String imagePath = 'test.png';
 
     await tester.pumpWidget(MaterialApp(

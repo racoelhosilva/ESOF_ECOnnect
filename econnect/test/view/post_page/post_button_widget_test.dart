@@ -1,21 +1,15 @@
 import 'package:econnect/model/database.dart';
-import 'package:econnect/model/post.dart';
 import 'package:econnect/view/post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:econnect/controller/database_controller.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:path/path.dart';
 
 import '../../controller/database_controller_test.mocks.dart';
 
 void main() {
   late DatabaseController databaseController;
   late Database database;
-  late PostButton postButton;
-  late Fluttertoast flutterToast;
 
   setUp(() {
     database = MockDatabase();

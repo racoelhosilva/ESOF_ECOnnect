@@ -5,7 +5,7 @@ import 'package:econnect/view/commons/logo_widget.dart';
 void main() {
   testWidgets('LogoWidget displays "ECOnnect" text with correct style',
       (WidgetTester tester) async {
-    // Build the LogoWidget
+
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
