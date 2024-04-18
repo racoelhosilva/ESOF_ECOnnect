@@ -5,7 +5,6 @@ import 'package:econnect/view/commons/header_widget.dart';
 
 void main() {
   testWidgets('HeaderWidget displays correctly', (WidgetTester tester) async {
-
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
@@ -18,6 +17,5 @@ void main() {
 
     expect(find.byType(Expanded), findsOneWidget);
     expect(find.byType(LogoWidget), findsOneWidget);
-
   });
 }

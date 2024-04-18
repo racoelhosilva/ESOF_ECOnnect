@@ -20,17 +20,18 @@ void main() {
   });
 
   testWidgets('ImageWidget displays "No image selected" when no image is set',
-          (WidgetTester tester) async {
-        await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-            body: ImageWidget(null, setImagePath: (_) {}),
-          ),
-        ));
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: ImageWidget(null, setImagePath: (_) {}),
+      ),
+    ));
 
-        expect(find.text('No image selected'), findsOneWidget);
-      });
+    expect(find.text('No image selected'), findsOneWidget);
+  });
 
-  testWidgets('ImageWidget displays the selected image', (WidgetTester tester) async {
+  testWidgets('ImageWidget displays the selected image',
+      (WidgetTester tester) async {
     // Set up a mock image path
     const String imagePath = 'mock_image_path.jpg';
 
@@ -43,35 +44,34 @@ void main() {
     expect(find.byType(Image), findsOneWidget);
   });
 
-  testWidgets('ImageWidget calls setImagePath',
-          (WidgetTester tester) async {
+  testWidgets('ImageWidget calls setImagePath', (WidgetTester tester) async {
     String? filepath = null;
-        await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-            body: ImageWidget(filepath, setImagePath: (_) {}),
-          ),
-        ));
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: ImageWidget(filepath, setImagePath: (_) {}),
+      ),
+    ));
 
-        await tester.tap(find.byTooltip('Pick Image from gallery'));
+    await tester.tap(find.byTooltip('Pick Image from gallery'));
 
-        verifyNever(mockImageWidget.setImagePath(filepath));
-      });
+    verifyNever(mockImageWidget.setImagePath(filepath));
+  });
 
-  testWidgets('ImageWidget calls setImagePath with non-null path when an image is selected from gallery',
-          (WidgetTester tester) async {
-        // Set up
-        const String imagePath = 'test.png';
+  testWidgets(
+      'ImageWidget calls setImagePath with non-null path when an image is selected from gallery',
+      (WidgetTester tester) async {
+    // Set up
+    const String imagePath = 'test.png';
 
-        await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-            body: ImageWidget(null, setImagePath: mockImageWidget.setImagePath),
-          ),
-        ));
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: ImageWidget(null, setImagePath: mockImageWidget.setImagePath),
+      ),
+    ));
 
-        await tester.tap(find.byTooltip('Pick Image from gallery'));
-        await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Pick Image from gallery'));
+    await tester.pumpAndSettle();
 
-        verify(mockImageWidget.setImagePath(imagePath)).called(1);
-      });
-
+    verify(mockImageWidget.setImagePath(imagePath)).called(1);
+  });
 }

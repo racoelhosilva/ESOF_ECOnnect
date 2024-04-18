@@ -8,8 +8,8 @@ class MockImagePicker extends Mock implements ImagePicker {}
 
 void main() {
   group('ImageWidget', () {
-    testWidgets(
-        'should create widget without error', (WidgetTester tester) async {
+    testWidgets('should create widget without error',
+        (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         home: ImageWidget(null, setImagePath: (_) {}),
       ));

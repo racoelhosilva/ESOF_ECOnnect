@@ -9,10 +9,9 @@ import 'package:flutter/material.dart';
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key, required this.dbController});
 
-
   final DatabaseController dbController;
 
-@override
+  @override
   State<StatefulWidget> createState() => _CreatePostPageState();
 }
 

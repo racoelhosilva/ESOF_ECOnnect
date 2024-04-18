@@ -11,42 +11,39 @@ import 'package:path/path.dart';
 
 import '../../controller/database_controller_test.mocks.dart';
 
-
-
 void main() {
   late DatabaseController databaseController;
   late Database database;
   late PostButton postButton;
   late Fluttertoast flutterToast;
 
-
   setUp(() {
     database = MockDatabase();
     databaseController = DatabaseController(db: database);
   });
 
-
-    testWidgets('Creates post', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: PostButton(
-              dbController: databaseController,
-              postController: TextEditingController(),
-              imagePath: 'testImagePath',
-            ),
+  testWidgets('Creates post', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: PostButton(
+            dbController: databaseController,
+            postController: TextEditingController(),
+            imagePath: 'testImagePath',
           ),
         ),
-      );
+      ),
+    );
 
-      await tester.tap(find.byType(PostButton));
-      await tester.pump();
+    await tester.tap(find.byType(PostButton));
+    await tester.pump();
 
-      verify(databaseController.createPost("user", "", 'testImagePath', '')).called(1);
+    verify(databaseController.createPost("user", "", 'testImagePath', ''))
+        .called(1);
+  });
 
-    });
-
-  testWidgets('No image selected when imagePath is null', (WidgetTester tester) async {
+  testWidgets('No image selected when imagePath is null',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(

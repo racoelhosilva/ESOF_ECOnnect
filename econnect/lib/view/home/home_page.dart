@@ -11,7 +11,6 @@ import 'package:lucide_icons/lucide_icons.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.dbController});
 
-
   final DatabaseController dbController;
 
   @override
@@ -20,7 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Post> _posts = [];
-
 
   @override
   void initState() {
@@ -33,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       ..clear()
       ..addAll(await widget.dbController.getPosts())
       ..sort(
-              (post1, post2) => post2.postDatetime.compareTo(post1.postDatetime));
+          (post1, post2) => post2.postDatetime.compareTo(post1.postDatetime));
     Logger().i(_posts);
   }
 
@@ -51,7 +49,9 @@ class _HomePageState extends State<HomePage> {
         onPressed: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CreatePostPage(dbController: widget.dbController)),
+            MaterialPageRoute(
+                builder: (context) =>
+                    CreatePostPage(dbController: widget.dbController)),
           );
           await _loadPostsFromDb();
           setState(() {});

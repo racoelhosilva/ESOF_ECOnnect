@@ -36,5 +36,4 @@ class DatabaseController {
   }
 
   Future<User?> getUser(String id) async => await db.getUser(id);
-
 }
