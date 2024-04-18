@@ -40,7 +40,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             dbController: widget.dbController,
             postController: _postController,
             imagePath: _imagePath,
-            username: widget.sessionController.loggedInUser!.username,
+            user: widget.sessionController.loggedInUser,
           ),
         ],
       ),

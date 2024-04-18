@@ -1,4 +1,5 @@
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -8,12 +9,12 @@ class PostButton extends StatelessWidget {
       required this.dbController,
       required this.postController,
       required this.imagePath,
-      required this.username});
+      required this.user});
 
   final DatabaseController dbController;
   final TextEditingController postController;
   final String? imagePath;
-  final String? username;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class PostButton extends StatelessWidget {
           }
 
           await dbController.createPost(
-            username!,
+            user!.username,
             imagePath!,
             postController.text,
           );
