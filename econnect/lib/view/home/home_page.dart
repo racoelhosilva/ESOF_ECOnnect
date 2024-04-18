@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(),
       body: ListView(children: [
         Center(
           child: Text(
@@ -63,6 +63,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: _takePicture,
         child: const Icon(Icons.camera),
       ),
+      extendBody: true,
     );
   }
 }
