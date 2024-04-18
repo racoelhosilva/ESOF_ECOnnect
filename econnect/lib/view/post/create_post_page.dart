@@ -7,15 +7,17 @@ import 'package:econnect/view/post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 
 class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({super.key});
+  const CreatePostPage({super.key, required this.dbController});
 
-  @override
+
+  final DatabaseController dbController;
+
+@override
   State<StatefulWidget> createState() => _CreatePostPageState();
 }
 
 class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _postController = TextEditingController();
-  final DatabaseController _dbController = DatabaseController(db: Database());
   String? _imagePath;
 
   void setImagePath(String? newPath) {
@@ -34,7 +36,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           ImageWidget(_imagePath, setImagePath: setImagePath),
           DescriptionWidget(controller: _postController),
           PostButton(
-            dbController: _dbController,
+            dbController: widget.dbController,
             postController: _postController,
             imagePath: _imagePath,
           ),

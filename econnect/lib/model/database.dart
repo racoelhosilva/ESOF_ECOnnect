@@ -2,13 +2,18 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/model/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Database {
-  final _db = FirebaseFirestore.instance;
-  final _storageRef = FirebaseStorage.instance.ref();
+  Database(FirebaseFirestore firestore, FirebaseStorage storage)
+      : _db = firestore,
+        _storageRef = storage.ref();
+
+  final FirebaseFirestore _db;
+  final Reference _storageRef;
 
   Future<String> storeImage(String path) async {
     final name = 'img/${const Uuid().v4()}.png';
@@ -30,10 +35,10 @@ class Database {
     }
   }
 
-  void addPost(Post post) {
-    CollectionReference posts = _db.collection('posts');
+  Future<void> addPost(Post post) async {
+    final posts = _db.collection('posts');
 
-    posts.add({
+    await posts.add({
       'user': post.user,
       'image': post.image,
       'description': post.description,
@@ -52,5 +57,49 @@ class Database {
               postDatetime: (post['postDatetime'] as Timestamp).toDate(),
             ))
         .toList();
+  }
+
+
+  Future<void> addUser(User user) async {
+    final users = _db.collection('users');
+
+    final dbUser = users.doc(user.id);
+
+    if ((await dbUser.get()).exists) {
+      throw StateError("User with id ${user.id} already exists");
+    }
+
+    await dbUser.set({
+      'id': user.id,
+      'username': user.username,
+      'email': user.email,
+      'description': user.description,
+      'profilePicture': user.profilePicture,
+      'score': user.score,
+      'isBlocked': user.isBlocked,
+      'registerDatetime': user.registerDatetime,
+      'isAdmin': user.admin,
+    });
+  }
+
+  Future<User?> getUser(String id) async {
+    final users = _db.collection('users');
+
+    final dbUser = await users.doc(id).get();
+    if (!dbUser.exists) {
+      return null;
+    }
+
+    return User(
+      id: dbUser['id'],
+      username: dbUser['username'],
+      email: dbUser['email'],
+      description: dbUser['description'],
+      profilePicture: dbUser['profilePicture'],
+      score: dbUser['score'],
+      isBlocked: dbUser['isBlocked'],
+      registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
+      admin: dbUser['isAdmin'],
+    );
   }
 }
