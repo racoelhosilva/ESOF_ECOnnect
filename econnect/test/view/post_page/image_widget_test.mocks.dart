@@ -5,8 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:econnect/view/post/widgets/image_widget.dart' as _i4;
 import 'package:flutter/foundation.dart' as _i3;
-import 'package:flutter/material.dart' as _i1;
-import 'package:mockito/mockito.dart' as _i2;
+import 'package:flutter/material.dart' as _i2;
+import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 
 // ignore_for_file: type=lint
@@ -21,10 +21,10 @@ import 'package:mockito/src/dummies.dart' as _i5;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: must_be_immutable
 
-class _FakeState_0<T extends _i1.StatefulWidget> extends _i2.SmartFake
-    implements _i1.State<T> {
-  _FakeState_0(
+class _FakeWidget_0 extends _i1.SmartFake implements _i2.Widget {
+  _FakeWidget_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -33,13 +33,13 @@ class _FakeState_0<T extends _i1.StatefulWidget> extends _i2.SmartFake
         );
 
   @override
-  String toString({_i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.info}) =>
+  String toString({_i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info}) =>
       super.toString();
 }
 
-class _FakeStatefulElement_1 extends _i2.SmartFake
-    implements _i1.StatefulElement {
-  _FakeStatefulElement_1(
+class _FakeStatelessElement_1 extends _i1.SmartFake
+    implements _i2.StatelessElement {
+  _FakeStatelessElement_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -48,12 +48,12 @@ class _FakeStatefulElement_1 extends _i2.SmartFake
         );
 
   @override
-  String toString({_i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.info}) =>
+  String toString({_i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info}) =>
       super.toString();
 }
 
-class _FakeDiagnosticsNode_2 extends _i2.SmartFake
-    implements _i1.DiagnosticsNode {
+class _FakeDiagnosticsNode_2 extends _i1.SmartFake
+    implements _i2.DiagnosticsNode {
   _FakeDiagnosticsNode_2(
     Object parent,
     Invocation parentInvocation,
@@ -65,7 +65,7 @@ class _FakeDiagnosticsNode_2 extends _i2.SmartFake
   @override
   String toString({
     _i3.TextTreeConfiguration? parentConfiguration,
-    _i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.info,
+    _i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info,
   }) =>
       super.toString();
 }
@@ -73,7 +73,7 @@ class _FakeDiagnosticsNode_2 extends _i2.SmartFake
 /// A class which mocks [ImageWidget].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageWidget extends _i2.Mock implements _i4.ImageWidget {
+class MockImageWidget extends _i1.Mock implements _i4.ImageWidget {
   @override
   dynamic Function(String?) get setImagePath => (super.noSuchMethod(
         Invocation.getter(#setImagePath),
@@ -82,48 +82,48 @@ class MockImageWidget extends _i2.Mock implements _i4.ImageWidget {
       ) as dynamic Function(String?));
 
   @override
-  _i1.State<_i1.StatefulWidget> createState() => (super.noSuchMethod(
+  _i2.Widget build(_i2.BuildContext? context) => (super.noSuchMethod(
         Invocation.method(
-          #createState,
-          [],
+          #build,
+          [context],
         ),
-        returnValue: _FakeState_0<_i1.StatefulWidget>(
+        returnValue: _FakeWidget_0(
           this,
           Invocation.method(
-            #createState,
-            [],
+            #build,
+            [context],
           ),
         ),
-        returnValueForMissingStub: _FakeState_0<_i1.StatefulWidget>(
+        returnValueForMissingStub: _FakeWidget_0(
           this,
           Invocation.method(
-            #createState,
-            [],
+            #build,
+            [context],
           ),
         ),
-      ) as _i1.State<_i1.StatefulWidget>);
+      ) as _i2.Widget);
 
   @override
-  _i1.StatefulElement createElement() => (super.noSuchMethod(
+  _i2.StatelessElement createElement() => (super.noSuchMethod(
         Invocation.method(
           #createElement,
           [],
         ),
-        returnValue: _FakeStatefulElement_1(
+        returnValue: _FakeStatelessElement_1(
           this,
           Invocation.method(
             #createElement,
             [],
           ),
         ),
-        returnValueForMissingStub: _FakeStatefulElement_1(
+        returnValueForMissingStub: _FakeStatelessElement_1(
           this,
           Invocation.method(
             #createElement,
             [],
           ),
         ),
-      ) as _i1.StatefulElement);
+      ) as _i2.StatelessElement);
 
   @override
   String toStringShort() => (super.noSuchMethod(
@@ -160,7 +160,7 @@ class MockImageWidget extends _i2.Mock implements _i4.ImageWidget {
   @override
   String toStringShallow({
     String? joiner = r', ',
-    _i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.debug,
+    _i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.debug,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -199,7 +199,7 @@ class MockImageWidget extends _i2.Mock implements _i4.ImageWidget {
   String toStringDeep({
     String? prefixLineOne = r'',
     String? prefixOtherLines,
-    _i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.debug,
+    _i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.debug,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -238,7 +238,7 @@ class MockImageWidget extends _i2.Mock implements _i4.ImageWidget {
       ) as String);
 
   @override
-  _i1.DiagnosticsNode toDiagnosticsNode({
+  _i2.DiagnosticsNode toDiagnosticsNode({
     String? name,
     _i3.DiagnosticsTreeStyle? style,
   }) =>
@@ -273,19 +273,19 @@ class MockImageWidget extends _i2.Mock implements _i4.ImageWidget {
             },
           ),
         ),
-      ) as _i1.DiagnosticsNode);
+      ) as _i2.DiagnosticsNode);
 
   @override
-  List<_i1.DiagnosticsNode> debugDescribeChildren() => (super.noSuchMethod(
+  List<_i2.DiagnosticsNode> debugDescribeChildren() => (super.noSuchMethod(
         Invocation.method(
           #debugDescribeChildren,
           [],
         ),
-        returnValue: <_i1.DiagnosticsNode>[],
-        returnValueForMissingStub: <_i1.DiagnosticsNode>[],
-      ) as List<_i1.DiagnosticsNode>);
+        returnValue: <_i2.DiagnosticsNode>[],
+        returnValueForMissingStub: <_i2.DiagnosticsNode>[],
+      ) as List<_i2.DiagnosticsNode>);
 
   @override
-  String toString({_i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.info}) =>
+  String toString({_i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info}) =>
       super.toString();
 }

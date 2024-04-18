@@ -1,4 +1,3 @@
-
 import 'package:econnect/view/post/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -28,7 +27,6 @@ void main() {
 
   testWidgets('ImageWidget displays the selected image',
       (WidgetTester tester) async {
-
     const String imagePath = 'mock_image_path.jpg';
 
     await tester.pumpWidget(MaterialApp(
@@ -56,7 +54,6 @@ void main() {
   testWidgets(
       'ImageWidget calls setImagePath with non-null path when an image is selected from gallery',
       (WidgetTester tester) async {
-
     const String imagePath = 'test.png';
 
     await tester.pumpWidget(MaterialApp(

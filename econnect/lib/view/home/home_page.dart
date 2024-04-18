@@ -1,5 +1,4 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/logo_widget.dart';
 import 'package:econnect/view/home/post_widget.dart';

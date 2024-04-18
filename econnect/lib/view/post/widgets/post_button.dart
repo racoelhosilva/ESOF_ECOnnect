@@ -27,13 +27,13 @@ class PostButton extends StatelessWidget {
             return;
           }
 
-          final post = await dbController.createPost(
+          await dbController.createPost(
             "user",
             "title",
             imagePath!,
             postController.text,
           );
-
+          if (!context.mounted) return;
           Navigator.pop(context);
         },
         child: const Text(

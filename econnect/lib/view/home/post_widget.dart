@@ -8,7 +8,7 @@ class PostWidget extends StatelessWidget {
   final Post post;
 
   String formatTime(int value, String unit) {
-    return '$value ${value == 1 ? unit : unit + 's'} ago';
+    return '$value ${value == 1 ? unit : '${unit}s'} ago';
   }
 
   String getTimeElapsed() {
