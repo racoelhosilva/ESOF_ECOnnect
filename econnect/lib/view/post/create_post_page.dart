@@ -1,5 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
+import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
 import 'package:econnect/view/post/widgets/description_widget.dart';
 import 'package:econnect/view/post/widgets/image_widget.dart';
@@ -30,6 +31,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavbar(),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -44,6 +46,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           ),
         ],
       ),
+      extendBody: true,
     );
   }
 }

@@ -45,13 +45,16 @@ class App extends StatelessWidget {
       onGenerateRoute: (settings) {
         final transitions = {
           '/login': MaterialPageRoute<LoginPage>(
+              settings: settings,
               builder: (_) => LoginPage(
                     dbController: dbController,
                     sessionController: sessionController,
                   )),
           '/home': MaterialPageRoute<HomePage>(
+              settings: settings,
               builder: (_) => HomePage(dbController: dbController)),
           '/register': MaterialPageRoute<RegisterPage>(
+              settings: settings,
               builder: (_) => RegisterPage(
                   dbController: dbController,
                   sessionController: sessionController)),
