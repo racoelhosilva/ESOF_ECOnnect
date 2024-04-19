@@ -238,7 +238,7 @@ Common practices for managing iterative software development are backlog managem
 You can find below information and references related to the project management in our team: 
 
 - Backlog management: Product backlog and Sprint backlog in our [Github Projects board](https://github.com/orgs/FEUP-LEIC-ES-2023-24/projects/52)
-- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype)
+- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype), [v1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v1)
   
 <!---
 - Sprint planning and retrospectives: 
@@ -248,8 +248,15 @@ You can find below information and references related to the project management 
 
 ### Sprint 1 Overview
 
-> Goal: Implement login page; implement adding photos to the app/database; implement draft of the main page
+> **Goal:** Implement login page; implement adding photos to the app/database; implement draft of the main page
+
+#### Project Board
 
 <p align="center" justify="center">
+  <b>Start of Sprint 1</b>
   <img src="img/sprint1_start.png"/>
+  <b>End of Sprint 1</b>
+  <img src="img/sprint1_end.png"/>
 </p>
+
+#### Sprint Review
