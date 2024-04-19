@@ -152,7 +152,7 @@ Furthermore, the platform hosts **challenges** (created by admin users) focused 
 Users can participate in these challenges and earn points. There is a leaderboard that displays users with the highest scores.
 
 <p align="center" justify="center">
-  <img src="img/domain-model.png"/>
+  <img src="img/diagrams/domain-model.png"/>
 </p>
 
 
@@ -186,7 +186,7 @@ The database logic layer is responsible for fetching necessary information from 
 
 
 <p align="center" justify="center">
-  <img src="img/logical-model.png"/>
+  <img src="img/diagrams/logical-model.png"/>
 </p>
 
 ### Physical architecture
@@ -206,7 +206,7 @@ Persistent data, including user profiles, posts/multimedia content, is stored in
 In the diagram, each component is identified with the hardware on which it should be installed or deployed.
 
 <p align="center" justify="center">
-  <img src="img/physical-model.png"/>
+  <img src="img/diagrams/physical-model.png"/>
 </p>
 
 
@@ -223,7 +223,7 @@ The vertical prototype we developed was implemented with the integration of the 
 By opening the app, one can see all the posts currently in the database.  When a post is created, by taking a picture with the camera, the image is sent to Cloud Storage and a new `Post` object is stored in the database. 
 
 <p align="center" justify="center">
-  <img width=300 src="img/vertical-prototype.png"/>
+  <img width=300 src="img/app/vertical-prototype.png"/>
 </p>
 
 ## Project management
@@ -254,9 +254,9 @@ You can find below information and references related to the project management 
 
 <p align="center" justify="center">
   <b>Start of Sprint 1</b>
-  <img src="img/sprint1_start.png"/>
+  <img src="img/sprints/sprint1_start.png"/>
   <b>End of Sprint 1</b>
-  <img src="img/sprint1_end.png"/>
+  <img src="img/sprints/sprint1_end.png"/>
 </p>
 
 #### Sprint Retrospective #1
@@ -274,3 +274,16 @@ You can find below information and references related to the project management 
 
  - Good teamwork and organization
  - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
+
+---
+
+### Sprint 2 Overview
+
+> **Goal:** Perfect the elements already implemented; implement profile pages; implement likes on posts; implement following other users; implement edit/delete actions on users' own posts
+
+#### Project Board
+
+<p align="center" justify="center">
+  <b>Start of Sprint 2</b>
+  <img src="img/sprints/sprint2_start.png"/>
+</p>
