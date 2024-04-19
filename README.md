@@ -259,4 +259,18 @@ You can find below information and references related to the project management 
   <img src="img/sprint1_end.png"/>
 </p>
 
-#### Sprint Review
+#### Sprint Retrospective #1
+
+##### What should start?
+
+ - Envision the product from the perspective of a larger audience (public or mass market)
+ - Focus more on improving the User Experience (e.g. providing more visual feedback)
+
+##### What should stop?
+
+ - Merging multiple branches only at the very end of the sprint
+
+##### What should continue?
+
+ - Good teamwork and organization
+ - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
