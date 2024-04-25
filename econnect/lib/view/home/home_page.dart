@@ -26,7 +26,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadPostsFromDb() async {
     _posts
       ..clear()
-      ..addAll(await widget.dbController.getPosts())
+      ..addAll(await widget.dbController.getNextPosts(5))
+      ..addAll(await widget.dbController.getNextPosts(5))
       ..sort(
           (post1, post2) => post2.postDatetime.compareTo(post1.postDatetime));
   }
