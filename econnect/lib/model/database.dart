@@ -70,6 +70,10 @@ class Database {
         .toList();
   }
 
+  void resetPostsCursor() {
+    lastDoc = null;
+  }
+
   Future<void> addUser(User user) async {
     final users = _db.collection('users');
 
