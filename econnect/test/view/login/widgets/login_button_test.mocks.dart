@@ -146,15 +146,24 @@ class MockDatabaseController extends _i1.Mock
       ) as _i8.Future<_i3.Post>);
 
   @override
-  _i8.Future<List<_i3.Post>> getPosts() => (super.noSuchMethod(
+  _i8.Future<List<_i3.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
         Invocation.method(
-          #getPosts,
-          [],
+          #getNextPosts,
+          [numDocs],
         ),
         returnValue: _i8.Future<List<_i3.Post>>.value(<_i3.Post>[]),
         returnValueForMissingStub:
             _i8.Future<List<_i3.Post>>.value(<_i3.Post>[]),
       ) as _i8.Future<List<_i3.Post>>);
+
+  @override
+  void resetPostsCursor() => super.noSuchMethod(
+        Invocation.method(
+          #resetPostsCursor,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   _i8.Future<_i9.User?> createUser(
