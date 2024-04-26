@@ -21,5 +21,5 @@ class User {
   final bool admin;
   final String? description;
   final String profilePicture;
-  final List<User> following;
+  final List<String> following;
 }
