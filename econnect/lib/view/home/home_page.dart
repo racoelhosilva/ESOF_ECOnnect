@@ -67,7 +67,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(
+        specialActions: {
+          '/home': () {
+            _scrollController.jumpTo(_scrollController.position.minScrollExtent);
+            _refreshIndicatorKey.currentState?.show();
+          }
+        },
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _onRefresh,
