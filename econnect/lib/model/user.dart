@@ -8,6 +8,7 @@ class User {
     required this.registerDatetime,
     required this.admin,
     required this.profilePicture,
+    required this.following,
     this.description,
   });
 
@@ -20,4 +21,5 @@ class User {
   final bool admin;
   final String? description;
   final String profilePicture;
+  final List<User> following;
 }

@@ -26,7 +26,8 @@ void main() {
         score: 0,
         registerDatetime: DateTime.now(),
         isBlocked: false,
-        admin: false);
+        admin: false,
+        following: []);
 
     await tester.pumpWidget(
       MaterialApp(initialRoute: '/createpost', routes: {
@@ -59,7 +60,8 @@ void main() {
         score: 0,
         registerDatetime: DateTime.now(),
         isBlocked: false,
-        admin: false);
+        admin: false,
+        following: []);
 
     await tester.pumpWidget(
       MaterialApp(

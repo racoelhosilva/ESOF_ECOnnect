@@ -42,7 +42,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
 
     expect(sessionController.isLoggedIn(), false);
 
@@ -87,7 +88,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
 
     expect(sessionController.isLoggedIn(), false);
 
@@ -119,7 +121,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
     const password1 = 'abc123';
 
     final user2 = User(
@@ -130,7 +133,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
     const password2 = 'def456';
 
     when(userCredential.user).thenReturn(fauser);

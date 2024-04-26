@@ -30,6 +30,7 @@ class DatabaseController {
       registerDatetime: DateTime.now(),
       admin: false,
       profilePicture: "",
+      following: [],
     );
     await db.addUser(user);
     return user;

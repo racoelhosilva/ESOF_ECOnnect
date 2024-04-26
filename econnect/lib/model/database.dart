@@ -99,6 +99,7 @@ class Database {
       isBlocked: dbUser['isBlocked'],
       registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
       admin: dbUser['isAdmin'],
+      following: [],
     );
   }
 }

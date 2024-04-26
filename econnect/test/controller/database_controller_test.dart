@@ -41,7 +41,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
 
     when(database.getUser('123')).thenAnswer((_) => Future(() => user));
 

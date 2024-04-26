@@ -47,7 +47,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
     final documentReference = MockDocumentReference();
     final documentSnapshot = MockDocumentSnapshot();
 
@@ -70,7 +71,8 @@ void main() {
         isBlocked: false,
         registerDatetime: DateTime.now(),
         admin: false,
-        profilePicture: '');
+        profilePicture: '',
+        following: []);
     final documentReference = MockDocumentReference();
     final documentSnapshot = MockDocumentSnapshot();
 
