@@ -70,7 +70,8 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavbar(
         specialActions: {
           '/home': () {
-            _scrollController.jumpTo(_scrollController.position.minScrollExtent);
+            _scrollController
+                .jumpTo(_scrollController.position.minScrollExtent);
             _refreshIndicatorKey.currentState?.show();
           }
         },
