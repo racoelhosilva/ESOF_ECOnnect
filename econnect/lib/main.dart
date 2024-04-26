@@ -7,6 +7,7 @@ import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
 import 'package:econnect/view/post/create_post_page.dart';
+import 'package:econnect/view/profile/profile_page.dart';
 import 'package:econnect/view/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,8 +59,12 @@ class App extends StatelessWidget {
               builder: (_) => RegisterPage(
                   dbController: dbController,
                   sessionController: sessionController)),
-          '/createpost': MaterialPageRoute<RegisterPage>(
+          '/createpost': MaterialPageRoute<CreatePostPage>(
               builder: (_) => CreatePostPage(
+                  dbController: dbController,
+                  sessionController: sessionController)),
+          '/profile': MaterialPageRoute<ProfilePage>(
+              builder: (_) => ProfilePage(
                   dbController: dbController,
                   sessionController: sessionController)),
         };

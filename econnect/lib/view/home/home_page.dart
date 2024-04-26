@@ -1,9 +1,9 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
-import 'package:econnect/view/commons/logo_widget.dart';
 import 'package:econnect/view/home/widgets/end_message.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
+import 'package:econnect/view/home/widgets/header_homepage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           controller: _scrollController,
           children: [
-            const LogoWidget(),
+            const HeaderHomepage(),
             ...(_posts.map((post) => PostWidget(post: post))),
             if (_isLoading) const Center(child: CircularProgressIndicator()),
             if (_atEnd) const EndMessage(),
