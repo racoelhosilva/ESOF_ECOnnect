@@ -1,9 +1,12 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
+import 'package:econnect/utils/download_image.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/create_post/widgets/description_widget.dart';
-import 'package:econnect/view/create_post/widgets/image_widget.dart';
+import 'package:econnect/view/create_post/widgets/image_editor.dart';
+import 'package:econnect/view/create_post/widgets/description_field.dart';
+import 'package:econnect/view/settings/widgets/save_button.dart';
+import 'package:econnect/view/settings/widgets/username_field.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -19,9 +22,26 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   String? _imagePath;
 
-  void setImagePath(String? newPath) {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.sessionController.loggedInUser == null) {
+      throw StateError('User not logged in');
+    }
+
+    setInitialPagePath();
+  }
+
+  Future<void> setInitialPagePath() async {
+    final initImagePath = await downloadImageToTemp(
+        widget.sessionController.loggedInUser!.profilePicture);
+    setImagePath(initImagePath);
+  }
+
+  void setImagePath(String newPath) {
     setState(() {
       _imagePath = newPath;
     });
@@ -35,13 +55,16 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(16.0),
         children: [
           const HeaderWidget(),
-          ImageWidget(_imagePath, setImagePath: setImagePath),
-          DescriptionWidget(controller: _descriptionController),
-          ElevatedButton(
-            onPressed: () {
-              // salvar settings
-            },
-            child: const Text('Save'),
+          ImageEditor(
+            _imagePath,
+            setImagePath: setImagePath,
+            proportion: 1,
+          ),
+          UsernameField(controller: _usernameController),
+          DescriptionField(controller: _descriptionController),
+          const SaveButton(),
+          const SizedBox(
+            height: 100.0,
           ),
         ],
       ),

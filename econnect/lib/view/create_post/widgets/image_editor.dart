@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class ImageWidget extends StatelessWidget {
-  ImageWidget(this._imagePath, {super.key, required this.setImagePath});
+class ImageEditor extends StatelessWidget {
+  ImageEditor(this._imagePath, {super.key, required this.setImagePath, required this.proportion});
 
   final String? _imagePath;
-  final Function(String?) setImagePath;
+  final Function(String) setImagePath;
+  final double proportion;
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _takePicture(ImageSource source) async {
@@ -24,7 +25,7 @@ class ImageWidget extends StatelessWidget {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.width * (4 / 3),
+          height: MediaQuery.of(context).size.width * proportion,
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(

@@ -2,8 +2,8 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/create_post/widgets/description_widget.dart';
-import 'package:econnect/view/create_post/widgets/image_widget.dart';
+import 'package:econnect/view/create_post/widgets/description_field.dart';
+import 'package:econnect/view/create_post/widgets/image_editor.dart';
 import 'package:econnect/view/create_post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 
@@ -36,13 +36,16 @@ class _CreatePostPageState extends State<CreatePostPage> {
         padding: const EdgeInsets.all(16.0),
         children: [
           const HeaderWidget(),
-          ImageWidget(_imagePath, setImagePath: setImagePath),
-          DescriptionWidget(controller: _postController),
+          ImageEditor(_imagePath, setImagePath: setImagePath, proportion: 4/3),
+          DescriptionField(controller: _postController),
           PostButton(
             dbController: widget.dbController,
             postController: _postController,
             imagePath: _imagePath,
             user: widget.sessionController.loggedInUser,
+          ),
+          const SizedBox(
+            height: 100.0,
           ),
         ],
       ),

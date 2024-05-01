@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
-String downloadImageToTemp(String url) {
-  final response = http.get(Uri.parse(url));
+Future<String> downloadImageToTemp(String url) async {
+  final response = await http.get(Uri.parse(url));
 
-  final  =
-      await rootBundle.load('assets/png/default_profile.png');
-  final directory = getTemporaryDirectory();
-  var pictureFile = File('${directory.path}/default_profile.png');
-  pictureFile.writeAsBytesSync(pictureAsset.buffer.asUint8List());
+  if (response.statusCode != 200) {
+    throw Exception('Failed to download image');
+  }
+  
+  final tempDir = await getTemporaryDirectory();
+  final file = File('${tempDir.path}/${const Uuid().v4()}.png');
 
+  await file.writeAsBytes(response.bodyBytes);
+  return file.path;
 }

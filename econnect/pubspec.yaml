@@ -124,4 +124,8 @@ flutter:
           weight: 700
         - asset: assets/ttf/Karla-Light.ttf
           weight: 300
-
+    - family: Palanquin Dark
+      fonts:
+        - asset: assets/ttf/PalanquinDark-Regular.ttf
+        - asset: assets/ttf/PalanquinDark-Bold.ttf
+          weight: 700

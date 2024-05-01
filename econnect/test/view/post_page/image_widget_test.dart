@@ -1,4 +1,4 @@
-import 'package:econnect/view/create_post/widgets/image_widget.dart';
+import 'package:econnect/view/create_post/widgets/image_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -6,9 +6,9 @@ import 'package:mockito/mockito.dart';
 
 import 'image_widget_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<ImageWidget>()])
+@GenerateNiceMocks([MockSpec<ImageEditor>()])
 void main() {
-  late ImageWidget mockImageWidget;
+  late ImageEditor mockImageWidget;
 
   setUp(() {
     mockImageWidget = MockImageWidget();
@@ -18,7 +18,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageWidget(null, setImagePath: (_) {}),
+        body: ImageEditor(null, setImagePath: (_) {}),
       ),
     ));
 
@@ -31,7 +31,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageWidget(imagePath, setImagePath: (_) {}),
+        body: ImageEditor(imagePath, setImagePath: (_) {}),
       ),
     ));
 
@@ -42,7 +42,7 @@ void main() {
     String? filepath;
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageWidget(filepath, setImagePath: (_) {}),
+        body: ImageEditor(filepath, setImagePath: (_) {}),
       ),
     ));
 
@@ -58,7 +58,7 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageWidget(null, setImagePath: mockImageWidget.setImagePath),
+        body: ImageEditor(null, setImagePath: mockImageWidget.setImagePath),
       ),
     ));
 

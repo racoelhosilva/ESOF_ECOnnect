@@ -40,7 +40,8 @@ class PostWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == null) {
-            throw StateError('User with id ${post.user} not found');
+            return Container();
+            // TODO: write throw StateError('User with id ${post.user} not found');
           }
           return Container(
             margin: const EdgeInsets.all(16.0),
