@@ -74,6 +74,19 @@ class Database {
     lastDoc = null;
   }
 
+  Future<List<Post>> getPostsFromUser(String userId) async {
+    final posts = _db.collection('posts');
+    final snapshot = await posts.where('user', isEqualTo: userId).get();
+    return snapshot.docs
+        .map((post) => Post(
+              user: post['user'],
+              image: post['image'],
+              description: post['description'],
+              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+            ))
+        .toList();
+  }
+
   Future<void> addUser(User user) async {
     final users = _db.collection('users');
 

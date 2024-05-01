@@ -13,9 +13,12 @@ class ProfileButton extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(context, '/profile', arguments: user);
         },
-        icon: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.onBackground,
-          radius: 25,
+        icon: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+          clipBehavior: Clip.hardEdge,
           child: CachedNetworkImage(
             imageUrl: user.profilePicture,
             width: 50,
