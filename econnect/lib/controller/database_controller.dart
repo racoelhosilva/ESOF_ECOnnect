@@ -27,13 +27,14 @@ class DatabaseController {
   void resetPostsCursor() => db.resetPostsCursor();
 
   Future<User?> createUser(String id, String email, String username) async {
-    final pictureAsset = await rootBundle.load('assets/png/logo_white.png');
+    final pictureAsset =
+        await rootBundle.load('assets/png/default_profile.png');
     final directory = await getTemporaryDirectory();
-    var pictureFile = File('${directory.path}/logo_white.png');
+    var pictureFile = File('${directory.path}/default_profile.png');
     pictureFile.writeAsBytesSync(pictureAsset.buffer.asUint8List());
 
     final profilePicture =
-        await db.storeImage('${directory.path}/logo_white.png');
+        await db.storeImage('${directory.path}/default_profile.png');
     final user = User(
       id: id,
       email: email,
