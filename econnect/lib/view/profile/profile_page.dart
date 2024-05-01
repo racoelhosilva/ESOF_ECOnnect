@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
+import 'package:econnect/model/user.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage(
-      {super.key, required this.dbController, required this.sessionController});
+      {super.key, required this.dbController, required this.sessionController, required this.user});
 
   final DatabaseController dbController;
   final SessionController sessionController;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,8 @@ class ProfilePage extends StatelessWidget {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  'assets/png/logo_white.png', // TODO: change image to user pfp
+                child: CachedNetworkImage(
+                  imageUrl: user.profilePicture,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -32,13 +35,13 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          const Align(
+          Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Username 123",
-                style: TextStyle(
+                user.username,
+                style: const TextStyle(
                     fontFamily: "Karla",
                     color: Colors.white,
                     fontSize: 28.0,
@@ -46,20 +49,17 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                "Changing the world one action at a time. Join me on my journey so we can change the world together!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "Karla",
-                  color: Colors.white,
-                  fontSize: 14.0,
-                ),
+            child: user.description != null && user.description!.isNotEmpty ? 
+              Text(user.description!, textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontFamily: "Karla",
+                color: Colors.white,
+                fontSize: 14.0,
               ),
-            ),
+            )
+            : null
           ),
           GridView.count(
             physics: const NeverScrollableScrollPhysics(),

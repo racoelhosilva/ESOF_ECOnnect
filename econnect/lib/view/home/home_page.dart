@@ -1,4 +1,5 @@
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/home/widgets/end_message.dart';
@@ -7,9 +8,11 @@ import 'package:econnect/view/home/widgets/home_page_header.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.dbController});
+  const HomePage(
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
+  final SessionController sessionController;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -82,7 +85,9 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           controller: _scrollController,
           children: [
-            const HomePageHeader(),
+            HomePageHeader(
+              sessionController: widget.sessionController,
+            ),
             ...(_posts.map((post) => PostWidget(
                   post: post,
                   dbController: widget.dbController,
