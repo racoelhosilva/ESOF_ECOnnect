@@ -51,7 +51,7 @@ class UserPosts extends StatelessWidget {
                         color: Colors.grey,
                       ),
                     )),
-              ...?posts?.map((post) {
+              ...posts!.map((post) {
                 return Container(
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(5),

@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
+import 'package:econnect/view/profile/widgets/follow_button.dart';
 import 'package:econnect/view/profile/widgets/settings_button.dart';
 import 'package:econnect/view/profile/widgets/user_posts.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage(
@@ -114,11 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           if (user.id !=
                               widget.sessionController.loggedInUser!.id)
-                            const Icon(
-                              LucideIcons.star,
-                              color: Colors.white,
-                              size: 28.0,
-                            ),
+                            const FollowButton(),
                         ],
                       ),
                     ),
