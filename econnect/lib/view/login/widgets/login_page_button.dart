@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LoginPageButton extends StatelessWidget {
   final Color color;
   final String text;
-  final Function() onPressed;
+  final void Function()? onPressed;
 
   const LoginPageButton({
     super.key,

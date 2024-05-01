@@ -51,6 +51,7 @@ dependencies:
   lucide_icons: ^0.257.0
   firebase_auth: ^4.19.2
   http: ^1.2.1
+  flutter_spinkit:
 
 dev_dependencies:
   flutter_test:

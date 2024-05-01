@@ -3,13 +3,14 @@ import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class PostButton extends StatelessWidget {
-  const PostButton(
-      {super.key,
-      required this.dbController,
-      required this.postController,
-      required this.imagePath,
-      required this.user});
+class PostButton extends StatefulWidget {
+  const PostButton({
+    super.key,
+    required this.dbController,
+    required this.postController,
+    required this.imagePath,
+    required this.user,
+  });
 
   final DatabaseController dbController;
   final TextEditingController postController;
@@ -17,40 +18,72 @@ class PostButton extends StatelessWidget {
   final User? user;
 
   @override
+  _PostButtonState createState() => _PostButtonState();
+}
+
+class _PostButtonState extends State<PostButton> {
+  bool isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 4.0),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.outline,
-        ),
-        onPressed: () async {
-          if (imagePath == null) {
-            _showToast(context, 'Please select an image');
-            return;
-          }
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(bottom: 4.0),
+      child: Stack(
+        children: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.outline,
+            ),
+            onPressed: isLoading
+                ? null
+                : () async {
+                    if (widget.imagePath == null) {
+                      _showToast(context, 'Please select an image');
+                      return;
+                    }
 
-          await dbController.createPost(
-            user!.username,
-            imagePath!,
-            postController.text,
-          );
+                    setState(() {
+                      isLoading = true;
+                    });
 
-          if (!context.mounted) {
-            return;
-          }
+                    await widget.dbController.createPost(
+                      widget.user!.username,
+                      widget.imagePath!,
+                      widget.postController.text,
+                    );
 
-          Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
-        },
-        child: const Text(
-          'Publish',
-          style: TextStyle(
-            fontFamily: 'Karla',
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+                    setState(() {
+                      isLoading = false;
+                    });
+
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/home', (_) => false);
+                  },
+            child: const Text(
+              'Publish',
+              style: TextStyle(
+                fontFamily: 'Karla',
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-        ),
+          if (isLoading)
+            Positioned.fill(
+              child: Container(
+                color: Theme.of(context).colorScheme.background,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
