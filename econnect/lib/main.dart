@@ -9,6 +9,7 @@ import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
 import 'package:econnect/view/create_post/create_post_page.dart';
 import 'package:econnect/view/profile/profile_page.dart';
+import 'package:econnect/view/settings/settings_page.dart';
 import 'package:econnect/view/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:firebase_core/firebase_core.dart' show Firebase;
@@ -54,7 +55,10 @@ class App extends StatelessWidget {
                   )),
           '/home': MaterialPageRoute<HomePage>(
               settings: settings,
-              builder: (_) => HomePage(dbController: dbController, sessionController: sessionController,)),
+              builder: (_) => HomePage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  )),
           '/register': MaterialPageRoute<RegisterPage>(
               settings: settings,
               builder: (_) => RegisterPage(
@@ -66,9 +70,15 @@ class App extends StatelessWidget {
                   sessionController: sessionController)),
           '/profile': MaterialPageRoute<ProfilePage>(
               builder: (_) => ProfilePage(
-                  dbController: dbController,
-                  sessionController: sessionController,
-                  user: settings.arguments as User,)),
+                    dbController: dbController,
+                    sessionController: sessionController,
+                    user: settings.arguments as User,
+                  )),
+          '/settings': MaterialPageRoute<SettingsPage>(
+              builder: (_) => SettingsPage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  ))
         };
         return transitions[settings.name];
       },
