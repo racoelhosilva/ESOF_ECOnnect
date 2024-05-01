@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class BottomNavbar extends StatelessWidget {
-  BottomNavbar({super.key});
+  BottomNavbar({super.key, this.specialActions = const {}});
+
+  final Map<String, void Function()> specialActions;
 
   final List<BottomNavigationBarItem> _items = [
     BottomNavbarItem(icon: LucideIcons.home),
@@ -21,6 +23,10 @@ class BottomNavbar extends StatelessWidget {
 
   void _onTap(BuildContext context, String? currentRoute, int index) {
     String nextRoute = _routes[index];
+    if (specialActions.containsKey(nextRoute)) {
+      specialActions[nextRoute]!();
+      return;
+    }
     if (currentRoute != nextRoute) {
       Navigator.pushNamed(context, nextRoute);
     }

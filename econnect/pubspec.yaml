@@ -52,6 +52,7 @@ dependencies:
   firebase_auth: ^4.19.2
   http: ^1.2.1
   flutter_spinkit:
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
