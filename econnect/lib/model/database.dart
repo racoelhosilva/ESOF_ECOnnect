@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,6 +48,17 @@ class Database {
     });
   }
 
+  Future<void> updatePost(String postId, String postDescription) async {
+    Logger().i('Updating post with id $postId, $postDescription');
+    await _db.collection('posts').doc(postId).update({'description': postDescription});
+  }
+
+
+  Future<void> deletePost(String postId) async {
+    Logger().i('Deleting post with id $postId');
+    await _db.collection('posts').doc(postId).delete();
+  }
+
   Future<List<Post>> getNextPosts(int numDocs) async {
     final posts = _db.collection('posts');
     final Query<Map<String, dynamic>> query;
@@ -62,6 +74,7 @@ class Database {
     if (snapshot.docs.isNotEmpty) lastDoc = snapshot.docs.last;
     return snapshot.docs
         .map((post) => Post(
+              postId: post.id,
               user: post['user'],
               image: post['image'],
               description: post['description'],

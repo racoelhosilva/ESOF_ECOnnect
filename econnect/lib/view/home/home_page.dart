@@ -4,10 +4,11 @@ import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/logo_widget.dart';
 import 'package:econnect/view/home/widgets/end_message.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
+import 'package:econnect/view/post/edit_post_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.dbController});
+  const HomePage({Key? key, required this.dbController}) : super(key: key);
 
   final DatabaseController dbController;
 
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState>();
   final List<Post> _posts = [];
   final _scrollController = ScrollController();
   bool _isLoading = false;
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadMorePostsAtEnd() async {
     if (_scrollController.offset ==
-            _scrollController.position.maxScrollExtent &&
+        _scrollController.position.maxScrollExtent &&
         !_atEnd) {
       _loadMorePosts();
     }
@@ -83,7 +84,19 @@ class _HomePageState extends State<HomePage> {
           controller: _scrollController,
           children: [
             const LogoWidget(),
-            ...(_posts.map((post) => PostWidget(post: post))),
+            ...(_posts.map(
+                  (post) => GestureDetector( // Wrap each PostWidget in a GestureDetector
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditPostPage(post: post, dbController: widget.dbController, initialDescription: post.description), // Navigate to the new page
+                    ),
+                  );
+                },
+                child: PostWidget(post: post),
+              ),
+            )),
             if (_isLoading) const Center(child: CircularProgressIndicator()),
             if (_atEnd) const EndMessage(),
           ],

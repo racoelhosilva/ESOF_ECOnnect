@@ -3,18 +3,21 @@ import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class PostButton extends StatelessWidget {
-  const PostButton(
+import '../../../model/post.dart';
+
+class SaveButton extends StatelessWidget {
+  const SaveButton(
       {super.key,
-      required this.dbController,
-      required this.postController,
-      required this.imagePath,
-      required this.user});
+        required this.dbController,
+        required this.post,
+        required this.postController
+      });
+
 
   final DatabaseController dbController;
+  final Post? post;
   final TextEditingController postController;
-  final String? imagePath;
-  final User? user;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +28,8 @@ class PostButton extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.outline,
         ),
         onPressed: () async {
-          if (imagePath == null) {
-            _showToast(context, 'Please select an image');
-            return;
-          }
 
-          await dbController.createPost(
-            user: user!.username,
-            imgPath: imagePath!,
-            description: postController.text
-          );
+          await dbController.updatePost(post?.postId, postController.text);
 
           if (!context.mounted) {
             return;
@@ -43,7 +38,7 @@ class PostButton extends StatelessWidget {
           Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
         },
         child: const Text(
-          'Publish',
+          'Save',
           style: TextStyle(
             fontFamily: 'Karla',
             color: Colors.white,
@@ -52,13 +47,6 @@ class PostButton extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void _showToast(BuildContext context, String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      backgroundColor: Theme.of(context).colorScheme.error,
     );
   }
 }
