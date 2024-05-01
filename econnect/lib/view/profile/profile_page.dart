@@ -114,7 +114,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           if (user.id !=
                               widget.sessionController.loggedInUser!.id)
-                            const FollowButton(),
+                            FollowButton(
+                              dbController: widget.dbController,
+                              sessionController: widget.sessionController,
+                              posterId: widget.userId,
+                            ),
                         ],
                       ),
                     ),
