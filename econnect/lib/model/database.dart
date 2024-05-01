@@ -14,6 +14,7 @@ class Database {
 
   final FirebaseFirestore _db;
   final Reference _storageRef;
+  DocumentSnapshot<Map<String, dynamic>>? lastDoc;
 
   Future<String> storeImage(String path) async {
     final name = 'img/${const Uuid().v4()}.png';
@@ -46,9 +47,19 @@ class Database {
     });
   }
 
-  Future<List<Post>> getPosts() async {
+  Future<List<Post>> getNextPosts(int numDocs) async {
     final posts = _db.collection('posts');
-    final snapshot = await posts.get();
+    final Query<Map<String, dynamic>> query;
+    if (lastDoc == null) {
+      query = posts.orderBy('postDatetime', descending: true).limit(numDocs);
+    } else {
+      query = posts
+          .orderBy('postDatetime', descending: true)
+          .startAfterDocument(lastDoc!)
+          .limit(numDocs);
+    }
+    final snapshot = await query.get();
+    if (snapshot.docs.isNotEmpty) lastDoc = snapshot.docs.last;
     return snapshot.docs
         .map((post) => Post(
               user: post['user'],
@@ -57,6 +68,10 @@ class Database {
               postDatetime: (post['postDatetime'] as Timestamp).toDate(),
             ))
         .toList();
+  }
+
+  void resetPostsCursor() {
+    lastDoc = null;
   }
 
   Future<void> addUser(User user) async {

@@ -1,6 +1,7 @@
 import 'package:econnect/model/post.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PostWidget extends StatelessWidget {
   const PostWidget({super.key, required this.post});
@@ -69,11 +70,25 @@ class PostWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width * (4 / 3),
+            alignment: Alignment.center,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Image.network(post.image, fit: BoxFit.cover),
+            child: CachedNetworkImage(
+              imageUrl: post.image,
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) =>
+                  const Icon(LucideIcons.alertCircle),
+            ),
           ),
           Text(
             post.description,

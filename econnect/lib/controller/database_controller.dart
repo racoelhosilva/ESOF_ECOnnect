@@ -18,7 +18,10 @@ class DatabaseController {
     return post;
   }
 
-  Future<List<Post>> getPosts() async => await db.getPosts();
+  Future<List<Post>> getNextPosts(int numDocs) async =>
+      await db.getNextPosts(numDocs);
+
+  void resetPostsCursor() => db.resetPostsCursor();
 
   Future<User?> createUser(String id, String email, String username) async {
     final user = User(
