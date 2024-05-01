@@ -76,7 +76,10 @@ class Database {
 
   Future<List<Post>> getPostsFromUser(String userId) async {
     final posts = _db.collection('posts');
-    final snapshot = await posts.where('user', isEqualTo: userId).orderBy('postDatetime', descending: true).get();
+    final snapshot = await posts
+        .where('user', isEqualTo: userId)
+        .orderBy('postDatetime', descending: true)
+        .get();
     return snapshot.docs
         .map((post) => Post(
               user: post['user'],
@@ -128,5 +131,26 @@ class Database {
       registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
       admin: dbUser['isAdmin'],
     );
+  }
+
+  Future<void> updateUser(User updatedUser) async {
+    final users = _db.collection('users');
+
+    final dbUser = users.doc(updatedUser.id);
+
+    if (!(await dbUser.get()).exists) {
+      throw StateError("User with id ${updatedUser.id} not found");
+    }
+
+    await dbUser.update({
+      'username': updatedUser.username,
+      'email': updatedUser.email,
+      'description': updatedUser.description,
+      'profilePicture': updatedUser.profilePicture,
+      'score': updatedUser.score,
+      'isBlocked': updatedUser.isBlocked,
+      'registerDatetime': updatedUser.registerDatetime,
+      'isAdmin': updatedUser.admin,
+    });
   }
 }

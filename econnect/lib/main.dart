@@ -3,7 +3,6 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
-import 'package:econnect/model/user.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
@@ -72,7 +71,7 @@ class App extends StatelessWidget {
               builder: (_) => ProfilePage(
                     dbController: dbController,
                     sessionController: sessionController,
-                    user: settings.arguments as User,
+                    userId: settings.arguments as String,
                   )),
           '/settings': MaterialPageRoute<SettingsPage>(
               builder: (_) => SettingsPage(

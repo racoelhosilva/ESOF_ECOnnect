@@ -53,4 +53,21 @@ class DatabaseController {
   }
 
   Future<User?> getUser(String id) async => await db.getUser(id);
+
+  Future<User?> updateUser(User updatedUser, String imgPath) async {
+    final image = await db.storeImage(imgPath);
+    final finalUser = User(
+      id: updatedUser.id,
+      email: updatedUser.email,
+      username: updatedUser.username,
+      description: updatedUser.description,
+      profilePicture: await db.retrieveFileUrl(image),
+      score: updatedUser.score,
+      isBlocked: updatedUser.isBlocked,
+      registerDatetime: updatedUser.registerDatetime,
+      admin: updatedUser.admin,
+    );
+    await db.updateUser(finalUser);
+    return finalUser;
+  }
 }

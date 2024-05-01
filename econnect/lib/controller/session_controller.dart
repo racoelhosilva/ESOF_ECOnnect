@@ -46,6 +46,12 @@ class SessionController {
     Logger().i("User ${_loggedInUser!.email} registered successfully!\n");
   }
 
+  Future<void> updateUser(
+      User updatedUser, DatabaseController dbController) async {
+    _loggedInUser =
+        await dbController.updateUser(updatedUser, updatedUser.profilePicture);
+  }
+
   Future<void> logoutUser() async {
     if (_loggedInUser == null) {
       throw StateError("No user is logged in\n");

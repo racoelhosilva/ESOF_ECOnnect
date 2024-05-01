@@ -50,7 +50,9 @@ class PostWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    ProfileButton(user: snapshot.data!),
+                    ProfileButton(
+                      user: snapshot.data!,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

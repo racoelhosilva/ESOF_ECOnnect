@@ -1,30 +1,54 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/profile/widgets/settings_button.dart';
+import 'package:econnect/view/profile/widgets/user_posts.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage(
       {super.key,
       required this.dbController,
       required this.sessionController,
-      required this.user});
+      required this.userId});
 
   final DatabaseController dbController;
   final SessionController sessionController;
-  final User user;
+  final String userId;
+
+  @override
+  State<StatefulWidget> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  Future<User?> userFuture = Future.any([]);
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      userFuture = widget.dbController.getUser(widget.userId);
+    });
+  }
+
+  Future<void> _onRefresh() async {
+    setState(() {
+      userFuture = widget.dbController.getUser(widget.userId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Post>>(
-        future: dbController.getPostsFromUser(user.id),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
+    return FutureBuilder<User?>(
+      future: userFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          User user = snapshot.data!;
+          return RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: Scaffold(
               body: ListView(
                 shrinkWrap: true,
                 children: [
@@ -64,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: const BackButton(),
                       ),
-                      if (user.id == sessionController.loggedInUser!.id)
+                      if (user.id == widget.sessionController.loggedInUser!.id)
                         Container(
                           margin: const EdgeInsets.only(right: 8),
                           alignment: Alignment.topRight,
@@ -88,7 +112,8 @@ class ProfilePage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          if (user.id != sessionController.loggedInUser!.id)
+                          if (user.id !=
+                              widget.sessionController.loggedInUser!.id)
                             const Icon(
                               LucideIcons.star,
                               color: Colors.white,
@@ -98,79 +123,37 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Align(
-                      alignment: Alignment.center,
-                      child: user.description != null &&
-                              user.description!.isNotEmpty
-                          ? Text(
-                              user.description!,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontFamily: "Karla",
-                                color: Colors.white,
-                                fontSize: 14.0,
-                              ),
-                            )
-                          : null),
-                  GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    crossAxisCount: 3,
-                    childAspectRatio: .75,
-                    children: [
-                      if (user.id == sessionController.loggedInUser!.id)
-                        GestureDetector(
-                            onTap: () async {
-                              Navigator.pushNamed(context, "/createpost");
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 3,
-                              height: MediaQuery.of(context).size.width * 4 / 9,
-                              margin: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 2,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, top: 4.0, bottom: 12.0),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: user.description != null &&
+                                user.description!.isNotEmpty
+                            ? Text(
+                                user.description!,
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontFamily: "Karla",
+                                  color: Colors.white,
+                                  fontSize: 14.0,
                                 ),
-                              ),
-                              child: const Icon(
-                                LucideIcons.plus,
-                                size: 48,
-                                color: Colors.grey,
-                              ),
-                            )),
-                      ...?snapshot.data?.map((post) {
-                        return Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          foregroundDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 2,
-                            ),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: CachedNetworkImage(
-                            imageUrl: post.image,
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width / 3,
-                            height: MediaQuery.of(context).size.width * 4 / 9,
-                          ),
-                        );
-                      })
-                    ],
+                              )
+                            : null),
+                  ),
+                  UserPosts(
+                    dbController: widget.dbController,
+                    sessionController: widget.sessionController,
+                    userId: widget.userId,
                   ),
                 ],
               ),
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        });
+            ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 }

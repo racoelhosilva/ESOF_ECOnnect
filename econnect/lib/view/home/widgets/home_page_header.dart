@@ -10,11 +10,6 @@ class HomePageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = sessionController.loggedInUser;
-    if (user == null) {
-      throw StateError('No user is logged in\n');
-    }
-
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -26,7 +21,7 @@ class HomePageHeader extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Padding(
             padding: const EdgeInsets.only(right: 12.0),
-            child: ProfileButton(user: user),
+            child: ProfileButton(user: sessionController.loggedInUser!),
           ),
         ),
       ],

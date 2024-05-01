@@ -21,8 +21,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+  late final TextEditingController _descriptionController;
+  late final TextEditingController _usernameController;
   String? _imagePath;
 
   @override
@@ -32,6 +32,10 @@ class _SettingsPageState extends State<SettingsPage> {
       throw StateError('User not logged in');
     }
 
+    _descriptionController = TextEditingController(
+        text: widget.sessionController.loggedInUser!.description);
+    _usernameController = TextEditingController(
+        text: widget.sessionController.loggedInUser!.username);
     setInitialPagePath();
   }
 
@@ -62,13 +66,18 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           UsernameField(controller: _usernameController),
           DescriptionField(controller: _descriptionController),
-          const SaveButton(),
+          SaveButton(
+            dbController: widget.dbController,
+            sessionController: widget.sessionController,
+            usernameController: _usernameController,
+            descriptionController: _descriptionController,
+            newProfilePicturePath: _imagePath,
+          ),
           const SizedBox(
             height: 100.0,
           ),
         ],
       ),
-      extendBody: true,
     );
   }
 }

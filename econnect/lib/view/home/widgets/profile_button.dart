@@ -11,7 +11,7 @@ class ProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/profile', arguments: user);
+          Navigator.pushNamed(context, '/profile', arguments: user.id);
         },
         icon: Container(
           decoration: BoxDecoration(
@@ -23,6 +23,7 @@ class ProfileButton extends StatelessWidget {
             imageUrl: user.profilePicture,
             width: 50,
             height: 50,
+            fit: BoxFit.cover,
           ),
         ));
   }
