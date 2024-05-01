@@ -26,6 +26,9 @@ class DatabaseController {
 
   void resetPostsCursor() => db.resetPostsCursor();
 
+  Future<List<Post>> getPostsFromUser(String userId) async =>
+      await db.getPostsFromUser(userId);
+
   Future<User?> createUser(String id, String email, String username) async {
     final pictureAsset =
         await rootBundle.load('assets/png/default_profile.png');
