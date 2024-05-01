@@ -10,11 +10,10 @@ class DatabaseController {
   const DatabaseController({required this.db});
   final Database db;
 
-  Future<Post> createPost(
-      String user, String imgPath, String description) async {
+  Future<Post> createPost(User user, String imgPath, String description) async {
     final image = await db.storeImage(imgPath);
     final post = Post(
-        user: user,
+        user: user.id,
         image: await db.retrieveFileUrl(image),
         description: description,
         postDatetime: DateTime.now());
@@ -33,6 +32,8 @@ class DatabaseController {
     var pictureFile = File('${directory.path}/logo_white.png');
     pictureFile.writeAsBytesSync(pictureAsset.buffer.asUint8List());
 
+    final profilePicture =
+        await db.storeImage('${directory.path}/logo_white.png');
     final user = User(
       id: id,
       email: email,
@@ -41,7 +42,7 @@ class DatabaseController {
       isBlocked: false,
       registerDatetime: DateTime.now(),
       admin: false,
-      profilePicture: await db.storeImage('${directory.path}/logo_white.png'),
+      profilePicture: await db.retrieveFileUrl(profilePicture),
     );
     await db.addUser(user);
     return user;

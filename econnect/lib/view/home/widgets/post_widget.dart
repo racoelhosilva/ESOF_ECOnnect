@@ -1,12 +1,16 @@
+import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/model/user.dart';
+import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({super.key, required this.post});
+  const PostWidget({super.key, required this.post, required this.dbController});
 
   final Post post;
+  final DatabaseController dbController;
 
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
@@ -31,71 +35,72 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 10.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.onBackground,
+    return FutureBuilder<User?>(
+      future: dbController.getUser(post.user),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data == null) {
+            throw StateError('User with id ${post.user} not found');
+          }
+          return Container(
+            margin: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const ProfileButton(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          snapshot.data!.username,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        Text(
+                          getTimeElapsed(), // Display time elapsed
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                child: Icon(
-                  LucideIcons.user,
-                  size: 45,
-                  color: Theme.of(context).colorScheme.background,
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * (4 / 3),
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: post.image,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(LucideIcons.alertCircle),
+                  ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    post.user,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text(
-                    getTimeElapsed(), // Display time elapsed
-                  ),
-                ],
-              )
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width * (4 / 3),
-            alignment: Alignment.center,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
+                Text(
+                  post.description,
+                  textAlign: TextAlign.left,
+                ),
+              ],
             ),
-            child: CachedNetworkImage(
-              imageUrl: post.image,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) =>
-                  const Icon(LucideIcons.alertCircle),
-            ),
-          ),
-          Text(
-            post.description,
-            textAlign: TextAlign.left,
-          ),
-        ],
-      ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }
