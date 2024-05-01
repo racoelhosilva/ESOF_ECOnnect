@@ -1,7 +1,7 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/post/widgets/post_button.dart';
+import 'package:econnect/view/create_post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

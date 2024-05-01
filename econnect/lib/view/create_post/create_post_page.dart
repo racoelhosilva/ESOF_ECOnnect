@@ -2,9 +2,9 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/post/widgets/description_widget.dart';
-import 'package:econnect/view/post/widgets/image_widget.dart';
-import 'package:econnect/view/post/widgets/post_button.dart';
+import 'package:econnect/view/create_post/widgets/description_widget.dart';
+import 'package:econnect/view/create_post/widgets/image_widget.dart';
+import 'package:econnect/view/create_post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 
 class CreatePostPage extends StatefulWidget {

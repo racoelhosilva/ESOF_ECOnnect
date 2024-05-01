@@ -1,4 +1,4 @@
-import 'package:econnect/view/post/widgets/image_widget.dart';
+import 'package:econnect/view/create_post/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
