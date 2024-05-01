@@ -56,7 +56,7 @@ class ProfilePage extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "Karla",
                   color: Colors.white,
-                  fontSize: 16.0,
+                  fontSize: 14.0,
                 ),
               ),
             ),
@@ -64,8 +64,6 @@ class ProfilePage extends StatelessWidget {
           GridView.count(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            // Create a grid with 2 columns. If you change the scrollDirection to
-            // horizontal, this produces 2 rows.
             crossAxisCount: 3,
             // Generate 100 widgets that display their index in the List.
             children: List.generate(15, (index) {

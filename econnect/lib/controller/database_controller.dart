@@ -28,7 +28,6 @@ class DatabaseController {
   void resetPostsCursor() => db.resetPostsCursor();
 
   Future<User?> createUser(String id, String email, String username) async {
-    // TODO: Remove this
     final pictureAsset = await rootBundle.load('assets/png/logo_white.png');
     final directory = await getTemporaryDirectory();
     var pictureFile = File('${directory.path}/logo_white.png');
