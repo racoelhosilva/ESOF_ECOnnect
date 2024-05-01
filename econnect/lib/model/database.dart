@@ -153,4 +153,57 @@ class Database {
       'isAdmin': updatedUser.admin,
     });
   }
+
+  Future<void> addFollow(String userId1, String userId2) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows
+        .where('follower', isEqualTo: userId1)
+        .where('followed', isEqualTo: userId2)
+        .get();
+
+    if (dbFollow.docs.isNotEmpty) {
+      throw StateError("User $userId1 already follows $userId2");
+    }
+
+    await follows.add({
+      'follower': userId1,
+      'followed': userId2,
+    });
+  }
+
+  Future<void> removeFollow(String userId1, String userId2) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows
+        .where('follower', isEqualTo: userId1)
+        .where('followed', isEqualTo: userId2)
+        .get();
+
+    if (dbFollow.docs.isEmpty) {
+      throw StateError("User $userId1 does not follow $userId2");
+    }
+
+    await dbFollow.docs[0].reference.delete();
+  }
+
+  Future<List<String>> getFollowing(String userId) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows.where('follower', isEqualTo: userId).get();
+
+    return dbFollow.docs.map((follows) => follows['followed']).toList()
+        as List<String>;
+  }
+
+  Future<bool> isFollowing(String userId1, String userId2) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows
+        .where('follower', isEqualTo: userId1)
+        .where('followed', isEqualTo: userId2)
+        .get();
+
+    return dbFollow.docs.isNotEmpty;
+  }
 }

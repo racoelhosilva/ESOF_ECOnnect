@@ -70,4 +70,18 @@ class DatabaseController {
     await db.updateUser(finalUser);
     return finalUser;
   }
+
+  Future<void> addFollow(String followerId, String followedId) async {
+    await db.addFollow(followerId, followedId);
+  }
+
+  Future<void> removeFollow(String followerId, String followedId) async {
+    await db.removeFollow(followerId, followedId);
+  }
+
+  Future<List<String>> getFollowing(String userId) async =>
+      await db.getFollowing(userId);
+
+  Future<bool> isFollowing(String followerId, String followedId) async =>
+      await db.isFollowing(followerId, followedId);
 }
