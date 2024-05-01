@@ -41,14 +41,14 @@ class UserPosts extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.outline,
                           width: 2,
                         ),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         LucideIcons.plus,
                         size: 48,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     )),
               ...posts!.map((post) {
@@ -61,7 +61,7 @@ class UserPosts extends StatelessWidget {
                   foregroundDecoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.outline,
                       width: 2,
                     ),
                   ),

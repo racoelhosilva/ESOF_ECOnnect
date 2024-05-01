@@ -67,11 +67,11 @@ class _SaveButtonState extends State<SaveButton> {
         backgroundColor: Theme.of(context).colorScheme.outline,
       ),
       onPressed: () => _onPressed(context),
-      child: const Text(
+      child: Text(
         'Save',
         style: TextStyle(
           fontFamily: 'Karla',
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),

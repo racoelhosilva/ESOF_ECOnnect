@@ -25,7 +25,9 @@ class _FollowButtonState extends State<FollowButton> {
       },
       child: Icon(
         isFollowing ? Icons.star : Icons.star_border,
-        color: Colors.white,
+        color: isFollowing
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.onPrimaryContainer,
         size: 28.0,
       ),
     );
