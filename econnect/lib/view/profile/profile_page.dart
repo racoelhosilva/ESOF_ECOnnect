@@ -3,8 +3,9 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/commons/bottom_navbar.dart';
+import 'package:econnect/view/profile/widgets/settings_button.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage(
@@ -24,7 +25,6 @@ class ProfilePage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
-              bottomNavigationBar: BottomNavbar(),
               body: ListView(
                 shrinkWrap: true,
                 children: [
@@ -59,10 +59,17 @@ class ProfilePage extends StatelessWidget {
                           height: MediaQuery.of(context).size.width,
                         ),
                       ),
-                      const Align(
+                      Container(
+                        margin: const EdgeInsets.only(left: 8),
                         alignment: Alignment.topLeft,
-                        child: BackButton(),
+                        child: const BackButton(),
                       ),
+                      if (user.id == sessionController.loggedInUser!.id)
+                        Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          alignment: Alignment.topRight,
+                          child: const SettingsButton(),
+                        ),
                     ],
                   ),
                   Align(
@@ -98,33 +105,56 @@ class ProfilePage extends StatelessWidget {
                     shrinkWrap: true,
                     crossAxisCount: 3,
                     childAspectRatio: .75,
-                    children: snapshot.data!.map((post) {
-                      return Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        foregroundDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 2,
+                    children: [
+                      if (user.id == sessionController.loggedInUser!.id)
+                        GestureDetector(
+                            onTap: () async {
+                              Navigator.pushNamed(context, "/createpost");
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              height: MediaQuery.of(context).size.width * 4 / 9,
+                              margin: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 2,
+                                ),
+                              ),
+                              child: const Icon(
+                                LucideIcons.plus,
+                                size: 48,
+                                color: Colors.grey,
+                              ),
+                            )),
+                      ...snapshot.data!.map((post) {
+                        return Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: CachedNetworkImage(
-                          imageUrl: post.image,
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.width * 4 / 9,
-                        ),
-                      );
-                    }).toList(),
+                          foregroundDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 2,
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: CachedNetworkImage(
+                            imageUrl: post.image,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: MediaQuery.of(context).size.width * 4 / 9,
+                          ),
+                        );
+                      })
+                    ],
                   ),
                 ],
               ),
-              extendBody: true,
             );
           } else {
             return const Center(child: CircularProgressIndicator());
