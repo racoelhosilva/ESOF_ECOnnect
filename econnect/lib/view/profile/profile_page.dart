@@ -76,13 +76,25 @@ class ProfilePage extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        user.username,
-                        style: const TextStyle(
-                            fontFamily: "Karla",
-                            color: Colors.white,
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            user.username,
+                            style: const TextStyle(
+                              fontFamily: "Karla",
+                              color: Colors.white,
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (user.id != sessionController.loggedInUser!.id)
+                            const Icon(
+                              LucideIcons.star,
+                              color: Colors.white,
+                              size: 28.0,
+                            ),
+                        ],
                       ),
                     ),
                   ),
@@ -128,7 +140,7 @@ class ProfilePage extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                             )),
-                      ...snapshot.data!.map((post) {
+                      ...?snapshot.data?.map((post) {
                         return Container(
                           alignment: Alignment.center,
                           margin: const EdgeInsets.all(5),

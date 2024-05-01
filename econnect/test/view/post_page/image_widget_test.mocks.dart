@@ -3,7 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:econnect/view/create_post/widgets/image_widget.dart' as _i4;
+import 'package:econnect/view/create_post/widgets/image_editor.dart' as _i4;
 import 'package:flutter/foundation.dart' as _i3;
 import 'package:flutter/material.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -73,7 +73,7 @@ class _FakeDiagnosticsNode_2 extends _i1.SmartFake
 /// A class which mocks [ImageWidget].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageWidget extends _i1.Mock implements _i4.ImageWidget {
+class MockImageWidget extends _i1.Mock implements _i4.ImageEditor {
   @override
   dynamic Function(String?) get setImagePath => (super.noSuchMethod(
         Invocation.getter(#setImagePath),
