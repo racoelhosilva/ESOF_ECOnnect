@@ -22,10 +22,10 @@ class SubmitButton extends StatefulWidget {
   final TextEditingController usernameController;
 
   @override
-  _SubmitButtonState createState() => _SubmitButtonState();
+  State<StatefulWidget> createState() => SubmitButtonState();
 }
 
-class _SubmitButtonState extends State<SubmitButton> {
+class SubmitButtonState extends State<SubmitButton> {
   bool _isRegistering = false;
 
   @override

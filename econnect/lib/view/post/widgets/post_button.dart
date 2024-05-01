@@ -18,10 +18,10 @@ class PostButton extends StatefulWidget {
   final User? user;
 
   @override
-  _PostButtonState createState() => _PostButtonState();
+  State<StatefulWidget> createState() => PostButtonState();
 }
 
-class _PostButtonState extends State<PostButton> {
+class PostButtonState extends State<PostButton> {
   bool isLoading = false;
 
   @override

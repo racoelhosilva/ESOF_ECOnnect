@@ -20,10 +20,10 @@ class LoginButton extends StatefulWidget {
   final TextEditingController passwordController;
 
   @override
-  _LoginButtonState createState() => _LoginButtonState();
+  State<StatefulWidget> createState() => LoginButtonState();
 }
 
-class _LoginButtonState extends State<LoginButton> {
+class LoginButtonState extends State<LoginButton> {
   bool _isLoading = false;
 
   @override
