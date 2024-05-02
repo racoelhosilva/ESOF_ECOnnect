@@ -57,7 +57,8 @@ void main() {
               admin: false,
             ),
             imgPath: 'testImagePath',
-            description: '')).called(1);
+            description: ''))
+        .called(1);
   });
 
   testWidgets('No image selected when imagePath is null',
@@ -97,6 +98,8 @@ void main() {
             score: 0,
             registerDatetime: DateTime.now(),
             isBlocked: false,
-            admin: false), imgPath: 'testImagePath', description: ''));
+            admin: false),
+        imgPath: 'testImagePath',
+        description: ''));
   });
 }

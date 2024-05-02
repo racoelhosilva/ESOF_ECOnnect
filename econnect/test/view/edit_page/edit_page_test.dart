@@ -59,7 +59,6 @@ void main() {
             builder: (context) => Container(),
           );
         },
-    
       ),
     );
 
@@ -90,8 +89,7 @@ void main() {
     await tester.tap(find.text('Save'));
     await tester.pumpAndSettle();
 
-    verify(mockDbController.updatePost(
-            mockPost.postId, mockPost.description))
+    verify(mockDbController.updatePost(mockPost.postId, mockPost.description))
         .called(1);
   });
 }

@@ -29,8 +29,7 @@ void main() {
     expect(onPressedCalled, true);
   });
 
-  testWidgets('DeleteButton icon',
-      (WidgetTester tester) async {
+  testWidgets('DeleteButton icon', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -44,8 +43,5 @@ void main() {
     final deleteButtonFinder = find.byType(FloatingActionButton);
     expect(deleteButtonFinder, findsOneWidget);
     expect(find.byIcon(LucideIcons.trash2), findsOneWidget);
-
   });
-
-  
 }

@@ -6,9 +6,9 @@ import '../../../model/post.dart';
 class SaveButton extends StatefulWidget {
   const SaveButton(
       {super.key,
-        required this.dbController,
-        required this.post,
-        required this.postController});
+      required this.dbController,
+      required this.post,
+      required this.postController});
 
   final DatabaseController dbController;
   final Post? post;

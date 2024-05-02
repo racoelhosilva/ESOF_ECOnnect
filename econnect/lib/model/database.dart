@@ -75,13 +75,13 @@ class Database {
     if (snapshot.docs.isNotEmpty) lastDoc = snapshot.docs.last;
     return snapshot.docs
         .map((post) => Post(
-      postId: post.id,
-      user: post['user'],
-      image: post['image'],
-      description: post['description'],
-      postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-      likes: post['likes'],
-    ))
+              postId: post.id,
+              user: post['user'],
+              image: post['image'],
+              description: post['description'],
+              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              likes: post['likes'],
+            ))
         .toList();
   }
 

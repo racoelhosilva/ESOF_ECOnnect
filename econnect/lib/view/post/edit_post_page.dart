@@ -51,15 +51,15 @@ class _EditPostPageState extends State<EditPostPage> {
       floatingActionButton: MediaQuery.of(context).viewInsets.bottom != 0
           ? null
           : DeleteButton(
-        onPressed: () async {
-          await widget.dbController.deletePost(widget.post.postId);
-          if (!context.mounted) {
-            return;
-          }
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/home', (_) => false);
-        },
-      ),
+              onPressed: () async {
+                await widget.dbController.deletePost(widget.post.postId);
+                if (!context.mounted) {
+                  return;
+                }
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/home', (_) => false);
+              },
+            ),
     );
   }
 
