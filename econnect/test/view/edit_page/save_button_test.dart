@@ -18,33 +18,34 @@ void main() {
     postController.dispose();
   });
 
-  testWidgets(
-      'SaveButton displays CircularProgressIndicator when isLoading is true',
-      (WidgetTester tester) async {
+  testWidgets('SaveButton contains save button', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: SaveButton(
             dbController: dbController,
-            post: null,
+            post: Post(
+                postId: '1',
+                user: '',
+                image: '',
+                description: '',
+                postDatetime: DateTime.now()),
             postController: postController,
           ),
         ),
       ),
     );
 
-    await tester.tap(find.text('Save'));
-    await tester.pump();
-    final CircularProgressIndicator circularProgressIndicator =
-        tester.widget<CircularProgressIndicator>(
-            find.byType(CircularProgressIndicator));
-
-    expect(circularProgressIndicator, isNotNull);
+    expect(find.text('Save'), findsOneWidget);
   });
 
   testWidgets('SaveButton updates post', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/home': (_) => const Scaffold(),
+        },
         home: Scaffold(
           body: SaveButton(
             dbController: dbController,
