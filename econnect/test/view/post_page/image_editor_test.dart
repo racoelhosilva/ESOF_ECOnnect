@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'image_widget_test.mocks.dart';
+import 'image_editor_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<ImageEditor>()])
 void main() {

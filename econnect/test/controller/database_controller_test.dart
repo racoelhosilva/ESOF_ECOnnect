@@ -1,7 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/user.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -20,11 +19,12 @@ void main() {
   });
 
   testWidgets('User is created in the database', (tester) async {
-    const testMockStorage = './temp.png';
+    const testMockStorage = '/tmp';
     const channel = MethodChannel(
       'plugins.flutter.io/path_provider',
     );
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel,
+        (MethodCall methodCall) async {
       return testMockStorage;
     });
 

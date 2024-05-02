@@ -77,7 +77,7 @@ class SessionController {
   }
 
   Future<bool> isFollowing(
-      DatabaseController dbController, String followedId) async {
+      String followedId, DatabaseController dbController) async {
     if (_loggedInUser == null) {
       throw StateError("No user is logged in\n");
     }

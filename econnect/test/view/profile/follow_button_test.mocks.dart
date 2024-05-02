@@ -411,15 +411,15 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
 
   @override
   _i5.Future<bool> isFollowing(
-    _i4.DatabaseController? dbController,
     String? followedId,
+    _i4.DatabaseController? dbController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #isFollowing,
           [
-            dbController,
             followedId,
+            dbController,
           ],
         ),
         returnValue: _i5.Future<bool>.value(false),

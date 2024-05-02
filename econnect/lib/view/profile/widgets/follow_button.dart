@@ -28,7 +28,7 @@ class _FollowButtonState extends State<FollowButton> {
 
   Future<void> initFollowing() async {
     final newFollowing = await widget.sessionController
-        .isFollowing(widget.dbController, widget.posterId);
+        .isFollowing(widget.posterId, widget.dbController);
     setState(() {
       isFollowing = newFollowing;
     });
