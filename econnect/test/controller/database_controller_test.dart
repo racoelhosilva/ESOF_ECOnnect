@@ -1,5 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
+import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -153,4 +154,97 @@ void main() {
 
     expect(isFollowing, true);
   });
+
+  test('Get next posts', () async {
+    const cursor = 'cursor';
+    const numDocs = 10;
+    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    const expectedCursor = 'nextCursor';
+
+    when(database.getNextPosts(cursor, numDocs))
+        .thenAnswer((_) async => (expectedPosts, expectedCursor));
+
+    final result = await databaseController.getNextPosts(cursor, numDocs);
+
+    expect(result.$1.length, expectedPosts.length);
+    expect(result.$1[0].user, expectedPosts[0].user);
+    expect(result.$1[0].description, expectedPosts[0].description);
+    expect(result.$1[0].image, expectedPosts[0].image);
+    expect(result.$1[0].postDatetime, expectedPosts[0].postDatetime);
+    expect(result.$1[1].user, expectedPosts[1].user);
+    expect(result.$1[1].description, expectedPosts[1].description);
+    expect(result.$1[1].image, expectedPosts[1].image);
+    expect(result.$1[1].postDatetime, expectedPosts[1].postDatetime);
+    expect(result.$2, expectedCursor);
+  });
+
+  test('Get next posts of following', () async {
+    const cursor = 'cursor';
+    const numDocs = 10;
+    const userId = 'userId';
+    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    const expectedCursor = 'nextCursor';
+
+    when(database.getNextPostsOfFollowing(cursor, numDocs, userId))
+        .thenAnswer((_) async => (expectedPosts, expectedCursor));
+
+    final result =
+        await databaseController.getNextPostsOfFollowing(cursor, numDocs, userId);
+
+    expect(result.$1.length, expectedPosts.length);
+    expect(result.$1[0].user, expectedPosts[0].user);
+    expect(result.$1[0].description, expectedPosts[0].description);
+    expect(result.$1[0].image, expectedPosts[0].image);
+    expect(result.$1[0].postDatetime, expectedPosts[0].postDatetime);
+    expect(result.$1[1].user, expectedPosts[1].user);
+    expect(result.$1[1].description, expectedPosts[1].description);
+    expect(result.$1[1].image, expectedPosts[1].image);
+    expect(result.$1[1].postDatetime, expectedPosts[1].postDatetime);
+    expect(result.$2, expectedCursor);
+  });
+
+  test('Get next posts of non-following', () async {
+    const cursor = 'cursor';
+    const numDocs = 10;
+    const userId = 'userId';
+    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    const expectedCursor = 'nextCursor';
+
+    when(database.getNextPostsOfNonFollowing(cursor, numDocs, userId))
+        .thenAnswer((_) async => (expectedPosts, expectedCursor));
+
+    final result =
+        await databaseController.getNextPostsOfNonFollowing(cursor, numDocs, userId);
+
+    expect(result.$1.length, expectedPosts.length);
+    expect(result.$1[0].user, expectedPosts[0].user);
+    expect(result.$1[0].description, expectedPosts[0].description);
+    expect(result.$1[0].image, expectedPosts[0].image);
+    expect(result.$1[0].postDatetime, expectedPosts[0].postDatetime);
+    expect(result.$1[1].user, expectedPosts[1].user);
+    expect(result.$1[1].description, expectedPosts[1].description);
+    expect(result.$1[1].image, expectedPosts[1].image);
+    expect(result.$1[1].postDatetime, expectedPosts[1].postDatetime);
+    expect(result.$2, expectedCursor);
+  });
+
+  test('Get posts from user', () async {
+    const userId = 'userId';
+    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+
+    when(database.getPostsFromUser(userId)).thenAnswer((_) async => expectedPosts);
+
+    final result = await databaseController.getPostsFromUser(userId);
+
+    expect(result.length, expectedPosts.length);
+    expect(result[0].user, expectedPosts[0].user);
+    expect(result[0].description, expectedPosts[0].description);
+    expect(result[0].image, expectedPosts[0].image);
+    expect(result[0].postDatetime, expectedPosts[0].postDatetime);
+    expect(result[1].user, expectedPosts[1].user);
+    expect(result[1].description, expectedPosts[1].description);
+    expect(result[1].image, expectedPosts[1].image);
+    expect(result[1].postDatetime, expectedPosts[1].postDatetime);
+  });
+
 }
