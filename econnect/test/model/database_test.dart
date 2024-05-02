@@ -506,6 +506,7 @@ void main() {
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
     final postsQuery3 = MockQuery();
+    final postsQuery4 = MockQuery();
     final followsQuery1 = MockQuery();
     final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
     final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
@@ -518,12 +519,13 @@ void main() {
     const userId = 'user-id';
 
     when(firestore.collection('posts')).thenReturn(postsCollection);
-    when(postsCollection.orderBy('postDatetime', descending: true))
+    when(postsCollection.where('user', whereIn: anyNamed('whereIn')))
         .thenReturn(postsQuery1);
-    when(postsQuery1.where('user', whereIn: anyNamed('whereIn')))
-        .thenReturn(postsQuery2);
-    when(postsQuery2.limit(2)).thenReturn(postsQuery3);
-    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot);
+    when(postsQuery1.orderBy('user')).thenReturn(postsQuery2);
+    when(postsQuery2.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery3);
+    when(postsQuery3.limit(2)).thenReturn(postsQuery4);
+    when(postsQuery4.get()).thenAnswer((_) async => querySnapshot);
     when(querySnapshot.docs).thenReturn([
       queryDocumentSnapshot1,
       queryDocumentSnapshot2,
@@ -574,6 +576,7 @@ void main() {
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
     final postsQuery3 = MockQuery();
+    final postsQuery4 = MockQuery();
     final followsQuery1 = MockQuery();
     final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
     final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
@@ -586,12 +589,13 @@ void main() {
     const userId = 'user-id';
 
     when(firestore.collection('posts')).thenReturn(postsCollection);
-    when(postsCollection.orderBy('postDatetime', descending: true))
+    when(postsCollection.where('user', whereNotIn: anyNamed('whereNotIn')))
         .thenReturn(postsQuery1);
-    when(postsQuery1.where('user', whereNotIn: anyNamed('whereNotIn')))
-        .thenReturn(postsQuery2);
-    when(postsQuery2.limit(2)).thenReturn(postsQuery3);
-    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot);
+    when(postsQuery1.orderBy('user')).thenReturn(postsQuery2);
+    when(postsQuery2.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery3);
+    when(postsQuery3.limit(2)).thenReturn(postsQuery4);
+    when(postsQuery4.get()).thenAnswer((_) async => querySnapshot);
     when(querySnapshot.docs).thenReturn([
       queryDocumentSnapshot1,
       queryDocumentSnapshot2,
