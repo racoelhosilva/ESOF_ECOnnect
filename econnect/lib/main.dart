@@ -3,10 +3,12 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
+import 'package:econnect/model/post.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
 import 'package:econnect/view/post/create_post_page.dart';
+import 'package:econnect/view/post/edit_post_page.dart';
 import 'package:econnect/view/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,16 +54,22 @@ class App extends StatelessWidget {
                   )),
           '/home': MaterialPageRoute<HomePage>(
               settings: settings,
-              builder: (_) => HomePage(dbController: dbController)),
+              builder: (_) => HomePage(
+                  dbController: dbController,
+                  sessionController: sessionController)),
           '/register': MaterialPageRoute<RegisterPage>(
               settings: settings,
               builder: (_) => RegisterPage(
                   dbController: dbController,
                   sessionController: sessionController)),
-          '/createpost': MaterialPageRoute<RegisterPage>(
+          '/createpost': MaterialPageRoute<CreatePostPage>(
               builder: (_) => CreatePostPage(
                   dbController: dbController,
                   sessionController: sessionController)),
+          '/editpost': MaterialPageRoute<EditPostPage>(
+              builder: (_) => EditPostPage(
+                  dbController: dbController,
+                  post: settings.arguments as Post)),
         };
         return transitions[settings.name];
       },
