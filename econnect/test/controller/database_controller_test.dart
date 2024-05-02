@@ -158,7 +158,18 @@ void main() {
   test('Get next posts', () async {
     const cursor = 'cursor';
     const numDocs = 10;
-    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    final expectedPosts = [
+      Post(
+          user: 'user1',
+          description: 'Description 1',
+          image: 'www.img1.com',
+          postDatetime: DateTime.now()),
+      Post(
+          user: 'user1',
+          description: 'Description 2',
+          image: 'www.img2.com',
+          postDatetime: DateTime.now())
+    ];
     const expectedCursor = 'nextCursor';
 
     when(database.getNextPosts(cursor, numDocs))
@@ -182,14 +193,25 @@ void main() {
     const cursor = 'cursor';
     const numDocs = 10;
     const userId = 'userId';
-    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    final expectedPosts = [
+      Post(
+          user: 'user1',
+          description: 'Description 1',
+          image: 'www.img1.com',
+          postDatetime: DateTime.now()),
+      Post(
+          user: 'user1',
+          description: 'Description 2',
+          image: 'www.img2.com',
+          postDatetime: DateTime.now())
+    ];
     const expectedCursor = 'nextCursor';
 
     when(database.getNextPostsOfFollowing(cursor, numDocs, userId))
         .thenAnswer((_) async => (expectedPosts, expectedCursor));
 
-    final result =
-        await databaseController.getNextPostsOfFollowing(cursor, numDocs, userId);
+    final result = await databaseController.getNextPostsOfFollowing(
+        cursor, numDocs, userId);
 
     expect(result.$1.length, expectedPosts.length);
     expect(result.$1[0].user, expectedPosts[0].user);
@@ -207,14 +229,25 @@ void main() {
     const cursor = 'cursor';
     const numDocs = 10;
     const userId = 'userId';
-    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    final expectedPosts = [
+      Post(
+          user: 'user1',
+          description: 'Description 1',
+          image: 'www.img1.com',
+          postDatetime: DateTime.now()),
+      Post(
+          user: 'user1',
+          description: 'Description 2',
+          image: 'www.img2.com',
+          postDatetime: DateTime.now())
+    ];
     const expectedCursor = 'nextCursor';
 
     when(database.getNextPostsOfNonFollowing(cursor, numDocs, userId))
         .thenAnswer((_) async => (expectedPosts, expectedCursor));
 
-    final result =
-        await databaseController.getNextPostsOfNonFollowing(cursor, numDocs, userId);
+    final result = await databaseController.getNextPostsOfNonFollowing(
+        cursor, numDocs, userId);
 
     expect(result.$1.length, expectedPosts.length);
     expect(result.$1[0].user, expectedPosts[0].user);
@@ -230,9 +263,21 @@ void main() {
 
   test('Get posts from user', () async {
     const userId = 'userId';
-    final expectedPosts = [Post(user: 'user1', description: 'Description 1', image: 'www.img1.com', postDatetime: DateTime.now()), Post(user: 'user1', description: 'Description 2', image: 'www.img2.com', postDatetime: DateTime.now())];
+    final expectedPosts = [
+      Post(
+          user: 'user1',
+          description: 'Description 1',
+          image: 'www.img1.com',
+          postDatetime: DateTime.now()),
+      Post(
+          user: 'user1',
+          description: 'Description 2',
+          image: 'www.img2.com',
+          postDatetime: DateTime.now())
+    ];
 
-    when(database.getPostsFromUser(userId)).thenAnswer((_) async => expectedPosts);
+    when(database.getPostsFromUser(userId))
+        .thenAnswer((_) async => expectedPosts);
 
     final result = await databaseController.getPostsFromUser(userId);
 
@@ -246,5 +291,4 @@ void main() {
     expect(result[1].image, expectedPosts[1].image);
     expect(result[1].postDatetime, expectedPosts[1].postDatetime);
   });
-
 }

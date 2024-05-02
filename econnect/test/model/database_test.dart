@@ -635,8 +635,7 @@ void main() {
     expect(result.$2, documentId2);
   });
 
-  test('Should retrieve posts from user',
-      () async {
+  test('Should retrieve posts from user', () async {
     final postsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
@@ -670,7 +669,7 @@ void main() {
     when(queryDocumentSnapshot2['description']).thenReturn('description2');
     when(queryDocumentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
-    
+
     final result = await database.getPostsFromUser(userId);
 
     expect(result[0].user, 'user1');
