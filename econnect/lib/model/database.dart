@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
@@ -50,9 +48,11 @@ class Database {
 
   Future<void> updatePost(String postId, String postDescription) async {
     Logger().i('Updating post with id $postId, $postDescription');
-    await _db.collection('posts').doc(postId).update({'description': postDescription});
+    await _db
+        .collection('posts')
+        .doc(postId)
+        .update({'description': postDescription});
   }
-
 
   Future<void> deletePost(String postId) async {
     Logger().i('Deleting post with id $postId');

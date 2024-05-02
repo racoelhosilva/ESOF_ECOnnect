@@ -8,7 +8,9 @@ class DatabaseController {
   final Database db;
 
   Future<void> createPost(
-  {required String user, required String imgPath, required String description}) async {
+      {required String user,
+      required String imgPath,
+      required String description}) async {
     final image = await db.storeImage(imgPath);
     final post = Post(
         postId: const Uuid().v4(),
@@ -22,11 +24,9 @@ class DatabaseController {
   }
 
   Future<void> updatePost(String? postId, String postDescription) async =>
-    await db.updatePost(postId!, postDescription);
+      await db.updatePost(postId!, postDescription);
 
-  Future<void> deletePost(String? postId) async =>
-      await db.deletePost(postId!);
-  
+  Future<void> deletePost(String? postId) async => await db.deletePost(postId!);
 
   Future<List<Post>> getNextPosts(int numDocs) async =>
       await db.getNextPosts(numDocs);

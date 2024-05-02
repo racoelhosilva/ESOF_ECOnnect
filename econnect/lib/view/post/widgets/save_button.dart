@@ -1,23 +1,19 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../../model/post.dart';
 
 class SaveButton extends StatelessWidget {
   const SaveButton(
       {super.key,
-        required this.dbController,
-        required this.post,
-        required this.postController
-      });
-
+      required this.onPressed,
+      required this.dbController,
+      required this.post,
+      required this.postController});
 
   final DatabaseController dbController;
   final Post? post;
   final TextEditingController postController;
-
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +24,7 @@ class SaveButton extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.outline,
         ),
         onPressed: () async {
-
-          await dbController.updatePost(post?.postId, postController.text);
-
-          if (!context.mounted) {
-            return;
-          }
-
-          Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
+          onPressed();
         },
         child: const Text(
           'Save',

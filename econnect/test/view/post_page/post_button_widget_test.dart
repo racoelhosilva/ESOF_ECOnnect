@@ -45,7 +45,8 @@ void main() {
     await tester.tap(find.byType(PostButton));
     await tester.pump();
 
-    verify(databaseController.createPost("user", 'testImagePath', ''))
+    verify(databaseController.createPost(
+            user: "user", imgPath: 'testImagePath', description: ''))
         .called(1);
   });
 
@@ -77,6 +78,7 @@ void main() {
     await tester.tap(find.text('Publish'));
     await tester.pump();
 
-    verifyNever(databaseController.createPost("user", 'testImagePath', ''));
+    verifyNever(databaseController.createPost(
+        user: "user", imgPath: 'testImagePath', description: ''));
   });
 }

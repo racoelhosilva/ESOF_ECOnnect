@@ -96,6 +96,33 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       ) as _i4.Future<void>);
 
   @override
+  _i4.Future<void> updatePost(
+    String? postId,
+    String? postDescription,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updatePost,
+          [
+            postId,
+            postDescription,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deletePost(String? postId) => (super.noSuchMethod(
+        Invocation.method(
+          #deletePost,
+          [postId],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
   _i4.Future<List<_i6.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
         Invocation.method(
           #getNextPosts,

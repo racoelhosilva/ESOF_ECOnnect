@@ -31,10 +31,9 @@ class PostButton extends StatelessWidget {
           }
 
           await dbController.createPost(
-            user: user!.username,
-            imgPath: imagePath!,
-            description: postController.text
-          );
+              user: user!.username,
+              imgPath: imagePath!,
+              description: postController.text);
 
           if (!context.mounted) {
             return;

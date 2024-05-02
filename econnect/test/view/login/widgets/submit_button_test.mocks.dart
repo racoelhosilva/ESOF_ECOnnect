@@ -3,17 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i8;
+import 'dart:async' as _i7;
 import 'dart:ui' as _i14;
 
-import 'package:econnect/controller/database_controller.dart' as _i7;
+import 'package:econnect/controller/database_controller.dart' as _i6;
 import 'package:econnect/controller/session_controller.dart' as _i10;
 import 'package:econnect/model/database.dart' as _i2;
-import 'package:econnect/model/post.dart' as _i3;
+import 'package:econnect/model/post.dart' as _i8;
 import 'package:econnect/model/user.dart' as _i9;
-import 'package:flutter/foundation.dart' as _i6;
-import 'package:flutter/rendering.dart' as _i4;
-import 'package:flutter/services.dart' as _i5;
+import 'package:flutter/foundation.dart' as _i5;
+import 'package:flutter/rendering.dart' as _i3;
+import 'package:flutter/services.dart' as _i4;
 import 'package:flutter/src/widgets/editable_text.dart' as _i11;
 import 'package:flutter/src/widgets/framework.dart' as _i13;
 import 'package:flutter/src/widgets/navigator.dart' as _i15;
@@ -43,8 +43,8 @@ class _FakeDatabase_0 extends _i1.SmartFake implements _i2.Database {
         );
 }
 
-class _FakePost_1 extends _i1.SmartFake implements _i3.Post {
-  _FakePost_1(
+class _FakeTextSelection_1 extends _i1.SmartFake implements _i3.TextSelection {
+  _FakeTextSelection_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -53,8 +53,9 @@ class _FakePost_1 extends _i1.SmartFake implements _i3.Post {
         );
 }
 
-class _FakeTextSelection_2 extends _i1.SmartFake implements _i4.TextSelection {
-  _FakeTextSelection_2(
+class _FakeTextEditingValue_2 extends _i1.SmartFake
+    implements _i4.TextEditingValue {
+  _FakeTextEditingValue_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -63,19 +64,8 @@ class _FakeTextSelection_2 extends _i1.SmartFake implements _i4.TextSelection {
         );
 }
 
-class _FakeTextEditingValue_3 extends _i1.SmartFake
-    implements _i5.TextEditingValue {
-  _FakeTextEditingValue_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeTextSpan_4 extends _i1.SmartFake implements _i4.TextSpan {
-  _FakeTextSpan_4(
+class _FakeTextSpan_3 extends _i1.SmartFake implements _i3.TextSpan {
+  _FakeTextSpan_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -84,7 +74,7 @@ class _FakeTextSpan_4 extends _i1.SmartFake implements _i4.TextSpan {
         );
 
   @override
-  String toString({_i6.DiagnosticLevel? minLevel = _i6.DiagnosticLevel.info}) =>
+  String toString({_i5.DiagnosticLevel? minLevel = _i5.DiagnosticLevel.info}) =>
       super.toString();
 }
 
@@ -92,7 +82,7 @@ class _FakeTextSpan_4 extends _i1.SmartFake implements _i4.TextSpan {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDatabaseController extends _i1.Mock
-    implements _i7.DatabaseController {
+    implements _i6.DatabaseController {
   @override
   _i2.Database get db => (super.noSuchMethod(
         Invocation.getter(#db),
@@ -107,54 +97,62 @@ class MockDatabaseController extends _i1.Mock
       ) as _i2.Database);
 
   @override
-  _i8.Future<_i3.Post> createPost(
-    String? user,
-    String? imgPath,
-    String? description,
-  ) =>
+  _i7.Future<void> createPost({
+    required String? user,
+    required String? imgPath,
+    required String? description,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createPost,
-          [
-            user,
-            imgPath,
-            description,
-          ],
+          [],
+          {
+            #user: user,
+            #imgPath: imgPath,
+            #description: description,
+          },
         ),
-        returnValue: _i8.Future<_i3.Post>.value(_FakePost_1(
-          this,
-          Invocation.method(
-            #createPost,
-            [
-              user,
-              imgPath,
-              description,
-            ],
-          ),
-        )),
-        returnValueForMissingStub: _i8.Future<_i3.Post>.value(_FakePost_1(
-          this,
-          Invocation.method(
-            #createPost,
-            [
-              user,
-              imgPath,
-              description,
-            ],
-          ),
-        )),
-      ) as _i8.Future<_i3.Post>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  _i8.Future<List<_i3.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
+  _i7.Future<void> updatePost(
+    String? postId,
+    String? postDescription,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updatePost,
+          [
+            postId,
+            postDescription,
+          ],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> deletePost(String? postId) => (super.noSuchMethod(
+        Invocation.method(
+          #deletePost,
+          [postId],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<List<_i8.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
         Invocation.method(
           #getNextPosts,
           [numDocs],
         ),
-        returnValue: _i8.Future<List<_i3.Post>>.value(<_i3.Post>[]),
+        returnValue: _i7.Future<List<_i8.Post>>.value(<_i8.Post>[]),
         returnValueForMissingStub:
-            _i8.Future<List<_i3.Post>>.value(<_i3.Post>[]),
-      ) as _i8.Future<List<_i3.Post>>);
+            _i7.Future<List<_i8.Post>>.value(<_i8.Post>[]),
+      ) as _i7.Future<List<_i8.Post>>);
 
   @override
   void resetPostsCursor() => super.noSuchMethod(
@@ -166,7 +164,7 @@ class MockDatabaseController extends _i1.Mock
       );
 
   @override
-  _i8.Future<_i9.User?> createUser(
+  _i7.Future<_i9.User?> createUser(
     String? id,
     String? email,
     String? username,
@@ -180,19 +178,19 @@ class MockDatabaseController extends _i1.Mock
             username,
           ],
         ),
-        returnValue: _i8.Future<_i9.User?>.value(),
-        returnValueForMissingStub: _i8.Future<_i9.User?>.value(),
-      ) as _i8.Future<_i9.User?>);
+        returnValue: _i7.Future<_i9.User?>.value(),
+        returnValueForMissingStub: _i7.Future<_i9.User?>.value(),
+      ) as _i7.Future<_i9.User?>);
 
   @override
-  _i8.Future<_i9.User?> getUser(String? id) => (super.noSuchMethod(
+  _i7.Future<_i9.User?> getUser(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [id],
         ),
-        returnValue: _i8.Future<_i9.User?>.value(),
-        returnValueForMissingStub: _i8.Future<_i9.User?>.value(),
-      ) as _i8.Future<_i9.User?>);
+        returnValue: _i7.Future<_i9.User?>.value(),
+        returnValueForMissingStub: _i7.Future<_i9.User?>.value(),
+      ) as _i7.Future<_i9.User?>);
 }
 
 /// A class which mocks [SessionController].
@@ -200,15 +198,15 @@ class MockDatabaseController extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockSessionController extends _i1.Mock implements _i10.SessionController {
   @override
-  _i8.Future<void> init(_i7.DatabaseController? databaseController) =>
+  _i7.Future<void> init(_i6.DatabaseController? databaseController) =>
       (super.noSuchMethod(
         Invocation.method(
           #init,
           [databaseController],
         ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
   bool isLoggedIn() => (super.noSuchMethod(
@@ -221,10 +219,10 @@ class MockSessionController extends _i1.Mock implements _i10.SessionController {
       ) as bool);
 
   @override
-  _i8.Future<void> loginUser(
+  _i7.Future<void> loginUser(
     String? email,
     String? password,
-    _i7.DatabaseController? databaseController,
+    _i6.DatabaseController? databaseController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -235,16 +233,16 @@ class MockSessionController extends _i1.Mock implements _i10.SessionController {
             databaseController,
           ],
         ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  _i8.Future<void> registerUser(
+  _i7.Future<void> registerUser(
     String? email,
     String? password,
     String? username,
-    _i7.DatabaseController? databaseController,
+    _i6.DatabaseController? databaseController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -256,19 +254,19 @@ class MockSessionController extends _i1.Mock implements _i10.SessionController {
             databaseController,
           ],
         ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 
   @override
-  _i8.Future<void> logoutUser() => (super.noSuchMethod(
+  _i7.Future<void> logoutUser() => (super.noSuchMethod(
         Invocation.method(
           #logoutUser,
           [],
         ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
 }
 
 /// A class which mocks [TextEditingController].
@@ -299,7 +297,7 @@ class MockTextEditingController extends _i1.Mock
       );
 
   @override
-  set value(_i5.TextEditingValue? newValue) => super.noSuchMethod(
+  set value(_i4.TextEditingValue? newValue) => super.noSuchMethod(
         Invocation.setter(
           #value,
           newValue,
@@ -308,20 +306,20 @@ class MockTextEditingController extends _i1.Mock
       );
 
   @override
-  _i4.TextSelection get selection => (super.noSuchMethod(
+  _i3.TextSelection get selection => (super.noSuchMethod(
         Invocation.getter(#selection),
-        returnValue: _FakeTextSelection_2(
+        returnValue: _FakeTextSelection_1(
           this,
           Invocation.getter(#selection),
         ),
-        returnValueForMissingStub: _FakeTextSelection_2(
+        returnValueForMissingStub: _FakeTextSelection_1(
           this,
           Invocation.getter(#selection),
         ),
-      ) as _i4.TextSelection);
+      ) as _i3.TextSelection);
 
   @override
-  set selection(_i4.TextSelection? newSelection) => super.noSuchMethod(
+  set selection(_i3.TextSelection? newSelection) => super.noSuchMethod(
         Invocation.setter(
           #selection,
           newSelection,
@@ -330,17 +328,17 @@ class MockTextEditingController extends _i1.Mock
       );
 
   @override
-  _i5.TextEditingValue get value => (super.noSuchMethod(
+  _i4.TextEditingValue get value => (super.noSuchMethod(
         Invocation.getter(#value),
-        returnValue: _FakeTextEditingValue_3(
+        returnValue: _FakeTextEditingValue_2(
           this,
           Invocation.getter(#value),
         ),
-        returnValueForMissingStub: _FakeTextEditingValue_3(
+        returnValueForMissingStub: _FakeTextEditingValue_2(
           this,
           Invocation.getter(#value),
         ),
-      ) as _i5.TextEditingValue);
+      ) as _i4.TextEditingValue);
 
   @override
   bool get hasListeners => (super.noSuchMethod(
@@ -350,9 +348,9 @@ class MockTextEditingController extends _i1.Mock
       ) as bool);
 
   @override
-  _i4.TextSpan buildTextSpan({
+  _i3.TextSpan buildTextSpan({
     required _i13.BuildContext? context,
-    _i4.TextStyle? style,
+    _i3.TextStyle? style,
     required bool? withComposing,
   }) =>
       (super.noSuchMethod(
@@ -365,7 +363,7 @@ class MockTextEditingController extends _i1.Mock
             #withComposing: withComposing,
           },
         ),
-        returnValue: _FakeTextSpan_4(
+        returnValue: _FakeTextSpan_3(
           this,
           Invocation.method(
             #buildTextSpan,
@@ -377,7 +375,7 @@ class MockTextEditingController extends _i1.Mock
             },
           ),
         ),
-        returnValueForMissingStub: _FakeTextSpan_4(
+        returnValueForMissingStub: _FakeTextSpan_3(
           this,
           Invocation.method(
             #buildTextSpan,
@@ -389,7 +387,7 @@ class MockTextEditingController extends _i1.Mock
             },
           ),
         ),
-      ) as _i4.TextSpan);
+      ) as _i3.TextSpan);
 
   @override
   void clear() => super.noSuchMethod(
@@ -410,7 +408,7 @@ class MockTextEditingController extends _i1.Mock
       );
 
   @override
-  bool isSelectionWithinTextBounds(_i4.TextSelection? selection) =>
+  bool isSelectionWithinTextBounds(_i3.TextSelection? selection) =>
       (super.noSuchMethod(
         Invocation.method(
           #isSelectionWithinTextBounds,

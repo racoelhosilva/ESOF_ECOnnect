@@ -1,14 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DisplayImage extends StatelessWidget{
-  
+class DisplayImage extends StatelessWidget {
   const DisplayImage({super.key, required this.imagePath});
 
-  final String imagePath;
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
+    if (imagePath == null || imagePath == "") {
+      return Container();
+    }
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width * (4 / 3),
@@ -18,7 +20,8 @@ class DisplayImage extends StatelessWidget{
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Image.network(imagePath,
+      child: Image.network(
+        imagePath!,
         fit: BoxFit.cover,
       ),
     );
