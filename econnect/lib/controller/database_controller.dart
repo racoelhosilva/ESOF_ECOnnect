@@ -21,10 +21,14 @@ class DatabaseController {
     return post;
   }
 
-  Future<List<Post>> getNextPosts(int numDocs) async =>
-      await db.getNextPosts(numDocs);
+  Future<(List<Post>, String?)> getNextPosts(String? cursor, int numDocs) async =>
+      await db.getNextPosts(cursor, numDocs);
 
-  void resetPostsCursor() => db.resetPostsCursor();
+  Future<(List<Post>, String?)> getNextPostsOfFollowing(String? cursor, int numDocs, String userId) async =>
+      await db.getNextPostsOfFollowing(cursor, numDocs, userId);
+
+  Future<(List<Post>, String?)> getNextPostsOfNonFollowing(String? cursor, int numDocs, String userId) async =>
+      await db.getNextPostsOfNonFollowing(cursor, numDocs, userId);
 
   Future<List<Post>> getPostsFromUser(String userId) async =>
       await db.getPostsFromUser(userId);

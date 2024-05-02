@@ -14,7 +14,6 @@ class Database {
 
   final FirebaseFirestore _db;
   final Reference _storageRef;
-  DocumentSnapshot<Map<String, dynamic>>? lastDoc;
 
   Future<String> storeImage(String path) async {
     final name = 'img/${const Uuid().v4()}.png';
@@ -47,31 +46,80 @@ class Database {
     });
   }
 
-  Future<List<Post>> getNextPosts(int numDocs) async {
+  Future<(List<Post>, String?)> getNextPosts(String? cursor, int numDocs) async {
     final posts = _db.collection('posts');
-    final Query<Map<String, dynamic>> query;
-    if (lastDoc == null) {
-      query = posts.orderBy('postDatetime', descending: true).limit(numDocs);
-    } else {
-      query = posts
-          .orderBy('postDatetime', descending: true)
-          .startAfterDocument(lastDoc!)
-          .limit(numDocs);
+    Query<Map<String, dynamic>> query = posts.orderBy('postDatetime', descending: true);
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
     }
+    query = query.limit(numDocs);
     final snapshot = await query.get();
-    if (snapshot.docs.isNotEmpty) lastDoc = snapshot.docs.last;
-    return snapshot.docs
+    return (snapshot.docs
         .map((post) => Post(
               user: post['user'],
               image: post['image'],
               description: post['description'],
               postDatetime: (post['postDatetime'] as Timestamp).toDate(),
             ))
-        .toList();
+        .toList(),
+        snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+      );
   }
 
-  void resetPostsCursor() {
-    lastDoc = null;
+  Future<(List<Post>, String?)> getNextPostsOfFollowing(String? cursor, int numDocs, String userId) async {
+    final posts = _db.collection('posts');
+    final following = await getFollowing(userId);
+    if (following.isEmpty) {
+      return (<Post>[], null);
+    }
+
+    Query<Map<String, dynamic>> query = posts
+      .orderBy('postDatetime', descending: true)
+      .where('user', whereIn: following);
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
+    }
+    query = query.limit(numDocs);
+    final snapshot = await query.get();
+    return (snapshot.docs
+      .map((post) => Post(
+            user: post['user'],
+            image: post['image'],
+            description: post['description'],
+            postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+          ))
+      .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
+  }
+
+  Future<(List<Post>, String?)> getNextPostsOfNonFollowing(String? cursor, int numDocs, String userId) async {
+    final posts = _db.collection('posts');
+    final following = await getFollowing(userId);
+
+    Query<Map<String, dynamic>> query = posts
+      .orderBy('postDatetime', descending: true);
+    if (following.isNotEmpty) {
+      query = query.where('user', whereNotIn: following);
+    }
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
+    }
+    query = query.limit(numDocs);
+    final snapshot = await query.get();
+    return (snapshot.docs
+      .map((post) => Post(
+            user: post['user'],
+            image: post['image'],
+            description: post['description'],
+            postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+          ))
+      .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
   }
 
   Future<List<Post>> getPostsFromUser(String userId) async {
@@ -192,8 +240,7 @@ class Database {
 
     final dbFollow = await follows.where('follower', isEqualTo: userId).get();
 
-    return dbFollow.docs.map((follows) => follows['followed']).toList()
-        as List<String>;
+    return dbFollow.docs.map<String>((follows) => follows['followed']).toList();
   }
 
   Future<bool> isFollowing(String userId1, String userId2) async {

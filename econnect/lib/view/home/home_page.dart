@@ -3,9 +3,11 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/home/widgets/end_message.dart';
+import 'package:econnect/view/home/widgets/middle_message.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
 import 'package:econnect/view/home/widgets/home_page_header.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -21,54 +23,84 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-  final List<Post> _posts = [];
+  final List<Post> _followingPosts = [], _othersPosts = [];
   final _scrollController = ScrollController();
   bool _isLoading = false;
-  bool _atEnd = false;
+  bool _atEnd1 = false, _atEnd2 = false;
   final postsToLoad = 8;
+  String? _cursor;
 
   @override
   void initState() {
     super.initState();
     _clearPosts();
-    _loadMorePosts();
+    _loadMorePostsFromFollowing();
     _scrollController.addListener(_loadMorePostsAtEnd);
   }
 
   void _clearPosts() {
     setState(() {
-      _posts.clear();
+      _cursor = null;
+      _othersPosts.clear();
     });
-    widget.dbController.resetPostsCursor();
   }
 
-  Future<void> _loadMorePosts() async {
+  Future<void> _loadMorePostsFromFollowing() async {
     setState(() {
       _isLoading = true;
     });
-    final nextPosts = await widget.dbController.getNextPosts(postsToLoad);
+    final (nextPosts, newCursor) = await widget.dbController.getNextPostsOfFollowing(
+      _cursor,
+      postsToLoad,
+      widget.sessionController.loggedInUser!.id,
+    );
     setState(() {
-      _atEnd = nextPosts.isEmpty;
-      _posts.addAll(nextPosts);
+      _cursor = newCursor;
+      _atEnd1 = newCursor == null;
+      _followingPosts.addAll(nextPosts);
+      _isLoading = false;
+    });
+    if (_atEnd1) {
+      await _loadMorePostsFromOthers();
+    }
+  }
+
+  Future<void> _loadMorePostsFromOthers() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final (nextPosts, newCursor) = await widget.dbController.getNextPostsOfNonFollowing(
+      _cursor,
+      postsToLoad,
+      widget.sessionController.loggedInUser!.id,
+    );
+    setState(() {
+      _cursor = newCursor;
+      _atEnd2 = newCursor == null;
+      _othersPosts.addAll(nextPosts);
       _isLoading = false;
     });
   }
 
   Future<void> _loadMorePostsAtEnd() async {
-    if (_scrollController.offset ==
-            _scrollController.position.maxScrollExtent &&
-        !_atEnd) {
-      _loadMorePosts();
+    if (_scrollController.offset != _scrollController.position.maxScrollExtent) {
+      return;
+    }
+    if (!_atEnd1) {
+      _loadMorePostsFromFollowing();
+    } else if (!_atEnd2) {
+      _loadMorePostsFromOthers();
     }
   }
 
   Future<void> _onRefresh() async {
     _clearPosts();
-    await _loadMorePosts();
+    await _loadMorePostsFromFollowing();
   }
 
   @override
   Widget build(BuildContext context) {
+    Logger().i(_othersPosts);
     return Scaffold(
       bottomNavigationBar: BottomNavbar(
         specialActions: {
@@ -88,12 +120,17 @@ class _HomePageState extends State<HomePage> {
             HomePageHeader(
               sessionController: widget.sessionController,
             ),
-            ...(_posts.map((post) => PostWidget(
+            ...(_followingPosts.map((post) => PostWidget(
                   post: post,
                   dbController: widget.dbController,
                 ))),
+            if (_atEnd1) const MiddleMessage(),
+            ...(_othersPosts.map((post) => PostWidget(
+                  post: post,
+                  dbController: widget.dbController,
+                ))),
+            if (_atEnd2) const EndMessage(),
             if (_isLoading) const Center(child: CircularProgressIndicator()),
-            if (_atEnd) const EndMessage(),
           ],
         ),
       ),
