@@ -7,8 +7,8 @@ import 'dart:async' as _i7;
 
 import 'package:econnect/controller/database_controller.dart' as _i6;
 import 'package:econnect/model/database.dart' as _i2;
-import 'package:econnect/model/post.dart' as _i8;
-import 'package:econnect/model/user.dart' as _i9;
+import 'package:econnect/model/post.dart' as _i9;
+import 'package:econnect/model/user.dart' as _i8;
 import 'package:firebase_auth/firebase_auth.dart' as _i5;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart'
     as _i4;
@@ -142,7 +142,7 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i7.Future<void> createPost({
-    required String? user,
+    required _i8.User? user,
     required String? imgPath,
     required String? description,
   }) =>
@@ -188,15 +188,15 @@ class MockDatabaseController extends _i1.Mock
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<List<_i8.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
+  _i7.Future<List<_i9.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
         Invocation.method(
           #getNextPosts,
           [numDocs],
         ),
-        returnValue: _i7.Future<List<_i8.Post>>.value(<_i8.Post>[]),
+        returnValue: _i7.Future<List<_i9.Post>>.value(<_i9.Post>[]),
         returnValueForMissingStub:
-            _i7.Future<List<_i8.Post>>.value(<_i8.Post>[]),
-      ) as _i7.Future<List<_i8.Post>>);
+            _i7.Future<List<_i9.Post>>.value(<_i9.Post>[]),
+      ) as _i7.Future<List<_i9.Post>>);
 
   @override
   void resetPostsCursor() => super.noSuchMethod(
@@ -259,7 +259,7 @@ class MockDatabaseController extends _i1.Mock
       ) as _i7.Future<bool>);
 
   @override
-  _i7.Future<_i9.User?> createUser(
+  _i7.Future<_i8.User?> createUser(
     String? id,
     String? email,
     String? username,
@@ -273,19 +273,19 @@ class MockDatabaseController extends _i1.Mock
             username,
           ],
         ),
-        returnValue: _i7.Future<_i9.User?>.value(),
-        returnValueForMissingStub: _i7.Future<_i9.User?>.value(),
-      ) as _i7.Future<_i9.User?>);
+        returnValue: _i7.Future<_i8.User?>.value(),
+        returnValueForMissingStub: _i7.Future<_i8.User?>.value(),
+      ) as _i7.Future<_i8.User?>);
 
   @override
-  _i7.Future<_i9.User?> getUser(String? id) => (super.noSuchMethod(
+  _i7.Future<_i8.User?> getUser(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [id],
         ),
-        returnValue: _i7.Future<_i9.User?>.value(),
-        returnValueForMissingStub: _i7.Future<_i9.User?>.value(),
-      ) as _i7.Future<_i9.User?>);
+        returnValue: _i7.Future<_i8.User?>.value(),
+        returnValueForMissingStub: _i7.Future<_i8.User?>.value(),
+      ) as _i7.Future<_i8.User?>);
 }
 
 /// A class which mocks [FirebaseAuth].

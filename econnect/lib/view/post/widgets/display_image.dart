@@ -7,7 +7,7 @@ class DisplayImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imagePath == null || imagePath == "") {
+    if (imagePath == "") {
       return Container();
     }
 

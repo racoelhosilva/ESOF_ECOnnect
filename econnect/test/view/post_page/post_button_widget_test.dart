@@ -46,7 +46,7 @@ void main() {
     await tester.pump();
 
     verify(databaseController.createPost(
-            user: "user", imgPath: 'testImagePath', description: ''))
+            user: User(id: '', username: '', email: ""), imgPath: 'testImagePath', description: ''))
         .called(1);
   });
 

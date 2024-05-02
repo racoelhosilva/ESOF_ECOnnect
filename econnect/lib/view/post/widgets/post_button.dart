@@ -34,7 +34,7 @@ class _PostButtonState extends State<PostButton> {
     }
 
     await widget.dbController.createPost(
-        user: widget.user!.username,
+        user: widget.user!,
         imgPath: widget.imagePath!,
         description: widget.postController.text);
 

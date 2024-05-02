@@ -8,13 +8,13 @@ class DatabaseController {
   final Database db;
 
   Future<void> createPost(
-      {required String user,
+      {required User user,
       required String imgPath,
       required String description}) async {
     final image = await db.storeImage(imgPath);
     final post = Post(
         postId: const Uuid().v4(),
-        user: user,
+        user: user.id,
         image: await db.retrieveFileUrl(image),
         description: description,
         postDatetime: DateTime.now());
