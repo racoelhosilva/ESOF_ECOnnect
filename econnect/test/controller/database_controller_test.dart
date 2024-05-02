@@ -81,7 +81,8 @@ void main() {
 
     when(database.updateUser(any)).thenAnswer((_) async {});
     when(database.storeImage(imgPath)).thenAnswer((_) async => 'img/imageId');
-    when(database.retrieveFileUrl('img/imageId')).thenAnswer((_) async => imgUrl);
+    when(database.retrieveFileUrl('img/imageId'))
+        .thenAnswer((_) async => imgUrl);
 
     final result = await databaseController.updateUser(updatedUser, imgPath);
 
@@ -122,7 +123,8 @@ void main() {
     const followedId1 = 'followedId1';
     const followedId2 = 'followedId2';
 
-    when(database.getFollowing(userId)).thenAnswer((_) async => [followedId1, followedId2]);
+    when(database.getFollowing(userId))
+        .thenAnswer((_) async => [followedId1, followedId2]);
 
     final following = await databaseController.getFollowing(userId);
 
@@ -143,11 +145,12 @@ void main() {
     const followerId = 'followerId';
     const followedId = 'followedId';
 
-    when(database.isFollowing(followerId, followedId)).thenAnswer((_) async => true);
+    when(database.isFollowing(followerId, followedId))
+        .thenAnswer((_) async => true);
 
-    final isFollowing = await databaseController.isFollowing(followerId, followedId);
+    final isFollowing =
+        await databaseController.isFollowing(followerId, followedId);
 
     expect(isFollowing, true);
   });
 }
-

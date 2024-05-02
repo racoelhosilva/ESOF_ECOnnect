@@ -107,9 +107,8 @@ class Database {
 
     Query<Map<String, dynamic>> query = following.isNotEmpty
         ? posts
-            .where('user', whereNotIn: following)
-            .orderBy('user')
             .orderBy('postDatetime', descending: true)
+            .where('user', whereNotIn: following)
         : posts.orderBy('postDatetime', descending: true);
 
     if (cursor != null) {

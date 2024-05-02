@@ -26,7 +26,7 @@ void main() {
   late Database database;
   late CollectionReference<Map<String, dynamic>> collectionReference;
 
-  setUpAll(() {
+  setUp(() {
     firestore = MockFirebaseFirestore();
     storage = MockFirebaseStorage();
     storageRef = MockReference();
@@ -315,7 +315,7 @@ void main() {
   });
 
   group('isFollowing', () {
-    test('should return true if user is following', () async {
+    test('Should return true if user is following', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsCollection = MockCollectionReference();
@@ -336,7 +336,7 @@ void main() {
       expect(isFollowing, true);
     });
 
-    test('should return false if user is not following', () async {
+    test('Should return false if user is not following', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsCollection = MockCollectionReference();
@@ -355,5 +355,283 @@ void main() {
 
       expect(isFollowing, false);
     });
+  });
+
+  test('Should retrieve the posts correctly', () async {
+    final postsCollection = MockCollectionReference();
+    final postsQuery1 = MockQuery();
+    final postsQuery2 = MockQuery();
+    final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
+    const documentId1 = 'doc1';
+    const documentId2 = 'doc2';
+    final querySnapshot = MockQuerySnapshot();
+
+    when(firestore.collection('posts')).thenReturn(postsCollection);
+    when(postsCollection.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery1);
+    when(postsQuery1.limit(any)).thenReturn(postsQuery2);
+    when(postsQuery2.get()).thenAnswer((_) async => querySnapshot);
+    when(querySnapshot.docs).thenReturn([
+      queryDocumentSnapshot1,
+      queryDocumentSnapshot2,
+    ]);
+    when(queryDocumentSnapshot1.id).thenReturn(documentId1);
+    when(queryDocumentSnapshot2.id).thenReturn(documentId2);
+
+    when(queryDocumentSnapshot1['user']).thenReturn('user1');
+    when(queryDocumentSnapshot1['image']).thenReturn('image1');
+    when(queryDocumentSnapshot1['description']).thenReturn('description1');
+    when(queryDocumentSnapshot1['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot2['user']).thenReturn('user2');
+    when(queryDocumentSnapshot2['image']).thenReturn('image2');
+    when(queryDocumentSnapshot2['description']).thenReturn('description2');
+    when(queryDocumentSnapshot2['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+
+    final result = await database.getNextPosts(null, 2);
+
+    expect(result.$1.length, 2);
+    expect(result.$1[0].user, 'user1');
+    expect(result.$1[0].image, 'image1');
+    expect(result.$1[0].description, 'description1');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[1].user, 'user2');
+    expect(result.$1[1].image, 'image2');
+    expect(result.$1[1].description, 'description2');
+    expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$2, documentId2);
+  });
+
+  test('Should retrieve only wanted posts', () async {
+    final postsCollection = MockCollectionReference();
+    final postsQuery1 = MockQuery();
+    final postsQuery2 = MockQuery();
+    final postsQuery3 = MockQuery();
+    final postsQuery4 = MockQuery();
+    final postsQuery5 = MockQuery();
+    final postsQuery6 = MockQuery();
+    final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
+    final documentRef1 = MockDocumentReference();
+    final documentRef2 = MockDocumentReference();
+    final documentSnapshot1 = MockDocumentSnapshot();
+    final documentSnapshot2 = MockDocumentSnapshot();
+    final querySnapshot1 = MockQuerySnapshot();
+    final querySnapshot2 = MockQuerySnapshot();
+    final querySnapshot3 = MockQuerySnapshot();
+    const documentId1 = 'doc1';
+    const documentId2 = 'doc2';
+
+    when(firestore.collection('posts')).thenReturn(postsCollection);
+    when(postsCollection.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery1);
+    when(postsQuery1.startAfterDocument(documentSnapshot1))
+        .thenReturn(postsQuery2);
+    when(postsQuery2.limit(1)).thenReturn(postsQuery3);
+    when(postsQuery1.startAfterDocument(documentSnapshot2))
+        .thenReturn(postsQuery4);
+    when(postsQuery4.limit(1)).thenReturn(postsQuery5);
+    when(postsQuery1.limit(1)).thenReturn(postsQuery6);
+
+    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot1);
+    when(postsQuery5.get()).thenAnswer((_) async => querySnapshot2);
+    when(postsQuery6.get()).thenAnswer((_) async => querySnapshot3);
+
+    when(querySnapshot3.docs).thenReturn([
+      queryDocumentSnapshot1,
+    ]);
+    when(querySnapshot1.docs).thenReturn([
+      queryDocumentSnapshot2,
+    ]);
+    when(querySnapshot2.docs).thenReturn([]);
+
+    when(postsCollection.doc(documentId1)).thenReturn(documentRef1);
+    when(postsCollection.doc(documentId2)).thenReturn(documentRef2);
+    when(documentRef1.get()).thenAnswer((_) async => documentSnapshot1);
+    when(documentRef2.get()).thenAnswer((_) async => documentSnapshot2);
+
+    when(documentSnapshot1['user']).thenReturn('user1');
+    when(documentSnapshot1['image']).thenReturn('image1');
+    when(documentSnapshot1['description']).thenReturn('description1');
+    when(documentSnapshot1['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(documentSnapshot2['user']).thenReturn('user2');
+    when(documentSnapshot2['image']).thenReturn('image2');
+    when(documentSnapshot2['description']).thenReturn('description2');
+    when(documentSnapshot2['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+
+    when(queryDocumentSnapshot1['user']).thenReturn('user1');
+    when(queryDocumentSnapshot1['image']).thenReturn('image1');
+    when(queryDocumentSnapshot1['description']).thenReturn('description1');
+    when(queryDocumentSnapshot1['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot2['user']).thenReturn('user2');
+    when(queryDocumentSnapshot2['image']).thenReturn('image2');
+    when(queryDocumentSnapshot2['description']).thenReturn('description2');
+    when(queryDocumentSnapshot2['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+
+    when(queryDocumentSnapshot1.id).thenReturn(documentId1);
+    when(queryDocumentSnapshot2.id).thenReturn(documentId2);
+    when(documentSnapshot1.id).thenReturn(documentId1);
+    when(documentSnapshot2.id).thenReturn(documentId2);
+
+    var result = await database.getNextPosts(null, 1);
+
+    expect(result.$1.length, 1);
+    expect(result.$1[0].user, 'user1');
+    expect(result.$1[0].image, 'image1');
+    expect(result.$1[0].description, 'description1');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$2, documentId1);
+
+    result = await database.getNextPosts(documentId1, 1);
+    expect(result.$1[0].user, 'user2');
+    expect(result.$1[0].image, 'image2');
+    expect(result.$1[0].description, 'description2');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$2, documentId2);
+
+    result = await database.getNextPosts(documentId2, 1);
+    expect(result.$1, isEmpty);
+    expect(result.$2, isNull);
+  });
+
+  test('Should retrieve only posts of users the user follows', () async {
+    final postsCollection = MockCollectionReference();
+    final followsCollection = MockCollectionReference();
+    final postsQuery1 = MockQuery();
+    final postsQuery2 = MockQuery();
+    final postsQuery3 = MockQuery();
+    final followsQuery1 = MockQuery();
+    final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot3 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot4 = MockQueryDocumentSnapshot();
+    const documentId1 = 'doc1';
+    const documentId2 = 'doc2';
+    final querySnapshot = MockQuerySnapshot();
+    final followsQuerySnapshot = MockQuerySnapshot();
+    const userId = 'user-id';
+
+    when(firestore.collection('posts')).thenReturn(postsCollection);
+    when(postsCollection.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery1);
+    when(postsQuery1.where('user', whereIn: anyNamed('whereIn')))
+        .thenReturn(postsQuery2);
+    when(postsQuery2.limit(2)).thenReturn(postsQuery3);
+    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot);
+    when(querySnapshot.docs).thenReturn([
+      queryDocumentSnapshot1,
+      queryDocumentSnapshot2,
+    ]);
+    when(queryDocumentSnapshot1.id).thenReturn(documentId1);
+    when(queryDocumentSnapshot2.id).thenReturn(documentId2);
+
+    when(queryDocumentSnapshot1['user']).thenReturn('user1');
+    when(queryDocumentSnapshot1['image']).thenReturn('image1');
+    when(queryDocumentSnapshot1['description']).thenReturn('description1');
+    when(queryDocumentSnapshot1['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot2['user']).thenReturn('user2');
+    when(queryDocumentSnapshot2['image']).thenReturn('image2');
+    when(queryDocumentSnapshot2['description']).thenReturn('description2');
+    when(queryDocumentSnapshot2['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+
+    when(firestore.collection('follows')).thenReturn(followsCollection);
+    when(followsCollection.where('follower', isEqualTo: userId))
+        .thenReturn(followsQuery1);
+    when(followsQuery1.get()).thenAnswer((_) async => followsQuerySnapshot);
+    when(followsQuerySnapshot.docs).thenReturn([
+      queryDocumentSnapshot3,
+      queryDocumentSnapshot4,
+    ]);
+    when(queryDocumentSnapshot3['followed']).thenReturn('user1');
+    when(queryDocumentSnapshot4['followed']).thenReturn('user2');
+
+    final result = await database.getNextPostsOfFollowing(null, 2, userId);
+
+    expect(result.$1.length, 2);
+    expect(result.$1[0].user, 'user1');
+    expect(result.$1[0].image, 'image1');
+    expect(result.$1[0].description, 'description1');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[1].user, 'user2');
+    expect(result.$1[1].image, 'image2');
+    expect(result.$1[1].description, 'description2');
+    expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$2, documentId2);
+  });
+
+  test('Should retrieve only posts of users the user does not follow',
+      () async {
+    final postsCollection = MockCollectionReference();
+    final followsCollection = MockCollectionReference();
+    final postsQuery1 = MockQuery();
+    final postsQuery2 = MockQuery();
+    final postsQuery3 = MockQuery();
+    final followsQuery1 = MockQuery();
+    final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot3 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot4 = MockQueryDocumentSnapshot();
+    const documentId1 = 'doc1';
+    const documentId2 = 'doc2';
+    final querySnapshot = MockQuerySnapshot();
+    final followsQuerySnapshot = MockQuerySnapshot();
+    const userId = 'user-id';
+
+    when(firestore.collection('posts')).thenReturn(postsCollection);
+    when(postsCollection.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery1);
+    when(postsQuery1.where('user', whereNotIn: anyNamed('whereNotIn')))
+        .thenReturn(postsQuery2);
+    when(postsQuery2.limit(2)).thenReturn(postsQuery3);
+    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot);
+    when(querySnapshot.docs).thenReturn([
+      queryDocumentSnapshot1,
+      queryDocumentSnapshot2,
+    ]);
+    when(queryDocumentSnapshot1.id).thenReturn(documentId1);
+    when(queryDocumentSnapshot2.id).thenReturn(documentId2);
+
+    when(queryDocumentSnapshot1['user']).thenReturn('user1');
+    when(queryDocumentSnapshot1['image']).thenReturn('image1');
+    when(queryDocumentSnapshot1['description']).thenReturn('description1');
+    when(queryDocumentSnapshot1['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot2['user']).thenReturn('user2');
+    when(queryDocumentSnapshot2['image']).thenReturn('image2');
+    when(queryDocumentSnapshot2['description']).thenReturn('description2');
+    when(queryDocumentSnapshot2['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+
+    when(firestore.collection('follows')).thenReturn(followsCollection);
+    when(followsCollection.where('follower', isEqualTo: userId))
+        .thenReturn(followsQuery1);
+    when(followsQuery1.get()).thenAnswer((_) async => followsQuerySnapshot);
+    when(followsQuerySnapshot.docs).thenReturn([
+      queryDocumentSnapshot3,
+      queryDocumentSnapshot4,
+    ]);
+    when(queryDocumentSnapshot3['followed']).thenReturn('user3');
+    when(queryDocumentSnapshot4['followed']).thenReturn('user4');
+
+    final result = await database.getNextPostsOfNonFollowing(null, 2, userId);
+
+    expect(result.$1.length, 2);
+    expect(result.$1[0].user, 'user1');
+    expect(result.$1[0].image, 'image1');
+    expect(result.$1[0].description, 'description1');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[1].user, 'user2');
+    expect(result.$1[1].image, 'image2');
+    expect(result.$1[1].description, 'description2');
+    expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$2, documentId2);
   });
 }
