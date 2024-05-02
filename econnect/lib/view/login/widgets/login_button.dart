@@ -36,12 +36,17 @@ class _LoginButtonState extends State<LoginButton> {
         msg: 'Please fill all the fields',
         backgroundColor: Theme.of(context).colorScheme.error,
       );
+      setState(() {
+        _isLoading = false;
+      });
       return;
     }
 
     try {
-      await widget.sessionController.loginUser(widget.emailController.text,
-          widget.passwordController.text, widget.dbController);
+      await widget.sessionController.loginUser(
+          widget.emailController.text,
+          widget.passwordController.text,
+          widget.dbController);
     } on FirebaseAuthException catch (e) {
       if (!context.mounted) {
         return;
@@ -72,6 +77,10 @@ class _LoginButtonState extends State<LoginButton> {
             backgroundColor: Theme.of(context).colorScheme.error,
           );
       }
+
+      setState(() {
+        _isLoading = false;
+      });
       return;
     }
 
@@ -85,6 +94,7 @@ class _LoginButtonState extends State<LoginButton> {
 
     Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
   }
+
 
   @override
   Widget build(BuildContext context) {

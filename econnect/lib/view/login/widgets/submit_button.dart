@@ -40,6 +40,9 @@ class _SubmitButtonState extends State<SubmitButton> {
         msg: 'Please fill all the fields',
         backgroundColor: Theme.of(context).colorScheme.error,
       );
+      setState(() {
+        _isLoading = false;
+      });
       return;
     }
 
@@ -79,6 +82,9 @@ class _SubmitButtonState extends State<SubmitButton> {
             backgroundColor: Theme.of(context).colorScheme.error,
           );
       }
+      setState(() {
+        _isLoading = false;
+      });
       return;
     }
 
@@ -92,6 +98,7 @@ class _SubmitButtonState extends State<SubmitButton> {
 
     Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
   }
+
 
   @override
   Widget build(BuildContext context) {
