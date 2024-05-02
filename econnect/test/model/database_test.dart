@@ -634,4 +634,52 @@ void main() {
     expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
     expect(result.$2, documentId2);
   });
+
+  test('Should retrieve posts from user',
+      () async {
+    final postsCollection = MockCollectionReference();
+    final postsQuery1 = MockQuery();
+    final postsQuery2 = MockQuery();
+    final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
+    const documentId1 = 'doc1';
+    const documentId2 = 'doc2';
+    final querySnapshot = MockQuerySnapshot();
+    const userId = 'user-id';
+
+    when(firestore.collection('posts')).thenReturn(postsCollection);
+    when(postsCollection.where('user', isEqualTo: userId))
+        .thenReturn(postsQuery1);
+    when(postsQuery1.orderBy('postDatetime', descending: true))
+        .thenReturn(postsQuery2);
+    when(postsQuery2.get()).thenAnswer((_) async => querySnapshot);
+    when(querySnapshot.docs).thenReturn([
+      queryDocumentSnapshot1,
+      queryDocumentSnapshot2,
+    ]);
+    when(queryDocumentSnapshot1.id).thenReturn(documentId1);
+    when(queryDocumentSnapshot2.id).thenReturn(documentId2);
+
+    when(queryDocumentSnapshot1['user']).thenReturn('user1');
+    when(queryDocumentSnapshot1['image']).thenReturn('image1');
+    when(queryDocumentSnapshot1['description']).thenReturn('description1');
+    when(queryDocumentSnapshot1['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot2['user']).thenReturn('user2');
+    when(queryDocumentSnapshot2['image']).thenReturn('image2');
+    when(queryDocumentSnapshot2['description']).thenReturn('description2');
+    when(queryDocumentSnapshot2['postDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    
+    final result = await database.getPostsFromUser(userId);
+
+    expect(result[0].user, 'user1');
+    expect(result[0].image, 'image1');
+    expect(result[0].description, 'description1');
+    expect(result[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result[1].user, 'user2');
+    expect(result[1].image, 'image2');
+    expect(result[1].description, 'description2');
+    expect(result[1].postDatetime, DateTime(2022, 1, 2));
+  });
 }
