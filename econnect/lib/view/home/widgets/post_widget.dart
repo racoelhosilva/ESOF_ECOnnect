@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/view/home/widgets/custom_like_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class PostWidget extends StatelessWidget {
   const PostWidget({super.key, required this.post});
@@ -27,6 +28,14 @@ class PostWidget extends StatelessWidget {
     } else {
       return 'Just now';
     }
+  }
+
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
+    post.likes = isLiked ? post.likes - 1 : post.likes + 1;
+    
+    await Database().updateLikes(post.id, post.likes);
+
+    return !isLiked;
   }
 
   @override
@@ -90,6 +99,7 @@ class PostWidget extends StatelessWidget {
                   const Icon(LucideIcons.alertCircle),
             ),
           ),
+          CustomLikeButton(onTap: onLikeButtonTapped),
           Text(
             post.description,
             textAlign: TextAlign.left,

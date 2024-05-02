@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,14 +44,17 @@ class Database {
       'image': post.image,
       'description': post.description,
       'postDatetime': post.postDatetime,
+      'likes': 0,
     });
   }
 
   Future<void> updatePost(String postId, String postDescription) async {
     Logger().i('Updating post with id $postId, $postDescription');
-    await _db.collection('posts').doc(postId).update({'description': postDescription});
+    await _db
+        .collection('posts')
+        .doc(postId)
+        .update({'description': postDescription});
   }
-
 
   Future<void> deletePost(String postId) async {
     Logger().i('Deleting post with id $postId');
@@ -79,6 +81,7 @@ class Database {
               image: post['image'],
               description: post['description'],
               postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              likes: post['likes'],
             ))
         .toList();
   }
@@ -128,5 +131,47 @@ class Database {
       registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
       admin: dbUser['isAdmin'],
     );
+  }
+
+  Future<void> addLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final post = _db.collection('posts');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isNotEmpty) {
+      throw StateError("User $userId already likes $postId");
+    }
+
+    await likes.add({'user': userId, 'post': postId});
+    await post.doc(postId).update({'likes': FieldValue.increment(1)});
+  }
+
+  Future<void> removeLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final post = _db.collection('post');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isEmpty) {
+      throw StateError("User $userId does not like $postId");
+    }
+
+    await dbLike.docs[0].reference.delete();
+    await post.doc(postId).update({'likes': FieldValue.increment(-1)});
+  }
+
+  Future<bool> isLiked(String userId, String postId) async {
+    final likes = _db.collection('likes');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    return dbLike.docs.isNotEmpty;
   }
 }
