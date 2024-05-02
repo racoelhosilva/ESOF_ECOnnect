@@ -40,8 +40,7 @@ class PostWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == null) {
-            return Container();
-            // TODO: write throw StateError('User with id ${post.user} not found');
+            throw StateError('User with id ${post.user} not found');
           }
           return Container(
             margin: const EdgeInsets.all(16.0),
@@ -51,7 +50,8 @@ class PostWidget extends StatelessWidget {
                 Row(
                   children: [
                     ProfileButton(
-                      user: snapshot.data!,
+                      userId: snapshot.data!.id,
+                      dbController: dbController,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +101,12 @@ class PostWidget extends StatelessWidget {
             ),
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width * (5 / 3),
+            child: const CircularProgressIndicator()
+          );
         }
       },
     );

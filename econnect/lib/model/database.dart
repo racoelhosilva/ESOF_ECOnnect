@@ -99,11 +99,10 @@ class Database {
     final posts = _db.collection('posts');
     final following = await getFollowing(userId);
 
-    Query<Map<String, dynamic>> query = posts
-      .orderBy('postDatetime', descending: true);
-    if (following.isNotEmpty) {
-      query = query.where('user', whereNotIn: following);
-    }
+    Query<Map<String, dynamic>> query = following.isNotEmpty
+      ? posts.where('user', whereNotIn: following).orderBy('user').orderBy('postDatetime', descending: true)
+      : posts.orderBy('postDatetime', descending: true);
+      
     if (cursor != null) {
       final fromDoc = await posts.doc(cursor).get();
       query = query.startAfterDocument(fromDoc);

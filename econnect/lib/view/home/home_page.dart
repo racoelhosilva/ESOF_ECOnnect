@@ -1,13 +1,11 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/home/widgets/end_message.dart';
 import 'package:econnect/view/home/widgets/middle_message.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
 import 'package:econnect/view/home/widgets/home_page_header.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -23,7 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-  final List<Post> _followingPosts = [], _othersPosts = [];
+  final List<PostWidget> _followingPosts = [], _othersPosts = [];
   final _scrollController = ScrollController();
   bool _isLoading = false;
   bool _atEnd1 = false, _atEnd2 = false;
@@ -57,7 +55,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _cursor = newCursor;
       _atEnd1 = newCursor == null;
-      _followingPosts.addAll(nextPosts);
+      _followingPosts.addAll(
+        nextPosts.map<PostWidget>((post) => PostWidget(
+          post: post, dbController:
+          widget.dbController),
+        ),
+      );
       _isLoading = false;
     });
     if (_atEnd1) {
@@ -77,7 +80,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _cursor = newCursor;
       _atEnd2 = newCursor == null;
-      _othersPosts.addAll(nextPosts);
+      _othersPosts.addAll(
+        nextPosts.map<PostWidget>((post) => PostWidget(
+          post: post, dbController:
+          widget.dbController),
+        ),
+      );
       _isLoading = false;
     });
   }
@@ -100,7 +108,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Logger().i(_othersPosts);
     return Scaffold(
       bottomNavigationBar: BottomNavbar(
         specialActions: {
@@ -118,17 +125,12 @@ class _HomePageState extends State<HomePage> {
           controller: _scrollController,
           children: [
             HomePageHeader(
+              dbController: widget.dbController,
               sessionController: widget.sessionController,
             ),
-            ...(_followingPosts.map((post) => PostWidget(
-                  post: post,
-                  dbController: widget.dbController,
-                ))),
+            ..._followingPosts,
             if (_atEnd1) const MiddleMessage(),
-            ...(_othersPosts.map((post) => PostWidget(
-                  post: post,
-                  dbController: widget.dbController,
-                ))),
+            ..._othersPosts,
             if (_atEnd2) const EndMessage(),
             if (_isLoading) const Center(child: CircularProgressIndicator()),
           ],
