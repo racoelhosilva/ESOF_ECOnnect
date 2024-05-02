@@ -99,7 +99,6 @@ class _SubmitButtonState extends State<SubmitButton> {
     Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
   }
 
-
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {

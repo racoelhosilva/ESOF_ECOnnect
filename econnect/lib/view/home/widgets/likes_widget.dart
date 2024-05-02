@@ -20,18 +20,32 @@ class LikeWidget extends StatefulWidget {
 }
 
 class _LikeWidgetState extends State<LikeWidget> {
-  Future<bool?> _isLiked = Future.any([]);
+  bool _isLiked = false;
+  bool _isClicked = false;
 
   @override
   void initState() {
     super.initState();
+    _initLike();
+  }
+
+  Future<void> _initLike() async {
+    final newLike = await widget.dbController.isLiked(
+      widget.sessionController.loggedInUser!.id,
+      widget.post.postId,
+    );
     setState(() {
-      _isLiked = widget.dbController.isLiked(
-          widget.sessionController.loggedInUser!.id, widget.post.postId);
+      _isLiked = newLike;
     });
   }
 
-  Future<bool> onLikeButtonTapped(bool isLiked) async {
+  Future<bool> _onLikeButtonTapped(bool isLiked) async {
+    if (_isClicked) {
+      return isLiked;
+    }
+
+    _isClicked = true;
+
     if (isLiked) {
       await widget.dbController.removeLike(
         widget.sessionController.loggedInUser!.id,
@@ -46,42 +60,43 @@ class _LikeWidgetState extends State<LikeWidget> {
       widget.post.likes++;
     }
 
+    _isClicked = false;
+
     return !isLiked;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _isLiked,
-      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else {
-          return Row(
-            children: [
-              Text(
-                widget.post.likes.toString(),
-              ),
-              LikeButton(
-                onTap: onLikeButtonTapped,
-                bubblesColor: BubblesColor(
-                  dotPrimaryColor: Theme.of(context).colorScheme.inversePrimary,
-                  dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
-                ),
-                likeBuilder: (bool isLiked) {
-                  return Icon(
-                    Icons.favorite,
-                    color: isLiked
-                        ? Theme.of(context).colorScheme.primaryContainer
-                        : Theme.of(context).colorScheme.outline,
-                    size: 30.0,
-                  );
-                },
-              ),
-            ],
-          );
-        }
-      },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        LikeButton(
+          isLiked: _isLiked,
+          onTap: _isClicked ? null : _onLikeButtonTapped,
+          bubblesColor: BubblesColor(
+            dotPrimaryColor: Theme.of(context).colorScheme.inversePrimary,
+            dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
+          ),
+          likeBuilder: (bool isLiked) {
+            return Icon(
+              Icons.favorite,
+              color: isLiked
+                  ? Theme.of(context).colorScheme.primaryContainer
+                  : Theme.of(context).colorScheme.outline,
+              size: 30.0,
+            );
+          },
+          likeCount: widget.post.likes,
+          countBuilder: (int? count, bool isLiked, String text) {
+            var color = Theme.of(context).colorScheme.onPrimaryContainer;
+            return Text(
+              text,
+              style: TextStyle(color: color, fontSize: 16.0),
+            );
+          },
+          countPostion: CountPostion.left,
+        ),
+      ],
     );
   }
 }

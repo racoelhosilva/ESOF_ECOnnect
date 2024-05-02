@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
@@ -134,34 +135,33 @@ class Database {
 
   Future<void> addLike(String userId, String postId) async {
     final likes = _db.collection('likes');
-    final post = _db.collection('posts');
-
-    final dbLike = await likes
-        .where('user', isEqualTo: userId)
-        .where('post', isEqualTo: postId)
-        .get();
-    if (dbLike.docs.isNotEmpty) {
-      throw StateError("User $userId already likes $postId");
-    }
-
-    await likes.add({'user': userId, 'post': postId});
-    await post.doc(postId).update({'likes': FieldValue.increment(1)});
-  }
-
-  Future<void> removeLike(String userId, String postId) async {
-    final likes = _db.collection('likes');
-    final post = _db.collection('post');
+    final posts = _db.collection('posts');
 
     final dbLike = await likes
         .where('user', isEqualTo: userId)
         .where('post', isEqualTo: postId)
         .get();
     if (dbLike.docs.isEmpty) {
-      throw StateError("User $userId does not like $postId");
+      await likes.add({
+        'user': userId,
+        'post': postId,
+      });
+      await posts.doc(postId).update({'likes': FieldValue.increment(1)});
     }
+  }
 
-    await dbLike.docs[0].reference.delete();
-    await post.doc(postId).update({'likes': FieldValue.increment(-1)});
+  Future<void> removeLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final posts = _db.collection('posts');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isNotEmpty) {
+      await dbLike.docs.first.reference.delete();
+      await posts.doc(postId).update({'likes': FieldValue.increment(-1)});
+    }
   }
 
   Future<bool> isLiked(String userId, String postId) async {
