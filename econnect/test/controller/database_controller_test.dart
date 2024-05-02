@@ -1,6 +1,7 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/user.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,14 +11,23 @@ import 'database_controller_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Database>()])
 void main() {
   late DatabaseController databaseController;
-  late Database database;
+  late MockDatabase database;
 
   setUp(() {
     database = MockDatabase();
     databaseController = DatabaseController(db: database);
   });
 
-  test('User is created in the database', () async {
+  testWidgets('User is created in the database', (tester) async {
+    const testMockStorage = '/tmp';
+    const channel = MethodChannel(
+      'plugins.flutter.io/path_provider',
+    );
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel,
+        (MethodCall methodCall) async {
+      return testMockStorage;
+    });
+
     const id = '123';
     const email = 'test@example.com';
     const username = 'testuser';

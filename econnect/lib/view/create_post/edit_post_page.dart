@@ -2,10 +2,10 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/post/widgets/delete_button.dart';
-import 'package:econnect/view/post/widgets/description_widget.dart';
-import 'package:econnect/view/post/widgets/display_image.dart';
-import 'package:econnect/view/post/widgets/save_button.dart';
+import 'package:econnect/view/create_post/widgets/delete_button.dart';
+import 'package:econnect/view/create_post/widgets/description_field.dart';
+import 'package:econnect/view/create_post/widgets/display_image.dart';
+import 'package:econnect/view/create_post/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 
 class EditPostPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _EditPostPageState extends State<EditPostPage> {
         children: [
           const HeaderWidget(),
           DisplayImage(imagePath: widget.post.image),
-          DescriptionWidget(controller: _postController),
+          DescriptionField(controller: _postController),
           SaveButton(
             dbController: widget.dbController,
             postController: _postController,

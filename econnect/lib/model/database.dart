@@ -14,7 +14,6 @@ class Database {
 
   final FirebaseFirestore _db;
   final Reference _storageRef;
-  DocumentSnapshot<Map<String, dynamic>>? lastDoc;
 
   Future<String> storeImage(String path) async {
     final name = 'img/${const Uuid().v4()}.png';
@@ -61,19 +60,103 @@ class Database {
     await _db.collection('posts').doc(postId).delete();
   }
 
-  Future<List<Post>> getNextPosts(int numDocs) async {
+  Future<(List<Post>, String?)> getNextPosts(
+      String? cursor, int numDocs) async {
     final posts = _db.collection('posts');
-    final Query<Map<String, dynamic>> query;
-    if (lastDoc == null) {
-      query = posts.orderBy('postDatetime', descending: true).limit(numDocs);
-    } else {
-      query = posts
-          .orderBy('postDatetime', descending: true)
-          .startAfterDocument(lastDoc!)
-          .limit(numDocs);
+    Query<Map<String, dynamic>> query =
+        posts.orderBy('postDatetime', descending: true);
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
     }
+    query = query.limit(numDocs);
     final snapshot = await query.get();
-    if (snapshot.docs.isNotEmpty) lastDoc = snapshot.docs.last;
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                postId: post.id,
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+                likes: post['likes'],
+              ))
+          .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
+  }
+
+  Future<(List<Post>, String?)> getNextPostsOfFollowing(
+      String? cursor, int numDocs, String userId) async {
+    final posts = _db.collection('posts');
+    final following = await getFollowing(userId);
+    if (following.isEmpty) {
+      return (<Post>[], null);
+    }
+
+    Query<Map<String, dynamic>> query = posts
+        .orderBy('postDatetime', descending: true)
+        .where('user', whereIn: following);
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
+    }
+    query = query.limit(numDocs);
+    final snapshot = await query.get();
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                postId: post.id,
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+                likes: post['likes']
+              ))
+          .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
+  }
+
+  Future<(List<Post>, String?)> getNextPostsOfNonFollowing(
+      String? cursor, int numDocs, String userId) async {
+    final posts = _db.collection('posts');
+    final following = await getFollowing(userId);
+
+    Query<Map<String, dynamic>> query = following.isNotEmpty
+        ? posts
+            .where('user', whereNotIn: following)
+            .orderBy('user')
+            .orderBy('postDatetime', descending: true)
+        : posts.orderBy('postDatetime', descending: true);
+
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
+    }
+    query = query.limit(numDocs);
+    final snapshot = await query.get();
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                postId: post.id,
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+                likes: post['likes'],
+              ))
+          .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
+  }
+
+  Future<List<Post>> getPostsFromUser(String userId) async {
+    final posts = _db.collection('posts');
+    final snapshot = await posts
+        .where('user', isEqualTo: userId)
+        .orderBy('postDatetime', descending: true)
+        .get();
     return snapshot.docs
         .map((post) => Post(
               postId: post.id,
@@ -84,10 +167,6 @@ class Database {
               likes: post['likes'],
             ))
         .toList();
-  }
-
-  void resetPostsCursor() {
-    lastDoc = null;
   }
 
   Future<void> addUser(User user) async {
@@ -172,5 +251,78 @@ class Database {
         .where('post', isEqualTo: postId)
         .get();
     return dbLike.docs.isNotEmpty;
+  }
+
+  Future<void> updateUser(User updatedUser) async {
+    final users = _db.collection('users');
+
+    final dbUser = users.doc(updatedUser.id);
+
+    if (!(await dbUser.get()).exists) {
+      throw StateError("User with id ${updatedUser.id} not found");
+    }
+
+    await dbUser.update({
+      'username': updatedUser.username,
+      'email': updatedUser.email,
+      'description': updatedUser.description,
+      'profilePicture': updatedUser.profilePicture,
+      'score': updatedUser.score,
+      'isBlocked': updatedUser.isBlocked,
+      'registerDatetime': updatedUser.registerDatetime,
+      'isAdmin': updatedUser.admin,
+    });
+  }
+
+  Future<void> addFollow(String userId1, String userId2) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows
+        .where('follower', isEqualTo: userId1)
+        .where('followed', isEqualTo: userId2)
+        .get();
+
+    if (dbFollow.docs.isNotEmpty) {
+      throw StateError("User $userId1 already follows $userId2");
+    }
+
+    await follows.add({
+      'follower': userId1,
+      'followed': userId2,
+    });
+  }
+
+  Future<void> removeFollow(String userId1, String userId2) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows
+        .where('follower', isEqualTo: userId1)
+        .where('followed', isEqualTo: userId2)
+        .get();
+
+    if (dbFollow.docs.isEmpty) {
+      throw StateError("User $userId1 does not follow $userId2");
+    }
+
+    await dbFollow.docs[0].reference.delete();
+  }
+
+  Future<List<String>> getFollowing(String userId) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows.where('follower', isEqualTo: userId).get();
+
+    return dbFollow.docs.map<String>((follows) => follows['followed']).toList();
+  }
+
+  Future<bool> isFollowing(String userId1, String userId2) async {
+    final follows = _db.collection('follows');
+
+    final dbFollow = await follows
+        .where('follower', isEqualTo: userId1)
+        .where('followed', isEqualTo: userId2)
+        .get();
+
+    return dbFollow.docs.isNotEmpty;
   }
 }

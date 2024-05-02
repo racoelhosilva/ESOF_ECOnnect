@@ -4,6 +4,7 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/home/widgets/likes_widget.dart';
+import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -17,6 +18,7 @@ class PostWidget extends StatelessWidget {
   final Post post;
   final DatabaseController dbController;
   final SessionController sessionController;
+
 
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
@@ -55,6 +57,10 @@ class PostWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    ProfileButton(
+                      userId: snapshot.data!.id,
+                      dbController: dbController,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

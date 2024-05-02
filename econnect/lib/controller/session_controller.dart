@@ -46,11 +46,41 @@ class SessionController {
     Logger().i("User ${_loggedInUser!.email} registered successfully!\n");
   }
 
+  Future<void> updateUser(
+      User updatedUser, DatabaseController dbController) async {
+    _loggedInUser =
+        await dbController.updateUser(updatedUser, updatedUser.profilePicture);
+  }
+
   Future<void> logoutUser() async {
     if (_loggedInUser == null) {
       throw StateError("No user is logged in\n");
     }
     _loggedInUser = null;
     await _auth.signOut();
+  }
+
+  Future<void> followUser(
+      String followedId, DatabaseController dbController) async {
+    if (_loggedInUser == null) {
+      throw StateError("No user is logged in\n");
+    }
+    await dbController.addFollow(_loggedInUser!.id, followedId);
+  }
+
+  Future<void> unfollowUser(
+      String followedId, DatabaseController dbController) async {
+    if (_loggedInUser == null) {
+      throw StateError("No user is logged in\n");
+    }
+    await dbController.removeFollow(_loggedInUser!.id, followedId);
+  }
+
+  Future<bool> isFollowing(
+      String followedId, DatabaseController dbController) async {
+    if (_loggedInUser == null) {
+      throw StateError("No user is logged in\n");
+    }
+    return await dbController.isFollowing(_loggedInUser!.id, followedId);
   }
 }

@@ -1,7 +1,7 @@
+import 'package:econnect/view/create_post/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:econnect/model/post.dart';
-import 'package:econnect/view/post/widgets/save_button.dart';
 
 import '../../controller/session_controller_test.mocks.dart';
 

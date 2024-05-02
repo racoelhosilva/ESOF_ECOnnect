@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../controller/session_controller_test.mocks.dart';
 import 'login_button_test.mocks.dart';
 
 @GenerateNiceMocks([

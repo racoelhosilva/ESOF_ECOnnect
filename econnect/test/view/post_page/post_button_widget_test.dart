@@ -1,7 +1,7 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/post/widgets/post_button.dart';
+import 'package:econnect/view/create_post/widgets/post_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -19,14 +19,15 @@ void main() {
 
   testWidgets('Creates post', (WidgetTester tester) async {
     final user = User(
-        id: '123',
-        email: 'test@example.com',
-        username: 'testuser',
-        profilePicture: '',
-        score: 0,
-        registerDatetime: DateTime.now(),
-        isBlocked: false,
-        admin: false);
+      id: '123',
+      email: 'test@example.com',
+      username: 'testuser',
+      profilePicture: '',
+      score: 0,
+      registerDatetime: DateTime.now(),
+      isBlocked: false,
+      admin: false,
+    );
 
     await tester.pumpWidget(
       MaterialApp(initialRoute: '/createpost', routes: {
@@ -45,6 +46,7 @@ void main() {
     await tester.tap(find.byType(PostButton));
     await tester.pump();
 
+<<<<<<< HEAD
     verify(databaseController.createPost(
             user: User(
               id: '123',
@@ -59,19 +61,23 @@ void main() {
             imgPath: 'testImagePath',
             description: ''))
         .called(1);
+=======
+    verify(databaseController.createPost(user, 'testImagePath', '')).called(1);
+>>>>>>> origin/feature/profile-page
   });
 
   testWidgets('No image selected when imagePath is null',
       (WidgetTester tester) async {
     final user = User(
-        id: '123',
-        email: 'test@example.com',
-        username: 'testuser',
-        profilePicture: '',
-        score: 0,
-        registerDatetime: DateTime.now(),
-        isBlocked: false,
-        admin: false);
+      id: '123',
+      email: 'test@example.com',
+      username: 'testuser',
+      profilePicture: '',
+      score: 0,
+      registerDatetime: DateTime.now(),
+      isBlocked: false,
+      admin: false,
+    );
 
     await tester.pumpWidget(
       MaterialApp(
@@ -89,6 +95,7 @@ void main() {
     await tester.tap(find.text('Publish'));
     await tester.pump();
 
+<<<<<<< HEAD
     verifyNever(databaseController.createPost(
         user: User(
             id: '123',
@@ -101,5 +108,8 @@ void main() {
             admin: false),
         imgPath: 'testImagePath',
         description: ''));
+=======
+    verifyNever(databaseController.createPost(user, 'testImagePath', ''));
+>>>>>>> origin/feature/profile-page
   });
 }

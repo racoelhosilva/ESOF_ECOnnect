@@ -12,6 +12,7 @@ class LoginTextField extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        maxLength: 25,
         controller: controller,
         style: const TextStyle(
             color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
