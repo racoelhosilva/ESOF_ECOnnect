@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/model/user.dart';
 import 'package:econnect/view/profile/widgets/user_posts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,6 +26,16 @@ void main() {
 
   testWidgets('UserPosts renders correctly with posts',
       (WidgetTester tester) async {
+    final user = User(
+      id: '123',
+      email: 'test1@example.com',
+      username: 'test1',
+      score: 0,
+      isBlocked: false,
+      registerDatetime: DateTime.now(),
+      admin: false,
+      profilePicture: '',
+    );
     final List<Post> mockPosts = [
       Post(
         user: 'user_id_1',
@@ -41,6 +52,7 @@ void main() {
     ];
 
     when(dbController.getPostsFromUser(any)).thenAnswer((_) async => mockPosts);
+    when(sessionController.loggedInUser).thenReturn(user);
 
     await tester.pumpWidget(
       MaterialApp(
@@ -52,14 +64,28 @@ void main() {
       ),
     );
 
+    await tester.pumpAndSettle();
+
     expect(find.byType(GridView), findsOneWidget);
     expect(find.byType(CachedNetworkImage), findsNWidgets(mockPosts.length));
   });
 
   testWidgets('UserPosts shows loading spinner when fetching posts',
       (WidgetTester tester) async {
+    final user = User(
+      id: '123',
+      email: 'test1@example.com',
+      username: 'test1',
+      score: 0,
+      isBlocked: false,
+      registerDatetime: DateTime.now(),
+      admin: false,
+      profilePicture: '',
+    );
+
     when(dbController.getPostsFromUser(any)).thenAnswer(
-        (_) async => Future.delayed(const Duration(seconds: 2), () => []));
+        (_) async => Future.delayed(const Duration(seconds: 20), () => []));
+    when(sessionController.loggedInUser).thenReturn(user);
 
     await tester.pumpWidget(
       MaterialApp(
@@ -72,6 +98,8 @@ void main() {
     );
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+    await tester.pumpAndSettle();
   });
 
   testWidgets('UserPosts renders correctly when no posts are available',

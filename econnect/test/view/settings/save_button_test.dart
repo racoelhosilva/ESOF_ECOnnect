@@ -42,21 +42,30 @@ void main() {
         registerDatetime: DateTime.now(),
         admin: false,
       ));
+      when(sessionController.updateUser(any, any)).thenAnswer(
+          (_) async => await Future.delayed(const Duration(seconds: 20)));
+
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: SaveButton(
-              dbController: dbController,
-              sessionController: sessionController,
-              usernameController: usernameController,
-              descriptionController: descriptionController,
-              newProfilePicturePath: 'photo.png',
-            ),
-          ),
-        ),
+        MaterialApp(routes: {
+          '/home': (_) => Scaffold(
+                body: SaveButton(
+                  dbController: dbController,
+                  sessionController: sessionController,
+                  usernameController: usernameController,
+                  descriptionController: descriptionController,
+                  newProfilePicturePath: 'photo.png',
+                ),
+              ),
+          '/profile': (_) => const Text('Profile Page'),
+        }, initialRoute: '/home'),
       );
 
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pump();
+
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      await tester.pumpAndSettle();
     });
 
     testWidgets(

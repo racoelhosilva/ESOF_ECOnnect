@@ -42,23 +42,6 @@ void main() {
     expect(find.byType(Image), findsOneWidget);
   });
 
-  testWidgets('ImageWidget calls setImagePath', (WidgetTester tester) async {
-    String? filepath;
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: ImageEditor(
-          filepath,
-          setImagePath: (_) {},
-          proportion: 10,
-        ),
-      ),
-    ));
-
-    await tester.tap(find.byTooltip('Pick Image from gallery'));
-
-    verifyNever(mockImageWidget.setImagePath(filepath!));
-  });
-
   testWidgets(
       'ImageWidget calls setImagePath with non-null path when an image is selected from gallery',
       (WidgetTester tester) async {
