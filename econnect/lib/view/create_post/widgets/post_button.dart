@@ -31,7 +31,7 @@ class PostButton extends StatelessWidget {
           }
 
           await dbController.createPost(
-            user!.username,
+            user!,
             imagePath!,
             postController.text,
           );

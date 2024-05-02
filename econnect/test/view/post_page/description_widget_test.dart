@@ -1,4 +1,4 @@
-import 'package:econnect/view/post/widgets/image_widget.dart';
+import 'package:econnect/view/create_post/widgets/image_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,10 +11,14 @@ void main() {
     testWidgets('should create widget without error',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: ImageWidget(null, setImagePath: (_) {}),
+        home: ImageEditor(
+          null,
+          setImagePath: (_) {},
+          proportion: 10,
+        ),
       ));
 
-      expect(find.byType(ImageWidget), findsOneWidget);
+      expect(find.byType(ImageEditor), findsOneWidget);
     });
   });
 }

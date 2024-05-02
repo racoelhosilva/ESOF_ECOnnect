@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/firebase_options.dart';
@@ -6,10 +6,12 @@ import 'package:econnect/model/database.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
-import 'package:econnect/view/post/create_post_page.dart';
+import 'package:econnect/view/create_post/create_post_page.dart';
+import 'package:econnect/view/profile/profile_page.dart';
+import 'package:econnect/view/settings/settings_page.dart';
 import 'package:econnect/view/theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -52,16 +54,30 @@ class App extends StatelessWidget {
                   )),
           '/home': MaterialPageRoute<HomePage>(
               settings: settings,
-              builder: (_) => HomePage(dbController: dbController)),
+              builder: (_) => HomePage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  )),
           '/register': MaterialPageRoute<RegisterPage>(
               settings: settings,
               builder: (_) => RegisterPage(
                   dbController: dbController,
                   sessionController: sessionController)),
-          '/createpost': MaterialPageRoute<RegisterPage>(
+          '/createpost': MaterialPageRoute<CreatePostPage>(
               builder: (_) => CreatePostPage(
                   dbController: dbController,
                   sessionController: sessionController)),
+          '/profile': MaterialPageRoute<ProfilePage>(
+              builder: (_) => ProfilePage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                    userId: settings.arguments as String,
+                  )),
+          '/settings': MaterialPageRoute<SettingsPage>(
+              builder: (_) => SettingsPage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  ))
         };
         return transitions[settings.name];
       },
