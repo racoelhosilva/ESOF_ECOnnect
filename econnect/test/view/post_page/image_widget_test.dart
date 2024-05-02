@@ -11,14 +11,14 @@ void main() {
   late ImageEditor mockImageWidget;
 
   setUp(() {
-    mockImageWidget = MockImageWidget();
+    mockImageWidget = MockImageEditor();
   });
 
   testWidgets('ImageWidget displays "No image selected" when no image is set',
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageEditor(null, setImagePath: (_) {}),
+        body: ImageEditor(null, setImagePath: (_) {}, proportion: 10),
       ),
     ));
 
@@ -31,7 +31,11 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageEditor(imagePath, setImagePath: (_) {}),
+        body: ImageEditor(
+          imagePath,
+          setImagePath: (_) {},
+          proportion: 10,
+        ),
       ),
     ));
 
@@ -42,13 +46,17 @@ void main() {
     String? filepath;
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageEditor(filepath, setImagePath: (_) {}),
+        body: ImageEditor(
+          filepath,
+          setImagePath: (_) {},
+          proportion: 10,
+        ),
       ),
     ));
 
     await tester.tap(find.byTooltip('Pick Image from gallery'));
 
-    verifyNever(mockImageWidget.setImagePath(filepath));
+    verifyNever(mockImageWidget.setImagePath(filepath!));
   });
 
   testWidgets(
@@ -58,7 +66,11 @@ void main() {
 
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: ImageEditor(null, setImagePath: mockImageWidget.setImagePath),
+        body: ImageEditor(
+          null,
+          setImagePath: mockImageWidget.setImagePath,
+          proportion: 10,
+        ),
       ),
     ));
 

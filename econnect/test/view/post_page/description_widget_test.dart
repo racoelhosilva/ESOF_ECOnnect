@@ -11,7 +11,11 @@ void main() {
     testWidgets('should create widget without error',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        home: ImageEditor(null, setImagePath: (_) {}),
+        home: ImageEditor(
+          null,
+          setImagePath: (_) {},
+          proportion: 10,
+        ),
       ));
 
       expect(find.byType(ImageEditor), findsOneWidget);

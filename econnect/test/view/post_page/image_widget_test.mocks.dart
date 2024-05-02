@@ -70,16 +70,23 @@ class _FakeDiagnosticsNode_2 extends _i1.SmartFake
       super.toString();
 }
 
-/// A class which mocks [ImageWidget].
+/// A class which mocks [ImageEditor].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageWidget extends _i1.Mock implements _i4.ImageEditor {
+class MockImageEditor extends _i1.Mock implements _i4.ImageEditor {
   @override
-  dynamic Function(String?) get setImagePath => (super.noSuchMethod(
+  dynamic Function(String) get setImagePath => (super.noSuchMethod(
         Invocation.getter(#setImagePath),
-        returnValue: (String? __p0) => null,
-        returnValueForMissingStub: (String? __p0) => null,
-      ) as dynamic Function(String?));
+        returnValue: (String __p0) => null,
+        returnValueForMissingStub: (String __p0) => null,
+      ) as dynamic Function(String));
+
+  @override
+  double get proportion => (super.noSuchMethod(
+        Invocation.getter(#proportion),
+        returnValue: 0.0,
+        returnValueForMissingStub: 0.0,
+      ) as double);
 
   @override
   _i2.Widget build(_i2.BuildContext? context) => (super.noSuchMethod(
