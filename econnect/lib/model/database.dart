@@ -46,28 +46,32 @@ class Database {
     });
   }
 
-  Future<(List<Post>, String?)> getNextPosts(String? cursor, int numDocs) async {
+  Future<(List<Post>, String?)> getNextPosts(
+      String? cursor, int numDocs) async {
     final posts = _db.collection('posts');
-    Query<Map<String, dynamic>> query = posts.orderBy('postDatetime', descending: true);
+    Query<Map<String, dynamic>> query =
+        posts.orderBy('postDatetime', descending: true);
     if (cursor != null) {
       final fromDoc = await posts.doc(cursor).get();
       query = query.startAfterDocument(fromDoc);
     }
     query = query.limit(numDocs);
     final snapshot = await query.get();
-    return (snapshot.docs
-        .map((post) => Post(
-              user: post['user'],
-              image: post['image'],
-              description: post['description'],
-              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-            ))
-        .toList(),
-        snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
-      );
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              ))
+          .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
   }
 
-  Future<(List<Post>, String?)> getNextPostsOfFollowing(String? cursor, int numDocs, String userId) async {
+  Future<(List<Post>, String?)> getNextPostsOfFollowing(
+      String? cursor, int numDocs, String userId) async {
     final posts = _db.collection('posts');
     final following = await getFollowing(userId);
     if (following.isEmpty) {
@@ -75,48 +79,54 @@ class Database {
     }
 
     Query<Map<String, dynamic>> query = posts
-      .orderBy('postDatetime', descending: true)
-      .where('user', whereIn: following);
+        .orderBy('postDatetime', descending: true)
+        .where('user', whereIn: following);
     if (cursor != null) {
       final fromDoc = await posts.doc(cursor).get();
       query = query.startAfterDocument(fromDoc);
     }
     query = query.limit(numDocs);
     final snapshot = await query.get();
-    return (snapshot.docs
-      .map((post) => Post(
-            user: post['user'],
-            image: post['image'],
-            description: post['description'],
-            postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-          ))
-      .toList(),
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              ))
+          .toList(),
       snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
     );
   }
 
-  Future<(List<Post>, String?)> getNextPostsOfNonFollowing(String? cursor, int numDocs, String userId) async {
+  Future<(List<Post>, String?)> getNextPostsOfNonFollowing(
+      String? cursor, int numDocs, String userId) async {
     final posts = _db.collection('posts');
     final following = await getFollowing(userId);
 
     Query<Map<String, dynamic>> query = following.isNotEmpty
-      ? posts.where('user', whereNotIn: following).orderBy('user').orderBy('postDatetime', descending: true)
-      : posts.orderBy('postDatetime', descending: true);
-      
+        ? posts
+            .where('user', whereNotIn: following)
+            .orderBy('user')
+            .orderBy('postDatetime', descending: true)
+        : posts.orderBy('postDatetime', descending: true);
+
     if (cursor != null) {
       final fromDoc = await posts.doc(cursor).get();
       query = query.startAfterDocument(fromDoc);
     }
     query = query.limit(numDocs);
     final snapshot = await query.get();
-    return (snapshot.docs
-      .map((post) => Post(
-            user: post['user'],
-            image: post['image'],
-            description: post['description'],
-            postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-          ))
-      .toList(),
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              ))
+          .toList(),
       snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
     );
   }

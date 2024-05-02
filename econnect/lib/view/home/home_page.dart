@@ -47,7 +47,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _isLoading = true;
     });
-    final (nextPosts, newCursor) = await widget.dbController.getNextPostsOfFollowing(
+    final (nextPosts, newCursor) =
+        await widget.dbController.getNextPostsOfFollowing(
       _cursor,
       postsToLoad,
       widget.sessionController.loggedInUser!.id,
@@ -56,9 +57,8 @@ class _HomePageState extends State<HomePage> {
       _cursor = newCursor;
       _atEnd1 = newCursor == null;
       _followingPosts.addAll(
-        nextPosts.map<PostWidget>((post) => PostWidget(
-          post: post, dbController:
-          widget.dbController),
+        nextPosts.map<PostWidget>(
+          (post) => PostWidget(post: post, dbController: widget.dbController),
         ),
       );
       _isLoading = false;
@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _isLoading = true;
     });
-    final (nextPosts, newCursor) = await widget.dbController.getNextPostsOfNonFollowing(
+    final (nextPosts, newCursor) =
+        await widget.dbController.getNextPostsOfNonFollowing(
       _cursor,
       postsToLoad,
       widget.sessionController.loggedInUser!.id,
@@ -81,9 +82,8 @@ class _HomePageState extends State<HomePage> {
       _cursor = newCursor;
       _atEnd2 = newCursor == null;
       _othersPosts.addAll(
-        nextPosts.map<PostWidget>((post) => PostWidget(
-          post: post, dbController:
-          widget.dbController),
+        nextPosts.map<PostWidget>(
+          (post) => PostWidget(post: post, dbController: widget.dbController),
         ),
       );
       _isLoading = false;
@@ -91,7 +91,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadMorePostsAtEnd() async {
-    if (_scrollController.offset != _scrollController.position.maxScrollExtent) {
+    if (_scrollController.offset !=
+        _scrollController.position.maxScrollExtent) {
       return;
     }
     if (!_atEnd1) {

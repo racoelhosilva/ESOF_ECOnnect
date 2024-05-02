@@ -76,7 +76,8 @@ class SessionController {
     await dbController.removeFollow(_loggedInUser!.id, followedId);
   }
 
-  Future<bool> isFollowing(DatabaseController dbController, String followedId) async {
+  Future<bool> isFollowing(
+      DatabaseController dbController, String followedId) async {
     if (_loggedInUser == null) {
       throw StateError("No user is logged in\n");
     }

@@ -36,7 +36,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
         padding: const EdgeInsets.all(16.0),
         children: [
           const HeaderWidget(),
-          ImageEditor(_imagePath, setImagePath: setImagePath, proportion: 4/3),
+          ImageEditor(_imagePath,
+              setImagePath: setImagePath, proportion: 4 / 3),
           DescriptionField(controller: _postController),
           PostButton(
             dbController: widget.dbController,

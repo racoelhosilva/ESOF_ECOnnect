@@ -5,7 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class ImageEditor extends StatelessWidget {
-  ImageEditor(this._imagePath, {super.key, required this.setImagePath, required this.proportion});
+  ImageEditor(this._imagePath,
+      {super.key, required this.setImagePath, required this.proportion});
 
   final String? _imagePath;
   final Function(String) setImagePath;

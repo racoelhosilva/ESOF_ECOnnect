@@ -102,11 +102,10 @@ class PostWidget extends StatelessWidget {
           );
         } else {
           return Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.width * (5 / 3),
-            child: const CircularProgressIndicator()
-          );
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width * (5 / 3),
+              child: const CircularProgressIndicator());
         }
       },
     );

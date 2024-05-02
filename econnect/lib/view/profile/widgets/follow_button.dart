@@ -3,7 +3,11 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:flutter/material.dart';
 
 class FollowButton extends StatefulWidget {
-  const FollowButton({super.key, required this.dbController, required this.sessionController, required this.posterId});
+  const FollowButton(
+      {super.key,
+      required this.dbController,
+      required this.sessionController,
+      required this.posterId});
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -23,9 +27,8 @@ class _FollowButtonState extends State<FollowButton> {
   }
 
   Future<void> initFollowing() async {
-    final newFollowing = await widget.sessionController.isFollowing(
-      widget.dbController, widget.posterId
-    );
+    final newFollowing = await widget.sessionController
+        .isFollowing(widget.dbController, widget.posterId);
     setState(() {
       isFollowing = newFollowing;
     });
@@ -33,7 +36,8 @@ class _FollowButtonState extends State<FollowButton> {
 
   void toggleFollow() {
     if (isFollowing) {
-      widget.sessionController.unfollowUser(widget.posterId, widget.dbController);
+      widget.sessionController
+          .unfollowUser(widget.posterId, widget.dbController);
     } else {
       widget.sessionController.followUser(widget.posterId, widget.dbController);
     }

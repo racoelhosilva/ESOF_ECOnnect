@@ -5,7 +5,8 @@ import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 
 class HomePageHeader extends StatelessWidget {
-  const HomePageHeader({super.key, required this.dbController, required this.sessionController});
+  const HomePageHeader(
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -23,7 +24,9 @@ class HomePageHeader extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Padding(
             padding: const EdgeInsets.only(right: 12.0),
-            child: ProfileButton(userId: sessionController.loggedInUser!.id, dbController: dbController),
+            child: ProfileButton(
+                userId: sessionController.loggedInUser!.id,
+                dbController: dbController),
           ),
         ),
       ],

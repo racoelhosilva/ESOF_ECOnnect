@@ -10,7 +10,7 @@ Future<String> downloadImageToTemp(String url) async {
   if (response.statusCode != 200) {
     throw Exception('Failed to download image');
   }
-  
+
   final tempDir = await getTemporaryDirectory();
   final file = File('${tempDir.path}/${const Uuid().v4()}.png');
 
