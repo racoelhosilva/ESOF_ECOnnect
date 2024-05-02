@@ -1,68 +1,65 @@
-import 'package:econnect/model/post.dart';
-import 'package:econnect/view/post/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/model/post.dart';
+import 'package:econnect/view/post/widgets/save_button.dart';
 
 import '../../controller/session_controller_test.mocks.dart';
-
-/*void main() {
-  late MockDatabaseController mockDbController;
-  final Post mockPost = Post(
-      postId: '123',
-      image: 'image.jpg',
-      user: "",
-      description: "",
-      postDatetime: DateTime.now());
-  final TextEditingController mockController = TextEditingController();
-  bool onPressedCalled = false;
+void main() {
+  late MockDatabaseController dbController;
+  late TextEditingController postController;
 
   setUp(() {
-    mockDbController = MockDatabaseController();
+    dbController = MockDatabaseController();
+    postController = TextEditingController();
   });
 
-  testWidgets('SaveButton onPressed callback test',
+  tearDown(() {
+    postController.dispose();
+  });
+
+  testWidgets('SaveButton displays CircularProgressIndicator when isLoading is true',
       (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: SaveButton(
-            dbController: mockDbController,
-            postController: mockController,
-            post: mockPost,
+            dbController: dbController,
+            post: null,
+            postController: postController,
           ),
         ),
       ),
     );
+    
 
     await tester.tap(find.text('Save'));
-    expect(onPressedCalled, true);
+    await tester.pump();
+    final CircularProgressIndicator circularProgressIndicator =
+        tester.widget<CircularProgressIndicator>(find.byType(CircularProgressIndicator));
+
+    expect(circularProgressIndicator, isNotNull);
   });
 
-  testWidgets('SaveButton saving post test', (WidgetTester tester) async {
-    when(mockDbController.updatePost(any, any)).thenAnswer((_) async => true);
-
+  testWidgets('SaveButton updates post',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: SaveButton(
-            dbController: mockDbController,
-            postController: mockController,
-            post: mockPost,
-            onPressed: () async {
-              await mockDbController.updatePost(
-                  mockPost.postId, mockController.text);
-            },
+            dbController: dbController,
+            post: Post(postId: '1', user: '', image: '', description: '', postDatetime: DateTime.now()),
+            postController: postController,
           ),
         ),
       ),
     );
 
     await tester.tap(find.text('Save'));
-
     await tester.pumpAndSettle();
 
-    verify(mockDbController.updatePost(mockPost.postId, mockController.text))
-        .called(1);
-  });*/
+    expect(postController.text, '');
+  });
 
+  
+}

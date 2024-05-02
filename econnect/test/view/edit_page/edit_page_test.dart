@@ -7,6 +7,7 @@ import 'package:econnect/view/post/widgets/display_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:mockito/mockito.dart';
 import '../../controller/session_controller_test.mocks.dart';
 
 void main() {
@@ -41,5 +42,56 @@ void main() {
     expect(find.byType(HeaderWidget), findsOneWidget);
     expect(find.byIcon(LucideIcons.trash2), findsOneWidget);
     expect(find.text('Save'), findsOneWidget);
+  });
+
+  testWidgets('EditPostPage calls deletePost when delete button is pressed',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: EditPostPage(
+            dbController: mockDbController,
+            post: mockPost,
+          ),
+        ),
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(
+            builder: (context) => Container(),
+          );
+        },
+    
+      ),
+    );
+
+    await tester.tap(find.byIcon(LucideIcons.trash2));
+    await tester.pumpAndSettle();
+
+    verify(mockDbController.deletePost('123')).called(1);
+  });
+
+  testWidgets('EditPostPage calls savePost when save button is pressed',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: EditPostPage(
+            dbController: mockDbController,
+            post: mockPost,
+          ),
+        ),
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(
+            builder: (context) => Container(),
+          );
+        },
+      ),
+    );
+
+    await tester.tap(find.text('Save'));
+    await tester.pumpAndSettle();
+
+    verify(mockDbController.updatePost(
+            mockPost.postId, mockPost.description))
+        .called(1);
   });
 }
