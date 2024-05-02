@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
               sessionController: widget.sessionController,
             ),
             ..._followingPosts,
-            if (_atEnd1) const MiddleMessage(),
+            if (_atEnd1 && _followingPosts.isNotEmpty) const MiddleMessage(),
             ..._othersPosts,
             if (_atEnd2) const EndMessage(),
             if (_isLoading) const Center(child: CircularProgressIndicator()),
