@@ -164,6 +164,57 @@ class MockDatabaseController extends _i1.Mock
       );
 
   @override
+  _i7.Future<void> addLike(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addLike,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> removeLike(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeLike,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<bool> isLiked(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isLiked,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i7.Future<bool>.value(false),
+        returnValueForMissingStub: _i7.Future<bool>.value(false),
+      ) as _i7.Future<bool>);
+
+  @override
   _i7.Future<_i9.User?> createUser(
     String? id,
     String? email,

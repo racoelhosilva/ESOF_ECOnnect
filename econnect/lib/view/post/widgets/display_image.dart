@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DisplayImage extends StatelessWidget {
   const DisplayImage({super.key, required this.imagePath});
 
-  final String? imagePath;
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class DisplayImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Image.network(
-        imagePath!,
+        imagePath,
         fit: BoxFit.cover,
       ),
     );

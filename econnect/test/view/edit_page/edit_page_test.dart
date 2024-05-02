@@ -6,6 +6,7 @@ import 'package:econnect/view/post/widgets/description_widget.dart';
 import 'package:econnect/view/post/widgets/display_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../../controller/session_controller_test.mocks.dart';
 
 void main() {
@@ -28,7 +29,6 @@ void main() {
         home: Scaffold(
           body: EditPostPage(
             dbController: mockDbController,
-            initialDescription: 'Initial Description',
             post: mockPost,
           ),
         ),
@@ -39,7 +39,7 @@ void main() {
     expect(find.byType(DescriptionWidget), findsOneWidget);
     expect(find.byType(DisplayImage), findsOneWidget);
     expect(find.byType(HeaderWidget), findsOneWidget);
-    expect(find.text('Delete'), findsOneWidget);
+    expect(find.byIcon(LucideIcons.trash2), findsOneWidget);
     expect(find.text('Save'), findsOneWidget);
   });
 }

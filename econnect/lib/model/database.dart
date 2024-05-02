@@ -43,6 +43,7 @@ class Database {
       'image': post.image,
       'description': post.description,
       'postDatetime': post.postDatetime,
+      'likes': 0,
     });
   }
 
@@ -74,12 +75,13 @@ class Database {
     if (snapshot.docs.isNotEmpty) lastDoc = snapshot.docs.last;
     return snapshot.docs
         .map((post) => Post(
-              postId: post.id,
-              user: post['user'],
-              image: post['image'],
-              description: post['description'],
-              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-            ))
+      postId: post.id,
+      user: post['user'],
+      image: post['image'],
+      description: post['description'],
+      postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+      likes: post['likes'],
+    ))
         .toList();
   }
 
@@ -128,5 +130,47 @@ class Database {
       registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
       admin: dbUser['isAdmin'],
     );
+  }
+
+  Future<void> addLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final post = _db.collection('posts');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isNotEmpty) {
+      throw StateError("User $userId already likes $postId");
+    }
+
+    await likes.add({'user': userId, 'post': postId});
+    await post.doc(postId).update({'likes': FieldValue.increment(1)});
+  }
+
+  Future<void> removeLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final post = _db.collection('post');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isEmpty) {
+      throw StateError("User $userId does not like $postId");
+    }
+
+    await dbLike.docs[0].reference.delete();
+    await post.doc(postId).update({'likes': FieldValue.increment(-1)});
+  }
+
+  Future<bool> isLiked(String userId, String postId) async {
+    final likes = _db.collection('likes');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    return dbLike.docs.isNotEmpty;
   }
 }

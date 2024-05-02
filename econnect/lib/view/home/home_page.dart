@@ -1,16 +1,18 @@
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/logo_widget.dart';
 import 'package:econnect/view/home/widgets/end_message.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
-import 'package:econnect/view/post/edit_post_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.dbController});
+  const HomePage(
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
+  final SessionController sessionController;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -87,17 +89,17 @@ class _HomePageState extends State<HomePage> {
             ...(_posts.map(
               (post) => GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => EditPostPage(
-                          post: post,
-                          dbController: widget.dbController,
-                          initialDescription: post.description),
-                    ),
-                  );
+                    '/editpost',
+                    arguments: post,
+                  ); // Navigate to the new page
                 },
-                child: PostWidget(post: post),
+                child: PostWidget(
+                  post: post,
+                  dbController: widget.dbController,
+                  sessionController: widget.sessionController,
+                ),
               ),
             )),
             if (_isLoading) const Center(child: CircularProgressIndicator()),

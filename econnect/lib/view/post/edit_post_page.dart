@@ -12,12 +12,10 @@ class EditPostPage extends StatefulWidget {
   const EditPostPage({
     super.key,
     required this.dbController,
-    required this.initialDescription,
     required this.post,
   });
 
   final DatabaseController dbController;
-  final String initialDescription;
   final Post post;
 
   @override
@@ -26,12 +24,11 @@ class EditPostPage extends StatefulWidget {
 
 class _EditPostPageState extends State<EditPostPage> {
   late TextEditingController _postController;
-  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _postController = TextEditingController(text: widget.initialDescription);
+    _postController = TextEditingController(text: widget.post.description);
   }
 
   @override
@@ -44,53 +41,26 @@ class _EditPostPageState extends State<EditPostPage> {
           const HeaderWidget(),
           DisplayImage(imagePath: widget.post.image),
           DescriptionWidget(controller: _postController),
-          SizedBox(
-            width: 270,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SaveButton(
-                  dbController: widget.dbController,
-                  postController: _postController,
-                  post: widget.post,
-                  onPressed: _handleSave,
-                ),
-                DeleteButton(
-                  onPressed: _handleDelete,
-                ),
-              ],
-            ),
+          SaveButton(
+            dbController: widget.dbController,
+            postController: _postController,
+            post: widget.post,
           ),
-          if (_isLoading)
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
         ],
       ),
+      floatingActionButton: MediaQuery.of(context).viewInsets.bottom != 0
+          ? null
+          : DeleteButton(
+        onPressed: () async {
+          await widget.dbController.deletePost(widget.post.postId);
+          if (!context.mounted) {
+            return;
+          }
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/home', (_) => false);
+        },
+      ),
     );
-  }
-
-  Future<void> _handleSave() async {
-    setState(() {
-      _isLoading = true;
-    });
-    await widget.dbController
-        .updatePost(widget.post.postId, _postController.text);
-
-    if (mounted) {
-      Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
-    }
-  }
-
-  Future<void> _handleDelete() async {
-    setState(() {
-      _isLoading = true;
-    });
-    await widget.dbController.deletePost(widget.post.postId);
-
-    if (mounted) {
-      Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
-    }
   }
 
   @override

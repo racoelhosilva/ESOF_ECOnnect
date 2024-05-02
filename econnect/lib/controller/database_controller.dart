@@ -33,6 +33,15 @@ class DatabaseController {
 
   void resetPostsCursor() => db.resetPostsCursor();
 
+  Future<void> addLike(String userId, String postId) async =>
+      await db.addLike(userId, postId);
+
+  Future<void> removeLike(String userId, String postId) async =>
+      await db.removeLike(userId, postId);
+
+  Future<bool> isLiked(String userId, String postId) async =>
+      await db.isLiked(userId, postId);
+
   Future<User?> createUser(String id, String email, String username) async {
     final user = User(
       id: id,

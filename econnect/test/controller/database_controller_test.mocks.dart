@@ -161,4 +161,55 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
         returnValue: _i4.Future<_i7.User?>.value(),
         returnValueForMissingStub: _i4.Future<_i7.User?>.value(),
       ) as _i4.Future<_i7.User?>);
+
+  @override
+  _i4.Future<void> addLike(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addLike,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> removeLike(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeLike,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<bool> isLiked(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isLiked,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 }
