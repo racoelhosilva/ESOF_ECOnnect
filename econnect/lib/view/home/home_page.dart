@@ -103,7 +103,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadMorePostsAtEnd() async {
     if (_scrollController.offset !=
-        _scrollController.position.maxScrollExtent || _isLoading) {
+            _scrollController.position.maxScrollExtent ||
+        _isLoading) {
       return;
     }
     Logger().w(_cursor);

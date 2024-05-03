@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class LoginTextField extends StatelessWidget {
   const LoginTextField(
-      {super.key, required this.fieldName, required this.controller, this.maxLength});
+      {super.key,
+      required this.fieldName,
+      required this.controller,
+      this.maxLength});
 
   final String fieldName;
   final TextEditingController controller;
