@@ -308,3 +308,16 @@ You can find below information and references related to the project management 
  - Envision the product from the perspective of a larger audience (public or mass market)
  - Good teamwork and organization
  - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
+
+---
+
+### Sprint 3 Overview
+
+> **Goal:** Perfect the elements already implemented; implement comments on posts; implement search page; fix any issues or bugs
+
+#### Project Board
+
+<p align="center" justify="center">
+  <b>Start of Sprint 3</b>
+  <img src="img/sprints/sprint3_start.png"/>
+</p>
