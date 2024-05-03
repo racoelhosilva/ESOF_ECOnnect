@@ -85,6 +85,33 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       ) as _i3.Future<void>);
 
   @override
+  _i3.Future<void> updatePost(
+    String? postId,
+    String? postDescription,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updatePost,
+          [
+            postId,
+            postDescription,
+          ],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> deletePost(String? postId) => (super.noSuchMethod(
+        Invocation.method(
+          #deletePost,
+          [postId],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
   _i3.Future<(List<_i5.Post>, String?)> getNextPosts(
     String? cursor,
     int? numDocs,
@@ -176,6 +203,57 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
         returnValue: _i3.Future<_i6.User?>.value(),
         returnValueForMissingStub: _i3.Future<_i6.User?>.value(),
       ) as _i3.Future<_i6.User?>);
+
+  @override
+  _i3.Future<void> addLike(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addLike,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> removeLike(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeLike,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<bool> isLiked(
+    String? userId,
+    String? postId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isLiked,
+          [
+            userId,
+            postId,
+          ],
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 
   @override
   _i3.Future<void> updateUser(_i6.User? updatedUser) => (super.noSuchMethod(

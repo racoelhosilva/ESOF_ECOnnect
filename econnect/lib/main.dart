@@ -3,6 +3,8 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
+import 'package:econnect/model/post.dart';
+import 'package:econnect/view/create_post/edit_post_page.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
@@ -67,6 +69,10 @@ class App extends StatelessWidget {
               builder: (_) => CreatePostPage(
                   dbController: dbController,
                   sessionController: sessionController)),
+          '/editpost': MaterialPageRoute<EditPostPage>(
+              builder: (_) => EditPostPage(
+                  dbController: dbController,
+                  post: settings.arguments as Post)),
           '/profile': MaterialPageRoute<ProfilePage>(
               builder: (_) => ProfilePage(
                     dbController: dbController,

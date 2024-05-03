@@ -42,12 +42,14 @@ void main() {
         image: 'post_image_1',
         description: 'Description for post 1',
         postDatetime: DateTime.now(),
+        postId: '',
       ),
       Post(
         user: 'user_id_2',
         image: 'post_image_2',
         description: 'Description for post 2',
         postDatetime: DateTime.now(),
+        postId: '',
       ),
     ];
 

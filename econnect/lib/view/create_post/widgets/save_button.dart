@@ -1,26 +1,24 @@
 import 'package:econnect/controller/database_controller.dart';
-import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-class PostButton extends StatefulWidget {
-  const PostButton(
+import '../../../model/post.dart';
+
+class SaveButton extends StatefulWidget {
+  const SaveButton(
       {super.key,
       required this.dbController,
-      required this.postController,
-      required this.imagePath,
-      required this.user});
+      required this.post,
+      required this.postController});
 
   final DatabaseController dbController;
+  final Post? post;
   final TextEditingController postController;
-  final String? imagePath;
-  final User? user;
 
   @override
-  State<PostButton> createState() => _PostButtonState();
+  State<SaveButton> createState() => _SaveButtonState();
 }
 
-class _PostButtonState extends State<PostButton> {
+class _SaveButtonState extends State<SaveButton> {
   bool _isLoading = false;
 
   void _onPressed(BuildContext context) async {
@@ -28,15 +26,10 @@ class _PostButtonState extends State<PostButton> {
       _isLoading = true;
     });
 
-    if (widget.imagePath == null) {
-      _showToast(context, 'Please select an image');
-      return;
-    }
-
-    await widget.dbController.createPost(
-        user: widget.user!,
-        imgPath: widget.imagePath!,
-        description: widget.postController.text);
+    await widget.dbController.updatePost(
+      widget.post?.postId,
+      widget.postController.text,
+    );
 
     setState(() {
       _isLoading = false;
@@ -63,7 +56,7 @@ class _PostButtonState extends State<PostButton> {
         ),
         onPressed: () => _onPressed(context),
         child: const Text(
-          'Publish',
+          'Save',
           style: TextStyle(
             fontFamily: 'Karla',
             color: Colors.white,
@@ -72,13 +65,6 @@ class _PostButtonState extends State<PostButton> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showToast(BuildContext context, String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      backgroundColor: Theme.of(context).colorScheme.error,
     );
   }
 }

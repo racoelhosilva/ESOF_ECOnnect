@@ -43,7 +43,21 @@ class Database {
       'image': post.image,
       'description': post.description,
       'postDatetime': post.postDatetime,
+      'likes': 0,
     });
+  }
+
+  Future<void> updatePost(String postId, String postDescription) async {
+    Logger().i('Updating post with id $postId, $postDescription');
+    await _db
+        .collection('posts')
+        .doc(postId)
+        .update({'description': postDescription});
+  }
+
+  Future<void> deletePost(String postId) async {
+    Logger().i('Deleting post with id $postId');
+    await _db.collection('posts').doc(postId).delete();
   }
 
   Future<(List<Post>, String?)> getNextPosts(
@@ -60,10 +74,12 @@ class Database {
     return (
       snapshot.docs
           .map((post) => Post(
+                postId: post.id,
                 user: post['user'],
                 image: post['image'],
                 description: post['description'],
                 postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+                likes: post['likes'],
               ))
           .toList(),
       snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
@@ -91,11 +107,12 @@ class Database {
     return (
       snapshot.docs
           .map((post) => Post(
-                user: post['user'],
-                image: post['image'],
-                description: post['description'],
-                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-              ))
+              postId: post.id,
+              user: post['user'],
+              image: post['image'],
+              description: post['description'],
+              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              likes: post['likes']))
           .toList(),
       snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
     );
@@ -122,10 +139,12 @@ class Database {
     return (
       snapshot.docs
           .map((post) => Post(
+                postId: post.id,
                 user: post['user'],
                 image: post['image'],
                 description: post['description'],
                 postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+                likes: post['likes'],
               ))
           .toList(),
       snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
@@ -140,10 +159,12 @@ class Database {
         .get();
     return snapshot.docs
         .map((post) => Post(
+              postId: post.id,
               user: post['user'],
               image: post['image'],
               description: post['description'],
               postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+              likes: post['likes'],
             ))
         .toList();
   }
@@ -189,6 +210,47 @@ class Database {
       registerDatetime: (dbUser['registerDatetime'] as Timestamp).toDate(),
       admin: dbUser['isAdmin'],
     );
+  }
+
+  Future<void> addLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final posts = _db.collection('posts');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isEmpty) {
+      await likes.add({
+        'user': userId,
+        'post': postId,
+      });
+      await posts.doc(postId).update({'likes': FieldValue.increment(1)});
+    }
+  }
+
+  Future<void> removeLike(String userId, String postId) async {
+    final likes = _db.collection('likes');
+    final posts = _db.collection('posts');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    if (dbLike.docs.isNotEmpty) {
+      await dbLike.docs.first.reference.delete();
+      await posts.doc(postId).update({'likes': FieldValue.increment(-1)});
+    }
+  }
+
+  Future<bool> isLiked(String userId, String postId) async {
+    final likes = _db.collection('likes');
+
+    final dbLike = await likes
+        .where('user', isEqualTo: userId)
+        .where('post', isEqualTo: postId)
+        .get();
+    return dbLike.docs.isNotEmpty;
   }
 
   Future<void> updateUser(User updatedUser) async {

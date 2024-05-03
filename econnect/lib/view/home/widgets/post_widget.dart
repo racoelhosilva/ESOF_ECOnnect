@@ -1,16 +1,23 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
+import 'package:econnect/view/home/widgets/likes_widget.dart';
 import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({super.key, required this.post, required this.dbController});
+  const PostWidget(
+      {super.key,
+      required this.post,
+      required this.dbController,
+      required this.sessionController});
 
   final Post post;
   final DatabaseController dbController;
+  final SessionController sessionController;
 
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
@@ -92,6 +99,11 @@ class PostWidget extends StatelessWidget {
                     errorWidget: (context, url, error) =>
                         const Icon(LucideIcons.alertCircle),
                   ),
+                ),
+                LikeWidget(
+                  post: post,
+                  dbController: dbController,
+                  sessionController: sessionController,
                 ),
                 Text(
                   post.description,

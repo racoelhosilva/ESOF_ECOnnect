@@ -163,12 +163,14 @@ void main() {
           user: 'user1',
           description: 'Description 1',
           image: 'www.img1.com',
-          postDatetime: DateTime.now()),
+          postDatetime: DateTime.now(),
+          postId: ''),
       Post(
           user: 'user1',
           description: 'Description 2',
           image: 'www.img2.com',
-          postDatetime: DateTime.now())
+          postDatetime: DateTime.now(),
+          postId: '')
     ];
     const expectedCursor = 'nextCursor';
 
@@ -198,12 +200,14 @@ void main() {
           user: 'user1',
           description: 'Description 1',
           image: 'www.img1.com',
-          postDatetime: DateTime.now()),
+          postDatetime: DateTime.now(),
+          postId: ''),
       Post(
           user: 'user1',
           description: 'Description 2',
           image: 'www.img2.com',
-          postDatetime: DateTime.now())
+          postDatetime: DateTime.now(),
+          postId: '')
     ];
     const expectedCursor = 'nextCursor';
 
@@ -234,12 +238,14 @@ void main() {
           user: 'user1',
           description: 'Description 1',
           image: 'www.img1.com',
-          postDatetime: DateTime.now()),
+          postDatetime: DateTime.now(),
+          postId: ''),
       Post(
           user: 'user1',
           description: 'Description 2',
           image: 'www.img2.com',
-          postDatetime: DateTime.now())
+          postDatetime: DateTime.now(),
+          postId: '')
     ];
     const expectedCursor = 'nextCursor';
 
@@ -268,12 +274,14 @@ void main() {
           user: 'user1',
           description: 'Description 1',
           image: 'www.img1.com',
-          postDatetime: DateTime.now()),
+          postDatetime: DateTime.now(),
+          postId: ''),
       Post(
           user: 'user1',
           description: 'Description 2',
           image: 'www.img2.com',
-          postDatetime: DateTime.now())
+          postDatetime: DateTime.now(),
+          postId: '')
     ];
 
     when(database.getPostsFromUser(userId))

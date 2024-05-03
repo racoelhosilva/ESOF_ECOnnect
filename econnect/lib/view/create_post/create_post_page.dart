@@ -50,7 +50,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
           ),
         ],
       ),
-      extendBody: true,
     );
   }
 }

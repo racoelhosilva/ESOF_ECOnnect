@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
+import 'package:uuid/uuid.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -10,16 +11,26 @@ class DatabaseController {
   const DatabaseController({required this.db});
   final Database db;
 
-  Future<Post> createPost(User user, String imgPath, String description) async {
+  Future<void> createPost(
+      {required User user,
+      required String imgPath,
+      required String description}) async {
     final image = await db.storeImage(imgPath);
     final post = Post(
+        postId: const Uuid().v4(),
         user: user.id,
         image: await db.retrieveFileUrl(image),
         description: description,
         postDatetime: DateTime.now());
+
     await db.addPost(post);
-    return post;
+    return;
   }
+
+  Future<void> updatePost(String? postId, String postDescription) async =>
+      await db.updatePost(postId!, postDescription);
+
+  Future<void> deletePost(String? postId) async => await db.deletePost(postId!);
 
   Future<(List<Post>, String?)> getNextPosts(
           String? cursor, int numDocs) async =>
@@ -35,6 +46,15 @@ class DatabaseController {
 
   Future<List<Post>> getPostsFromUser(String userId) async =>
       await db.getPostsFromUser(userId);
+
+  Future<void> addLike(String userId, String postId) async =>
+      await db.addLike(userId, postId);
+
+  Future<void> removeLike(String userId, String postId) async =>
+      await db.removeLike(userId, postId);
+
+  Future<bool> isLiked(String userId, String postId) async =>
+      await db.isLiked(userId, postId);
 
   Future<User?> createUser(String id, String email, String username) async {
     final pictureAsset =

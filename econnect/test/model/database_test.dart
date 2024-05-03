@@ -384,11 +384,13 @@ void main() {
     when(queryDocumentSnapshot1['description']).thenReturn('description1');
     when(queryDocumentSnapshot1['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['likes']).thenReturn(0);
     when(queryDocumentSnapshot2['user']).thenReturn('user2');
     when(queryDocumentSnapshot2['image']).thenReturn('image2');
     when(queryDocumentSnapshot2['description']).thenReturn('description2');
     when(queryDocumentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
     final result = await database.getNextPosts(null, 2);
 
@@ -397,10 +399,13 @@ void main() {
     expect(result.$1[0].image, 'image1');
     expect(result.$1[0].description, 'description1');
     expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[0].likes, 0);
+
     expect(result.$1[1].user, 'user2');
     expect(result.$1[1].image, 'image2');
     expect(result.$1[1].description, 'description2');
     expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$1[1].likes, 0);
     expect(result.$2, documentId2);
   });
 
@@ -457,22 +462,28 @@ void main() {
     when(documentSnapshot1['description']).thenReturn('description1');
     when(documentSnapshot1['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['likes']).thenReturn(0);
+
     when(documentSnapshot2['user']).thenReturn('user2');
     when(documentSnapshot2['image']).thenReturn('image2');
     when(documentSnapshot2['description']).thenReturn('description2');
     when(documentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
     when(queryDocumentSnapshot1['user']).thenReturn('user1');
     when(queryDocumentSnapshot1['image']).thenReturn('image1');
     when(queryDocumentSnapshot1['description']).thenReturn('description1');
     when(queryDocumentSnapshot1['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['likes']).thenReturn(0);
+
     when(queryDocumentSnapshot2['user']).thenReturn('user2');
     when(queryDocumentSnapshot2['image']).thenReturn('image2');
     when(queryDocumentSnapshot2['description']).thenReturn('description2');
     when(queryDocumentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
     when(queryDocumentSnapshot1.id).thenReturn(documentId1);
     when(queryDocumentSnapshot2.id).thenReturn(documentId2);
@@ -486,6 +497,8 @@ void main() {
     expect(result.$1[0].image, 'image1');
     expect(result.$1[0].description, 'description1');
     expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[0].likes, 0);
+
     expect(result.$2, documentId1);
 
     result = await database.getNextPosts(documentId1, 1);
@@ -493,6 +506,7 @@ void main() {
     expect(result.$1[0].image, 'image2');
     expect(result.$1[0].description, 'description2');
     expect(result.$1[0].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$1[0].likes, 0);
     expect(result.$2, documentId2);
 
     result = await database.getNextPosts(documentId2, 1);
@@ -538,11 +552,14 @@ void main() {
     when(queryDocumentSnapshot1['description']).thenReturn('description1');
     when(queryDocumentSnapshot1['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['likes']).thenReturn(0);
+
     when(queryDocumentSnapshot2['user']).thenReturn('user2');
     when(queryDocumentSnapshot2['image']).thenReturn('image2');
     when(queryDocumentSnapshot2['description']).thenReturn('description2');
     when(queryDocumentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
     when(firestore.collection('follows')).thenReturn(followsCollection);
     when(followsCollection.where('follower', isEqualTo: userId))
@@ -562,10 +579,12 @@ void main() {
     expect(result.$1[0].image, 'image1');
     expect(result.$1[0].description, 'description1');
     expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[0].likes, 0);
     expect(result.$1[1].user, 'user2');
     expect(result.$1[1].image, 'image2');
     expect(result.$1[1].description, 'description2');
     expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$1[1].likes, 0);
     expect(result.$2, documentId2);
   });
 
@@ -608,11 +627,13 @@ void main() {
     when(queryDocumentSnapshot1['description']).thenReturn('description1');
     when(queryDocumentSnapshot1['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['likes']).thenReturn(0);
     when(queryDocumentSnapshot2['user']).thenReturn('user2');
     when(queryDocumentSnapshot2['image']).thenReturn('image2');
     when(queryDocumentSnapshot2['description']).thenReturn('description2');
     when(queryDocumentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
     when(firestore.collection('follows')).thenReturn(followsCollection);
     when(followsCollection.where('follower', isEqualTo: userId))
@@ -632,10 +653,12 @@ void main() {
     expect(result.$1[0].image, 'image1');
     expect(result.$1[0].description, 'description1');
     expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[0].likes, 0);
     expect(result.$1[1].user, 'user2');
     expect(result.$1[1].image, 'image2');
     expect(result.$1[1].description, 'description2');
     expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$1[1].likes, 0);
     expect(result.$2, documentId2);
   });
 
@@ -668,11 +691,14 @@ void main() {
     when(queryDocumentSnapshot1['description']).thenReturn('description1');
     when(queryDocumentSnapshot1['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['likes']).thenReturn(0);
+
     when(queryDocumentSnapshot2['user']).thenReturn('user2');
     when(queryDocumentSnapshot2['image']).thenReturn('image2');
     when(queryDocumentSnapshot2['description']).thenReturn('description2');
     when(queryDocumentSnapshot2['postDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
     final result = await database.getPostsFromUser(userId);
 
@@ -680,9 +706,11 @@ void main() {
     expect(result[0].image, 'image1');
     expect(result[0].description, 'description1');
     expect(result[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result[0].likes, 0);
     expect(result[1].user, 'user2');
     expect(result[1].image, 'image2');
     expect(result[1].description, 'description2');
     expect(result[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result[1].likes, 0);
   });
 }

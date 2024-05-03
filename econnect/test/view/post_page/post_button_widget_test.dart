@@ -46,7 +46,20 @@ void main() {
     await tester.tap(find.byType(PostButton));
     await tester.pump();
 
-    verify(databaseController.createPost(user, 'testImagePath', '')).called(1);
+    verify(databaseController.createPost(
+            user: User(
+              id: '123',
+              email: 'test@example.com',
+              username: 'testuser',
+              profilePicture: '',
+              score: 0,
+              registerDatetime: DateTime.now(),
+              isBlocked: false,
+              admin: false,
+            ),
+            imgPath: 'testImagePath',
+            description: ''))
+        .called(1);
   });
 
   testWidgets('No image selected when imagePath is null',
@@ -78,6 +91,17 @@ void main() {
     await tester.tap(find.text('Publish'));
     await tester.pump();
 
-    verifyNever(databaseController.createPost(user, 'testImagePath', ''));
+    verifyNever(databaseController.createPost(
+        user: User(
+            id: '123',
+            email: 'test@example.com',
+            username: 'testuser',
+            profilePicture: '',
+            score: 0,
+            registerDatetime: DateTime.now(),
+            isBlocked: false,
+            admin: false),
+        imgPath: 'testImagePath',
+        description: ''));
   });
 }

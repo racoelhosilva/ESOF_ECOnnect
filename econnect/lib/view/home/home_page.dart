@@ -58,7 +58,11 @@ class _HomePageState extends State<HomePage> {
       _atEnd1 = newCursor == null;
       _followingPosts.addAll(
         nextPosts.map<PostWidget>(
-          (post) => PostWidget(post: post, dbController: widget.dbController),
+          (post) => PostWidget(
+            post: post,
+            dbController: widget.dbController,
+            sessionController: widget.sessionController,
+          ),
         ),
       );
       _isLoading = false;
@@ -83,7 +87,11 @@ class _HomePageState extends State<HomePage> {
       _atEnd2 = newCursor == null;
       _othersPosts.addAll(
         nextPosts.map<PostWidget>(
-          (post) => PostWidget(post: post, dbController: widget.dbController),
+          (post) => PostWidget(
+            post: post,
+            dbController: widget.dbController,
+            sessionController: widget.sessionController,
+          ),
         ),
       );
       _isLoading = false;
