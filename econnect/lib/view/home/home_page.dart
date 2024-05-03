@@ -6,6 +6,7 @@ import 'package:econnect/view/home/widgets/middle_message.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
 import 'package:econnect/view/home/widgets/home_page_header.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -102,13 +103,15 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadMorePostsAtEnd() async {
     if (_scrollController.offset !=
-        _scrollController.position.maxScrollExtent) {
+            _scrollController.position.maxScrollExtent ||
+        _isLoading) {
       return;
     }
+    Logger().w(_cursor);
     if (!_atEnd1) {
-      _loadMorePostsFromFollowing();
+      await _loadMorePostsFromFollowing();
     } else if (!_atEnd2) {
-      _loadMorePostsFromOthers();
+      await _loadMorePostsFromOthers();
     }
   }
 

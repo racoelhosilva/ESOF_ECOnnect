@@ -60,6 +60,7 @@ class RegisterPageState extends State<RegisterPage> {
                   LoginTextField(
                     fieldName: 'Username',
                     controller: usernameController,
+                    maxLength: 25,
                   ),
                   LoginTextField(
                     fieldName: 'E-mail',
