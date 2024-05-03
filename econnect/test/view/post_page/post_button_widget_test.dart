@@ -46,7 +46,6 @@ void main() {
     await tester.tap(find.byType(PostButton));
     await tester.pump();
 
-<<<<<<< HEAD
     verify(databaseController.createPost(
             user: User(
               id: '123',
@@ -61,9 +60,6 @@ void main() {
             imgPath: 'testImagePath',
             description: ''))
         .called(1);
-=======
-    verify(databaseController.createPost(user, 'testImagePath', '')).called(1);
->>>>>>> origin/feature/profile-page
   });
 
   testWidgets('No image selected when imagePath is null',
@@ -95,7 +91,6 @@ void main() {
     await tester.tap(find.text('Publish'));
     await tester.pump();
 
-<<<<<<< HEAD
     verifyNever(databaseController.createPost(
         user: User(
             id: '123',
@@ -108,8 +103,5 @@ void main() {
             admin: false),
         imgPath: 'testImagePath',
         description: ''));
-=======
-    verifyNever(databaseController.createPost(user, 'testImagePath', ''));
->>>>>>> origin/feature/profile-page
   });
 }

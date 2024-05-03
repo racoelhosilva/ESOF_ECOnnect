@@ -61,7 +61,6 @@ class _PostButtonState extends State<PostButton> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.outline,
         ),
-
         onPressed: () => _onPressed(context),
         child: const Text(
           'Publish',

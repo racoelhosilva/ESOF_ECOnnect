@@ -85,8 +85,7 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       ) as _i3.Future<void>);
 
   @override
-<<<<<<< HEAD
-  _i4.Future<void> updatePost(
+  _i3.Future<void> updatePost(
     String? postId,
     String? postDescription,
   ) =>
@@ -98,29 +97,26 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
             postDescription,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 
   @override
-  _i4.Future<void> deletePost(String? postId) => (super.noSuchMethod(
+  _i3.Future<void> deletePost(String? postId) => (super.noSuchMethod(
         Invocation.method(
           #deletePost,
           [postId],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 
   @override
-  _i4.Future<List<_i6.Post>> getNextPosts(int? numDocs) => (super.noSuchMethod(
-=======
   _i3.Future<(List<_i5.Post>, String?)> getNextPosts(
     String? cursor,
     int? numDocs,
   ) =>
       (super.noSuchMethod(
->>>>>>> origin/feature/profile-page
         Invocation.method(
           #getNextPosts,
           [
@@ -204,13 +200,12 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
           #getUser,
           [id],
         ),
-<<<<<<< HEAD
-        returnValue: _i4.Future<_i7.User?>.value(),
-        returnValueForMissingStub: _i4.Future<_i7.User?>.value(),
-      ) as _i4.Future<_i7.User?>);
+        returnValue: _i3.Future<_i6.User?>.value(),
+        returnValueForMissingStub: _i3.Future<_i6.User?>.value(),
+      ) as _i3.Future<_i6.User?>);
 
   @override
-  _i4.Future<void> addLike(
+  _i3.Future<void> addLike(
     String? userId,
     String? postId,
   ) =>
@@ -222,12 +217,12 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
             postId,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 
   @override
-  _i4.Future<void> removeLike(
+  _i3.Future<void> removeLike(
     String? userId,
     String? postId,
   ) =>
@@ -239,12 +234,12 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
             postId,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 
   @override
-  _i4.Future<bool> isLiked(
+  _i3.Future<bool> isLiked(
     String? userId,
     String? postId,
   ) =>
@@ -256,13 +251,9 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
             postId,
           ],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
-=======
-        returnValue: _i3.Future<_i6.User?>.value(),
-        returnValueForMissingStub: _i3.Future<_i6.User?>.value(),
-      ) as _i3.Future<_i6.User?>);
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 
   @override
   _i3.Future<void> updateUser(_i6.User? updatedUser) => (super.noSuchMethod(
@@ -334,5 +325,4 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
         returnValue: _i3.Future<bool>.value(false),
         returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
->>>>>>> origin/feature/profile-page
 }

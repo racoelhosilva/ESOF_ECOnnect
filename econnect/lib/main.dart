@@ -57,8 +57,8 @@ class App extends StatelessWidget {
           '/home': MaterialPageRoute<HomePage>(
               settings: settings,
               builder: (_) => HomePage(
-                  dbController: dbController,
-                  sessionController: sessionController,
+                    dbController: dbController,
+                    sessionController: sessionController,
                   )),
           '/register': MaterialPageRoute<RegisterPage>(
               settings: settings,

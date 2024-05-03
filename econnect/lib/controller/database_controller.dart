@@ -11,7 +11,6 @@ class DatabaseController {
   const DatabaseController({required this.db});
   final Database db;
 
-
   Future<void> createPost(
       {required User user,
       required String imgPath,
@@ -36,7 +35,6 @@ class DatabaseController {
   Future<(List<Post>, String?)> getNextPosts(
           String? cursor, int numDocs) async =>
       await db.getNextPosts(cursor, numDocs);
-
 
   Future<(List<Post>, String?)> getNextPostsOfFollowing(
           String? cursor, int numDocs, String userId) async =>

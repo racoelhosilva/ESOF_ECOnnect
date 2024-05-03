@@ -19,7 +19,6 @@ class PostWidget extends StatelessWidget {
   final DatabaseController dbController;
   final SessionController sessionController;
 
-
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
   }
