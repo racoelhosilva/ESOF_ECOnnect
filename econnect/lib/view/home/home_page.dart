@@ -39,6 +39,8 @@ class _HomePageState extends State<HomePage> {
   void _clearPosts() {
     setState(() {
       _cursor = null;
+      _atEnd1 = _atEnd2 = false;
+      _followingPosts.clear();
       _othersPosts.clear();
     });
   }
