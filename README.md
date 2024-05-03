@@ -286,4 +286,25 @@ You can find below information and references related to the project management 
 <p align="center" justify="center">
   <b>Start of Sprint 2</b>
   <img src="img/sprints/sprint2_start.png"/>
+    <b>End of Sprint 2</b>
+  <img src="img/sprints/sprint2_end.png"/>
 </p>
+
+#### Sprint Retrospective #2
+
+##### What should start?
+
+ - Improve the features we already have with clean code
+ - Fix any issues, bugs or glitches in our app
+ - Perform more stress testing
+
+##### What should stop?
+
+ - Merging branches at the end of the sprint
+ - Implement multiple users stories in a single pull request
+
+##### What should continue?
+
+ - Envision the product from the perspective of a larger audience (public or mass market)
+ - Good teamwork and organization
+ - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
