@@ -58,6 +58,15 @@ class Database {
   Future<void> deletePost(String postId) async {
     Logger().i('Deleting post with id $postId');
     await _db.collection('posts').doc(postId).delete();
+    await _db
+        .collection('likes')
+        .where('post', isEqualTo: postId)
+        .get()
+        .then((snapshot) {
+      for (var doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
   }
 
   Future<(List<Post>, String?)> getNextPosts(

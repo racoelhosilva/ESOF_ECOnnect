@@ -54,8 +54,10 @@ class UserPosts extends StatelessWidget {
               ...posts!.map((post) {
                 return GestureDetector(
                     onTap: () async {
-                      Navigator.pushNamed(context, "/editpost",
-                          arguments: post);
+                      if (userId == sessionController.loggedInUser!.id) {
+                        Navigator.pushNamed(context, "/editpost",
+                            arguments: post);
+                      }
                     },
                     child: Container(
                       alignment: Alignment.center,
