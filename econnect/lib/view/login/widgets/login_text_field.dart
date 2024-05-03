@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class LoginTextField extends StatelessWidget {
   const LoginTextField(
-      {super.key, required this.fieldName, required this.controller});
+      {super.key, required this.fieldName, required this.controller, this.maxLength});
 
   final String fieldName;
   final TextEditingController controller;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        maxLength: 25,
+        maxLength: maxLength,
         controller: controller,
         style: const TextStyle(
             color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
