@@ -66,7 +66,7 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _isLoading = true;
     });
-    final users = <User>[];
+    final users = await widget.dbController.searchUsers(query);
     setState(() {
       _searchResults.clear();
       _searchResults.addAll(users);

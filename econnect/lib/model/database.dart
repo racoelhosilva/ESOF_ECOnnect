@@ -334,4 +334,24 @@ class Database {
 
     return dbFollow.docs.isNotEmpty;
   }
+
+  Future<List<User>> searchUsers(String query) async {
+    final users = _db.collection('users');
+    // TODO: See if full text search is possible
+    final snapshot = await users.where('username', isEqualTo: query).get();
+    return snapshot.docs
+        .map((user) => User(
+              id: user['id'],
+              username: user['username'],
+              email: user['email'],
+              description: user['description'],
+              profilePicture: user['profilePicture'],
+              score: user['score'],
+              isBlocked: user['isBlocked'],
+              registerDatetime:
+                  (user['registerDatetime'] as Timestamp).toDate(),
+              admin: user['isAdmin'],
+            ))
+        .toList();
+  }
 }

@@ -111,4 +111,7 @@ class DatabaseController {
 
   Future<bool> isFollowing(String followerId, String followedId) async =>
       await db.isFollowing(followerId, followedId);
+
+  Future<List<User>> searchUsers(String query) async =>
+      await db.searchUsers(query);
 }
