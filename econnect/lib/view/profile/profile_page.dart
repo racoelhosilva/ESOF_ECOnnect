@@ -128,17 +128,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         left: 16.0, right: 20.0, top: 4.0, bottom: 4.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child:
-                        Text(
-                          "Description",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontFamily: "Karla",
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      child: Text(
+                        "Description",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: "Karla",
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
                     ),
                   ),
                   Padding(
@@ -147,20 +146,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: user.description != null &&
-                            user.description!.isNotEmpty
+                                user.description!.isNotEmpty
                             ? Text(
-                          user.description!,
-                          textAlign: TextAlign.justify,
-                          style: const TextStyle(
-                            fontFamily: "Karla",
-                            color: Colors.white,
-                            fontSize: 14.0,
-                          ),
-                        )
+                                user.description!,
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontFamily: "Karla",
+                                  color: Colors.white,
+                                  fontSize: 14.0,
+                                ),
+                              )
                             : null),
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 16.0, right: 20.0, top: 4.0, bottom: 12.0),
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 20.0, top: 4.0, bottom: 12.0),
                     child: Text(
                       "Recent Activity",
                       textAlign: TextAlign.left,
