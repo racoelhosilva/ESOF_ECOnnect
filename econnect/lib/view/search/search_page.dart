@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage(
-      {Key? key, required this.dbController, required this.sessionController})
-      : super(key: key);
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -54,7 +53,8 @@ class _SearchPageState extends State<SearchPage> {
                   title: Text(user.username),
                   subtitle: Text(user.description ?? ""),
                   onTap: () {
-                    Navigator.pushNamed(context, "/profile/${user.id}");
+                    Navigator.pushNamed(context, "/profile",
+                        arguments: user.id);
                   },
                 );
               },
