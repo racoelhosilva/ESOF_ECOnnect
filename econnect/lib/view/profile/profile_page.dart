@@ -23,26 +23,27 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Future<User?> userFuture = Future.any([]);
+  Future<User?> _userFuture = Future.any([]);
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      userFuture = widget.dbController.getUser(widget.userId);
+      _userFuture = widget.dbController.getUser(widget.userId);
     });
   }
 
   Future<void> _onRefresh() async {
     setState(() {
-      userFuture = widget.dbController.getUser(widget.userId);
+      _userFuture = widget.dbController.getUser(widget.userId);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<User?>(
-      future: userFuture,
+      future: _userFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           User user = snapshot.data!;
@@ -50,7 +51,9 @@ class _ProfilePageState extends State<ProfilePage> {
             onRefresh: _onRefresh,
             child: Scaffold(
               body: ListView(
+                controller: _scrollController,
                 shrinkWrap: true,
+                physics: const AlwaysScrollableScrollPhysics(),
                 children: [
                   Stack(
                     children: [
@@ -176,6 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     dbController: widget.dbController,
                     sessionController: widget.sessionController,
                     userId: widget.userId,
+                    parentScrollController: _scrollController,
                   ),
                 ],
               ),
