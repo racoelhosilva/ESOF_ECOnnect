@@ -30,7 +30,8 @@ void main() {
       passwordController = MockTextEditingController();
     });
 
-    testWidgets('Empty email and password fields does not log in', (WidgetTester tester) async {
+    testWidgets('Empty email and password fields does not log in',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
 
       when(emailController.text).thenReturn('');

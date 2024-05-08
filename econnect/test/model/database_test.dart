@@ -588,8 +588,7 @@ void main() {
     expect(result.$2, documentId2);
   });
 
-  test('Retrieves only posts of users that the user does not follow',
-      () async {
+  test('Retrieves only posts of users that the user does not follow', () async {
     final postsCollection = MockCollectionReference();
     final followsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();

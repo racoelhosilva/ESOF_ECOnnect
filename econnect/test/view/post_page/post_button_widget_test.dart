@@ -17,7 +17,8 @@ void main() {
     databaseController = DatabaseController(db: database);
   });
 
-  testWidgets('Button creates a new post when tapped', (WidgetTester tester) async {
+  testWidgets('Button creates a new post when tapped',
+      (WidgetTester tester) async {
     final user = User(
       id: '123',
       email: 'test@example.com',

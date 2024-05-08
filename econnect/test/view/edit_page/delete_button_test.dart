@@ -29,7 +29,8 @@ void main() {
     expect(onPressedCalled, true);
   });
 
-  testWidgets('DeleteButton icon is displayed correctly', (WidgetTester tester) async {
+  testWidgets('DeleteButton icon is displayed correctly',
+      (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
