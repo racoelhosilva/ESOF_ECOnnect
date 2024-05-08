@@ -178,7 +178,7 @@ void main() {
   });
 
   group('addFollow', () {
-    test('should add follow successfully', () async {
+    test('Adds follow successfully', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsDocument = MockDocumentReference();
@@ -203,7 +203,7 @@ void main() {
       })).called(1);
     });
 
-    test('should throw StateError if follow already exists', () async {
+    test('Throws StateError if follow already exists', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsDocument = MockDocumentReference();
@@ -228,7 +228,7 @@ void main() {
   });
 
   group('removeFollow', () {
-    test('should remove follow successfully', () async {
+    test('Removes follow successfully', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsDocument = MockDocumentReference();
@@ -252,7 +252,7 @@ void main() {
       verify(followsDocument.delete()).called(1);
     });
 
-    test('should throw StateError if follow does not exist', () async {
+    test('Throws StateError if follow does not exist', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsCollection = MockCollectionReference();
@@ -272,7 +272,7 @@ void main() {
   });
 
   group('getFollowing', () {
-    test('should return list of following users', () async {
+    test('Returns list of following users', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       const userId3 = 'user3';
@@ -296,7 +296,7 @@ void main() {
       expect(following, ['user2', 'user3']);
     });
 
-    test('should return empty list if no following users', () async {
+    test('Returns empty list if there are no following users', () async {
       const userId1 = 'user1';
       final followsCollection = MockCollectionReference();
       final querySnapshot = MockQuerySnapshot();
@@ -315,7 +315,7 @@ void main() {
   });
 
   group('isFollowing', () {
-    test('Should return true if user is following', () async {
+    test('Returns true if user is following', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsCollection = MockCollectionReference();
@@ -336,7 +336,7 @@ void main() {
       expect(isFollowing, true);
     });
 
-    test('Should return false if user is not following', () async {
+    test('Returns false if user is not following', () async {
       const userId1 = 'user1';
       const userId2 = 'user2';
       final followsCollection = MockCollectionReference();
@@ -357,7 +357,7 @@ void main() {
     });
   });
 
-  test('Should retrieve the posts correctly', () async {
+  test('Retrieves the posts correctly', () async {
     final postsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
@@ -409,7 +409,7 @@ void main() {
     expect(result.$2, documentId2);
   });
 
-  test('Should retrieve only wanted posts', () async {
+  test('Retrieves only wanted posts', () async {
     final postsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
@@ -514,7 +514,7 @@ void main() {
     expect(result.$2, isNull);
   });
 
-  test('Should retrieve only posts of users the user follows', () async {
+  test('Retrieves only posts of users that the user follows', () async {
     final postsCollection = MockCollectionReference();
     final followsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
@@ -588,8 +588,7 @@ void main() {
     expect(result.$2, documentId2);
   });
 
-  test('Should retrieve only posts of users the user does not follow',
-      () async {
+  test('Retrieves only posts of users that the user does not follow', () async {
     final postsCollection = MockCollectionReference();
     final followsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
@@ -662,7 +661,7 @@ void main() {
     expect(result.$2, documentId2);
   });
 
-  test('Should retrieve posts from user', () async {
+  test('Retrieves posts from user', () async {
     final postsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();

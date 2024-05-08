@@ -12,7 +12,8 @@ import 'bottom_navbar_test.mocks.dart';
 ])
 void main() {
   group('BottomNavbar Widget Tests', () {
-    testWidgets('Widget renders correctly', (WidgetTester tester) async {
+    testWidgets('Bottom Navbar widget renders correctly',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

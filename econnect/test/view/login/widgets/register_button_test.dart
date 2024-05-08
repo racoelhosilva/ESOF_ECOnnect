@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Button redirects to register page', (tester) async {
+  testWidgets('Button redirects to register page when pressed', (tester) async {
     await tester.pumpWidget(
       MaterialApp(routes: {
         '/': (_) => const RegisterButton(),

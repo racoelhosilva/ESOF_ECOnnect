@@ -29,7 +29,7 @@ void main() {
     fauser = MockUser();
   });
 
-  test('User is registered successfully', () async {
+  test('User is registered successfully to the database', () async {
     const id = '123';
     const email = 'test@example.com';
     const username = 'testuser';
@@ -74,7 +74,7 @@ void main() {
     expect(sessionController.isLoggedIn(), true);
   });
 
-  test('User is logged in successfully', () async {
+  test('User is logged in successfully on the application', () async {
     const id = '123';
     const email = 'test@example.com';
     const username = 'testuser';
@@ -110,7 +110,7 @@ void main() {
     expect(sessionController.isLoggedIn(), true);
   });
 
-  test('User is not logged in another is already logged in', () async {
+  test('User is not logged in if another is already logged in', () async {
     final user1 = User(
         id: '123',
         email: 'test1@example.com',

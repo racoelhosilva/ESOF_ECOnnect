@@ -62,7 +62,8 @@ void main() {
     expect(find.byIcon(Icons.star_border), findsOneWidget);
   });
 
-  testWidgets('FollowButton toggles following status and updates UI',
+  testWidgets(
+      'FollowButton toggles following status when pressed and updates UI',
       (WidgetTester tester) async {
     when(sessionController.isFollowing(any, dbController))
         .thenAnswer((_) async => false);

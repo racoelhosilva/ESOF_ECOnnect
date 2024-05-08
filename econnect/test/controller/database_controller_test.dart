@@ -42,7 +42,7 @@ void main() {
     verify(database.addUser(user));
   });
 
-  test('User is retrieved properly', () async {
+  test('User is retrieved properly from the database by id', () async {
     const id = '123';
     final user = User(
         id: id,
@@ -119,7 +119,7 @@ void main() {
     verify(database.removeFollow(followerId, followedId)).called(1);
   });
 
-  test('User can get the users they follow', () async {
+  test('User can retrieve the users they follow', () async {
     const userId = 'userId';
     const followedId1 = 'followedId1';
     const followedId2 = 'followedId2';
@@ -132,7 +132,7 @@ void main() {
     expect(following, [followedId1, followedId2]);
   });
 
-  test('User has no followers', () async {
+  test('User has no followers when retrieving users', () async {
     const userId = 'userId';
 
     when(database.getFollowing(userId)).thenAnswer((_) async => []);
@@ -155,7 +155,7 @@ void main() {
     expect(isFollowing, true);
   });
 
-  test('Get next posts', () async {
+  test('Get next posts from the database', () async {
     const cursor = 'cursor';
     const numDocs = 10;
     final expectedPosts = [
@@ -191,7 +191,7 @@ void main() {
     expect(result.$2, expectedCursor);
   });
 
-  test('Get next posts of following', () async {
+  test('Get next posts of following from the database', () async {
     const cursor = 'cursor';
     const numDocs = 10;
     const userId = 'userId';
@@ -229,7 +229,7 @@ void main() {
     expect(result.$2, expectedCursor);
   });
 
-  test('Get next posts of non-following', () async {
+  test('Get next posts of non-following from the database', () async {
     const cursor = 'cursor';
     const numDocs = 10;
     const userId = 'userId';
@@ -267,7 +267,7 @@ void main() {
     expect(result.$2, expectedCursor);
   });
 
-  test('Get posts from user', () async {
+  test('Get posts from user from the database', () async {
     const userId = 'userId';
     final expectedPosts = [
       Post(
