@@ -144,15 +144,15 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i6.Future<(List<_i8.Post>, String?)> getNextPosts(
-    String? cursor,
     int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPosts,
           [
-            cursor,
             numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -163,17 +163,17 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i6.Future<(List<_i8.Post>, String?)> getNextPostsOfFollowing(
-    String? cursor,
-    int? numDocs,
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -184,17 +184,17 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i6.Future<(List<_i8.Post>, String?)> getNextPostsOfNonFollowing(
-    String? cursor,
-    int? numDocs,
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfNonFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -204,16 +204,25 @@ class MockDatabaseController extends _i1.Mock
       ) as _i6.Future<(List<_i8.Post>, String?)>);
 
   @override
-  _i6.Future<List<_i8.Post>> getPostsFromUser(String? userId) =>
+  _i6.Future<(List<_i8.Post>, String?)> getNextPostsFromUser(
+    String? userId,
+    int? numDocs,
+    String? cursor,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getPostsFromUser,
-          [userId],
+          #getNextPostsFromUser,
+          [
+            userId,
+            numDocs,
+            cursor,
+          ],
         ),
-        returnValue: _i6.Future<List<_i8.Post>>.value(<_i8.Post>[]),
+        returnValue:
+            _i6.Future<(List<_i8.Post>, String?)>.value((<_i8.Post>[], null)),
         returnValueForMissingStub:
-            _i6.Future<List<_i8.Post>>.value(<_i8.Post>[]),
-      ) as _i6.Future<List<_i8.Post>>);
+            _i6.Future<(List<_i8.Post>, String?)>.value((<_i8.Post>[], null)),
+      ) as _i6.Future<(List<_i8.Post>, String?)>);
 
   @override
   _i6.Future<void> addLike(

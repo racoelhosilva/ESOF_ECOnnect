@@ -572,7 +572,7 @@ void main() {
     when(queryDocumentSnapshot3['followed']).thenReturn('user1');
     when(queryDocumentSnapshot4['followed']).thenReturn('user2');
 
-    final result = await database.getNextPostsOfFollowing(null, 2, userId);
+    final result = await database.getNextPostsOfFollowing(userId, 2, null);
 
     expect(result.$1.length, 2);
     expect(result.$1[0].user, 'user1');
@@ -645,7 +645,7 @@ void main() {
     when(queryDocumentSnapshot3['followed']).thenReturn('user3');
     when(queryDocumentSnapshot4['followed']).thenReturn('user4');
 
-    final result = await database.getNextPostsOfNonFollowing(null, 2, userId);
+    final result = await database.getNextPostsOfNonFollowing(userId, 2, null);
 
     expect(result.$1.length, 2);
     expect(result.$1[0].user, 'user1');
@@ -665,6 +665,7 @@ void main() {
     final postsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
+    final postsQuery3 = MockQuery();
     final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
     final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
     const documentId1 = 'doc1';
@@ -677,7 +678,8 @@ void main() {
         .thenReturn(postsQuery1);
     when(postsQuery1.orderBy('postDatetime', descending: true))
         .thenReturn(postsQuery2);
-    when(postsQuery2.get()).thenAnswer((_) async => querySnapshot);
+    when(postsQuery2.limit(2)).thenReturn(postsQuery3);
+    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot);
     when(querySnapshot.docs).thenReturn([
       queryDocumentSnapshot1,
       queryDocumentSnapshot2,
@@ -699,18 +701,20 @@ void main() {
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
     when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
-    final result = await database.getPostsFromUser(userId);
+    final result = await database.getNextPostsFromUser(userId, 2, null);
 
-    expect(result[0].user, 'user1');
-    expect(result[0].image, 'image1');
-    expect(result[0].description, 'description1');
-    expect(result[0].postDatetime, DateTime(2022, 1, 1));
-    expect(result[0].likes, 0);
-    expect(result[1].user, 'user2');
-    expect(result[1].image, 'image2');
-    expect(result[1].description, 'description2');
-    expect(result[1].postDatetime, DateTime(2022, 1, 2));
-    expect(result[1].likes, 0);
+    expect(result.$1.length, 2);
+    expect(result.$1[0].user, 'user1');
+    expect(result.$1[0].image, 'image1');
+    expect(result.$1[0].description, 'description1');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[0].likes, 0);
+    expect(result.$1[1].user, 'user2');
+    expect(result.$1[1].image, 'image2');
+    expect(result.$1[1].description, 'description2');
+    expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$1[1].likes, 0);
+    expect(result.$2, documentId2);
   });
 
   test('Database searches users correctly with a query', () async {

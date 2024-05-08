@@ -44,7 +44,8 @@ class DatabaseController {
           String userId, int numDocs, String? cursor) async =>
       await db.getNextPostsOfNonFollowing(userId, numDocs, cursor);
 
-  Future<(List<Post>, String?)> getNextPostsFromUser(String userId, int numDocs, String? cursor) async =>
+  Future<(List<Post>, String?)> getNextPostsFromUser(
+          String userId, int numDocs, String? cursor) async =>
       await db.getNextPostsFromUser(userId, numDocs, cursor);
 
   Future<void> addLike(String userId, String postId) async =>

@@ -3,13 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
+import 'dart:ui' as _i13;
 
-import 'package:econnect/controller/database_controller.dart' as _i3;
-import 'package:econnect/controller/session_controller.dart' as _i7;
+import 'package:econnect/controller/database_controller.dart' as _i4;
+import 'package:econnect/controller/session_controller.dart' as _i8;
 import 'package:econnect/model/database.dart' as _i2;
-import 'package:econnect/model/post.dart' as _i6;
-import 'package:econnect/model/user.dart' as _i5;
+import 'package:econnect/model/post.dart' as _i7;
+import 'package:econnect/model/user.dart' as _i6;
+import 'package:flutter/animation.dart' as _i10;
+import 'package:flutter/src/widgets/scroll_context.dart' as _i12;
+import 'package:flutter/src/widgets/scroll_controller.dart' as _i9;
+import 'package:flutter/src/widgets/scroll_physics.dart' as _i11;
+import 'package:flutter/src/widgets/scroll_position.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -35,11 +41,22 @@ class _FakeDatabase_0 extends _i1.SmartFake implements _i2.Database {
         );
 }
 
+class _FakeScrollPosition_1 extends _i1.SmartFake
+    implements _i3.ScrollPosition {
+  _FakeScrollPosition_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [DatabaseController].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDatabaseController extends _i1.Mock
-    implements _i3.DatabaseController {
+    implements _i4.DatabaseController {
   @override
   _i2.Database get db => (super.noSuchMethod(
         Invocation.getter(#db),
@@ -54,8 +71,8 @@ class MockDatabaseController extends _i1.Mock
       ) as _i2.Database);
 
   @override
-  _i4.Future<void> createPost({
-    required _i5.User? user,
+  _i5.Future<void> createPost({
+    required _i6.User? user,
     required String? imgPath,
     required String? description,
   }) =>
@@ -69,12 +86,12 @@ class MockDatabaseController extends _i1.Mock
             #description: description,
           },
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> updatePost(
+  _i5.Future<void> updatePost(
     String? postId,
     String? postDescription,
   ) =>
@@ -86,95 +103,104 @@ class MockDatabaseController extends _i1.Mock
             postDescription,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> deletePost(String? postId) => (super.noSuchMethod(
+  _i5.Future<void> deletePost(String? postId) => (super.noSuchMethod(
         Invocation.method(
           #deletePost,
           [postId],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<(List<_i6.Post>, String?)> getNextPosts(
-    String? cursor,
+  _i5.Future<(List<_i7.Post>, String?)> getNextPosts(
     int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPosts,
           [
-            cursor,
             numDocs,
+            cursor,
           ],
         ),
         returnValue:
-            _i4.Future<(List<_i6.Post>, String?)>.value((<_i6.Post>[], null)),
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
         returnValueForMissingStub:
-            _i4.Future<(List<_i6.Post>, String?)>.value((<_i6.Post>[], null)),
-      ) as _i4.Future<(List<_i6.Post>, String?)>);
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
+      ) as _i5.Future<(List<_i7.Post>, String?)>);
 
   @override
-  _i4.Future<(List<_i6.Post>, String?)> getNextPostsOfFollowing(
-    String? cursor,
-    int? numDocs,
+  _i5.Future<(List<_i7.Post>, String?)> getNextPostsOfFollowing(
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
-            _i4.Future<(List<_i6.Post>, String?)>.value((<_i6.Post>[], null)),
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
         returnValueForMissingStub:
-            _i4.Future<(List<_i6.Post>, String?)>.value((<_i6.Post>[], null)),
-      ) as _i4.Future<(List<_i6.Post>, String?)>);
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
+      ) as _i5.Future<(List<_i7.Post>, String?)>);
 
   @override
-  _i4.Future<(List<_i6.Post>, String?)> getNextPostsOfNonFollowing(
-    String? cursor,
-    int? numDocs,
+  _i5.Future<(List<_i7.Post>, String?)> getNextPostsOfNonFollowing(
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfNonFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
-            _i4.Future<(List<_i6.Post>, String?)>.value((<_i6.Post>[], null)),
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
         returnValueForMissingStub:
-            _i4.Future<(List<_i6.Post>, String?)>.value((<_i6.Post>[], null)),
-      ) as _i4.Future<(List<_i6.Post>, String?)>);
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
+      ) as _i5.Future<(List<_i7.Post>, String?)>);
 
   @override
-  _i4.Future<List<_i6.Post>> getPostsFromUser(String? userId) =>
+  _i5.Future<(List<_i7.Post>, String?)> getNextPostsFromUser(
+    String? userId,
+    int? numDocs,
+    String? cursor,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getPostsFromUser,
-          [userId],
+          #getNextPostsFromUser,
+          [
+            userId,
+            numDocs,
+            cursor,
+          ],
         ),
-        returnValue: _i4.Future<List<_i6.Post>>.value(<_i6.Post>[]),
+        returnValue:
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
         returnValueForMissingStub:
-            _i4.Future<List<_i6.Post>>.value(<_i6.Post>[]),
-      ) as _i4.Future<List<_i6.Post>>);
+            _i5.Future<(List<_i7.Post>, String?)>.value((<_i7.Post>[], null)),
+      ) as _i5.Future<(List<_i7.Post>, String?)>);
 
   @override
-  _i4.Future<void> addLike(
+  _i5.Future<void> addLike(
     String? userId,
     String? postId,
   ) =>
@@ -186,12 +212,12 @@ class MockDatabaseController extends _i1.Mock
             postId,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> removeLike(
+  _i5.Future<void> removeLike(
     String? userId,
     String? postId,
   ) =>
@@ -203,12 +229,12 @@ class MockDatabaseController extends _i1.Mock
             postId,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<bool> isLiked(
+  _i5.Future<bool> isLiked(
     String? userId,
     String? postId,
   ) =>
@@ -220,12 +246,12 @@ class MockDatabaseController extends _i1.Mock
             postId,
           ],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 
   @override
-  _i4.Future<_i5.User?> createUser(
+  _i5.Future<_i6.User?> createUser(
     String? id,
     String? email,
     String? username,
@@ -239,23 +265,23 @@ class MockDatabaseController extends _i1.Mock
             username,
           ],
         ),
-        returnValue: _i4.Future<_i5.User?>.value(),
-        returnValueForMissingStub: _i4.Future<_i5.User?>.value(),
-      ) as _i4.Future<_i5.User?>);
+        returnValue: _i5.Future<_i6.User?>.value(),
+        returnValueForMissingStub: _i5.Future<_i6.User?>.value(),
+      ) as _i5.Future<_i6.User?>);
 
   @override
-  _i4.Future<_i5.User?> getUser(String? id) => (super.noSuchMethod(
+  _i5.Future<_i6.User?> getUser(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getUser,
           [id],
         ),
-        returnValue: _i4.Future<_i5.User?>.value(),
-        returnValueForMissingStub: _i4.Future<_i5.User?>.value(),
-      ) as _i4.Future<_i5.User?>);
+        returnValue: _i5.Future<_i6.User?>.value(),
+        returnValueForMissingStub: _i5.Future<_i6.User?>.value(),
+      ) as _i5.Future<_i6.User?>);
 
   @override
-  _i4.Future<_i5.User?> updateUser(
-    _i5.User? updatedUser,
+  _i5.Future<_i6.User?> updateUser(
+    _i6.User? updatedUser,
     String? imgPath,
   ) =>
       (super.noSuchMethod(
@@ -266,12 +292,12 @@ class MockDatabaseController extends _i1.Mock
             imgPath,
           ],
         ),
-        returnValue: _i4.Future<_i5.User?>.value(),
-        returnValueForMissingStub: _i4.Future<_i5.User?>.value(),
-      ) as _i4.Future<_i5.User?>);
+        returnValue: _i5.Future<_i6.User?>.value(),
+        returnValueForMissingStub: _i5.Future<_i6.User?>.value(),
+      ) as _i5.Future<_i6.User?>);
 
   @override
-  _i4.Future<void> addFollow(
+  _i5.Future<void> addFollow(
     String? followerId,
     String? followedId,
   ) =>
@@ -283,12 +309,12 @@ class MockDatabaseController extends _i1.Mock
             followedId,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> removeFollow(
+  _i5.Future<void> removeFollow(
     String? followerId,
     String? followedId,
   ) =>
@@ -300,22 +326,22 @@ class MockDatabaseController extends _i1.Mock
             followedId,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<List<String>> getFollowing(String? userId) => (super.noSuchMethod(
+  _i5.Future<List<String>> getFollowing(String? userId) => (super.noSuchMethod(
         Invocation.method(
           #getFollowing,
           [userId],
         ),
-        returnValue: _i4.Future<List<String>>.value(<String>[]),
-        returnValueForMissingStub: _i4.Future<List<String>>.value(<String>[]),
-      ) as _i4.Future<List<String>>);
+        returnValue: _i5.Future<List<String>>.value(<String>[]),
+        returnValueForMissingStub: _i5.Future<List<String>>.value(<String>[]),
+      ) as _i5.Future<List<String>>);
 
   @override
-  _i4.Future<bool> isFollowing(
+  _i5.Future<bool> isFollowing(
     String? followerId,
     String? followedId,
   ) =>
@@ -327,12 +353,12 @@ class MockDatabaseController extends _i1.Mock
             followedId,
           ],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 
   @override
-  _i4.Future<List<_i5.User>> searchUsers(
+  _i5.Future<List<_i6.User>> searchUsers(
     String? query,
     int? numUsers,
   ) =>
@@ -344,26 +370,26 @@ class MockDatabaseController extends _i1.Mock
             numUsers,
           ],
         ),
-        returnValue: _i4.Future<List<_i5.User>>.value(<_i5.User>[]),
+        returnValue: _i5.Future<List<_i6.User>>.value(<_i6.User>[]),
         returnValueForMissingStub:
-            _i4.Future<List<_i5.User>>.value(<_i5.User>[]),
-      ) as _i4.Future<List<_i5.User>>);
+            _i5.Future<List<_i6.User>>.value(<_i6.User>[]),
+      ) as _i5.Future<List<_i6.User>>);
 }
 
 /// A class which mocks [SessionController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSessionController extends _i1.Mock implements _i7.SessionController {
+class MockSessionController extends _i1.Mock implements _i8.SessionController {
   @override
-  _i4.Future<void> init(_i3.DatabaseController? databaseController) =>
+  _i5.Future<void> init(_i4.DatabaseController? databaseController) =>
       (super.noSuchMethod(
         Invocation.method(
           #init,
           [databaseController],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
   bool isLoggedIn() => (super.noSuchMethod(
@@ -376,10 +402,10 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
       ) as bool);
 
   @override
-  _i4.Future<void> loginUser(
+  _i5.Future<void> loginUser(
     String? email,
     String? password,
-    _i3.DatabaseController? databaseController,
+    _i4.DatabaseController? databaseController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -390,16 +416,16 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
             databaseController,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> registerUser(
+  _i5.Future<void> registerUser(
     String? email,
     String? password,
     String? username,
-    _i3.DatabaseController? databaseController,
+    _i4.DatabaseController? databaseController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -411,14 +437,14 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
             databaseController,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> updateUser(
-    _i5.User? updatedUser,
-    _i3.DatabaseController? dbController,
+  _i5.Future<void> updateUser(
+    _i6.User? updatedUser,
+    _i4.DatabaseController? dbController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -428,24 +454,24 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
             dbController,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> logoutUser() => (super.noSuchMethod(
+  _i5.Future<void> logoutUser() => (super.noSuchMethod(
         Invocation.method(
           #logoutUser,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> followUser(
+  _i5.Future<void> followUser(
     String? followedId,
-    _i3.DatabaseController? dbController,
+    _i4.DatabaseController? dbController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -455,14 +481,14 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
             dbController,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<void> unfollowUser(
+  _i5.Future<void> unfollowUser(
     String? followedId,
-    _i3.DatabaseController? dbController,
+    _i4.DatabaseController? dbController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -472,14 +498,14 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
             dbController,
           ],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i4.Future<bool> isFollowing(
+  _i5.Future<bool> isFollowing(
     String? followedId,
-    _i3.DatabaseController? dbController,
+    _i4.DatabaseController? dbController,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -489,7 +515,197 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
             dbController,
           ],
         ),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
+}
+
+/// A class which mocks [ScrollController].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockScrollController extends _i1.Mock implements _i9.ScrollController {
+  @override
+  bool get keepScrollOffset => (super.noSuchMethod(
+        Invocation.getter(#keepScrollOffset),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  double get initialScrollOffset => (super.noSuchMethod(
+        Invocation.getter(#initialScrollOffset),
+        returnValue: 0.0,
+        returnValueForMissingStub: 0.0,
+      ) as double);
+
+  @override
+  Iterable<_i3.ScrollPosition> get positions => (super.noSuchMethod(
+        Invocation.getter(#positions),
+        returnValue: <_i3.ScrollPosition>[],
+        returnValueForMissingStub: <_i3.ScrollPosition>[],
+      ) as Iterable<_i3.ScrollPosition>);
+
+  @override
+  bool get hasClients => (super.noSuchMethod(
+        Invocation.getter(#hasClients),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i3.ScrollPosition get position => (super.noSuchMethod(
+        Invocation.getter(#position),
+        returnValue: _FakeScrollPosition_1(
+          this,
+          Invocation.getter(#position),
+        ),
+        returnValueForMissingStub: _FakeScrollPosition_1(
+          this,
+          Invocation.getter(#position),
+        ),
+      ) as _i3.ScrollPosition);
+
+  @override
+  double get offset => (super.noSuchMethod(
+        Invocation.getter(#offset),
+        returnValue: 0.0,
+        returnValueForMissingStub: 0.0,
+      ) as double);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  _i5.Future<void> animateTo(
+    double? offset, {
+    required Duration? duration,
+    required _i10.Curve? curve,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #animateTo,
+          [offset],
+          {
+            #duration: duration,
+            #curve: curve,
+          },
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  void jumpTo(double? value) => super.noSuchMethod(
+        Invocation.method(
+          #jumpTo,
+          [value],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void attach(_i3.ScrollPosition? position) => super.noSuchMethod(
+        Invocation.method(
+          #attach,
+          [position],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void detach(_i3.ScrollPosition? position) => super.noSuchMethod(
+        Invocation.method(
+          #detach,
+          [position],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.ScrollPosition createScrollPosition(
+    _i11.ScrollPhysics? physics,
+    _i12.ScrollContext? context,
+    _i3.ScrollPosition? oldPosition,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createScrollPosition,
+          [
+            physics,
+            context,
+            oldPosition,
+          ],
+        ),
+        returnValue: _FakeScrollPosition_1(
+          this,
+          Invocation.method(
+            #createScrollPosition,
+            [
+              physics,
+              context,
+              oldPosition,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _FakeScrollPosition_1(
+          this,
+          Invocation.method(
+            #createScrollPosition,
+            [
+              physics,
+              context,
+              oldPosition,
+            ],
+          ),
+        ),
+      ) as _i3.ScrollPosition);
+
+  @override
+  void debugFillDescription(List<String>? description) => super.noSuchMethod(
+        Invocation.method(
+          #debugFillDescription,
+          [description],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i13.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(_i13.VoidCallback? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

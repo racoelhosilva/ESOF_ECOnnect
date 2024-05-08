@@ -160,12 +160,13 @@ class Database {
     );
   }
 
-  Future<(List<Post>, String?)> getNextPostsFromUser(String userId, int numDocs, String? cursor) async {
+  Future<(List<Post>, String?)> getNextPostsFromUser(
+      String userId, int numDocs, String? cursor) async {
     final posts = _db.collection('posts');
     var query = posts
         .where('user', isEqualTo: userId)
         .orderBy('postDatetime', descending: true);
-    
+
     if (cursor != null) {
       final fromDoc = await posts.doc(cursor).get();
       query = query.startAfterDocument(fromDoc);
