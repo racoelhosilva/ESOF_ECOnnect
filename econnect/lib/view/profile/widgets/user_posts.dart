@@ -87,23 +87,23 @@ class _UserPostsState extends State<UserPosts> {
                     ),
                   ),
                   child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
                         LucideIcons.plus,
                         size: 48,
                         color: Theme.of(context).colorScheme.outline,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "New Post",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.outline,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        "New Post",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
