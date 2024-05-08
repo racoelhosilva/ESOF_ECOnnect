@@ -25,7 +25,7 @@ void main() {
     expect(find.text('No image selected'), findsOneWidget);
   });
 
-  testWidgets('ImageWidget displays the selected image',
+  testWidgets('ImageWidget displays the correct image when one is set',
       (WidgetTester tester) async {
     const String imagePath = 'mock_image_path.jpg';
 

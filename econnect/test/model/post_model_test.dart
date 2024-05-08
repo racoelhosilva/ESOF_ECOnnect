@@ -3,7 +3,7 @@ import 'package:econnect/model/post.dart';
 
 void main() {
   group('Post', () {
-    test('Constructor initializes fields correctly', () {
+    test('Constructor initializes Post fields correctly', () {
       final post = Post(
         user: 'John Doe',
         image: 'https://example.com/image.jpg',

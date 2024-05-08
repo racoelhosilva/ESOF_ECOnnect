@@ -9,7 +9,7 @@ import '../settings/save_button_test.mocks.dart';
 
 void main() {
   group('LikeWidget', () {
-    testWidgets('toggles like state when tapped', (WidgetTester tester) async {
+    testWidgets('Toggles like state when tapped', (WidgetTester tester) async {
       final mockDbController = MockDatabaseController();
       final mockSessionController = MockSessionController();
       final post = Post(

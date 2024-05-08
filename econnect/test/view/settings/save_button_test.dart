@@ -72,7 +72,7 @@ void main() {
     });
 
     testWidgets(
-        'SaveButton widget updates user and navigates to profile page on press',
+        'SaveButton widget updates user and navigates to profile page when pressed',
         (WidgetTester tester) async {
       final oldUser = User(
         id: '1',

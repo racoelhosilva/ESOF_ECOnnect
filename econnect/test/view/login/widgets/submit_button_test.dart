@@ -32,7 +32,7 @@ void main() {
       usernameController = MockTextEditingController();
     });
 
-    testWidgets('Empty username, email and password fields',
+    testWidgets('Empty username, email and password fields does not register',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
 
@@ -61,7 +61,7 @@ void main() {
       verify(mockObserver.didPush(any, any)).called(1);
     });
 
-    testWidgets('Not register if credentials are invalid',
+    testWidgets('Does not register if credentials are invalid',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
 
