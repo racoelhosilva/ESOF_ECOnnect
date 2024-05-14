@@ -5,8 +5,8 @@ import 'package:econnect/model/user.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
 import 'package:econnect/view/profile/widgets/follow_button.dart';
+import 'package:econnect/view/search/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage(
@@ -39,35 +39,18 @@ class _SearchPageState extends State<SearchPage> {
           automaticallyImplyLeading: false,
           title: Column(children: [
             const HeaderWidget(),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.outlineVariant,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: TextField(
-                controller: _searchController,
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(
-                    LucideIcons.search,
-                    size: 24,
-                  ),
-                  hintText: "Search for users",
-                  border: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                ),
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    _searchUsers(value);
-                  } else {
-                    setState(() {
-                      _searchResults.clear();
-                    });
-                  }
-                },
-              ),
-            ),
+            SearchWidget(
+              controller: _searchController,
+              onTextChanged: (value) {
+                if (value.isNotEmpty) {
+                  _searchUsers(value);
+                } else {
+                  setState(() {
+                    _searchResults.clear();
+                  });
+                }
+              },
+            )
           ])),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
