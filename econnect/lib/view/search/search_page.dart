@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
@@ -76,7 +77,8 @@ class _SearchPageState extends State<SearchPage> {
                 final user = _searchResults[index];
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(user.profilePicture),
+                    backgroundImage:
+                        CachedNetworkImageProvider(user.profilePicture),
                   ),
                   title: Text(user.username),
                   subtitle: Text(user.description ?? ""),

@@ -37,23 +37,6 @@ void main() {
 
   testWidgets('Searching for users returns the correct widgets',
       (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: SearchPage(
-          dbController: dbController,
-          sessionController: sessionController,
-        ),
-      ),
-    );
-
-    await tester.enterText(find.byType(TextField), 'search query');
-
-    await tester.tap(find.byType(TextField));
-
-    await tester.pump();
-
-    //expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
     final List<User> mockUsers = [
       User(
         id: '123',
@@ -90,7 +73,20 @@ void main() {
     when(dbController.searchUsers('search query'))
         .thenAnswer((_) async => mockUsers);
 
-    await tester.pump();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: SearchPage(
+          dbController: dbController,
+          sessionController: sessionController,
+        ),
+      ),
+    );
+
+    await tester.tap(find.byType(TextField));
+    await tester.enterText(find.byType(TextField), 'search query');
+
+    //expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    await tester.pumpAndSettle();
 
     //expect(find.byType(CircularProgressIndicator), findsNothing);
 
