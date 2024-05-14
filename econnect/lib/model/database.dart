@@ -339,7 +339,8 @@ class Database {
     final users = _db.collection('users');
     final snapshot = await users
         .orderBy('username')
-        .startAt([query]).endAt(['$query\uf8ff'])
+        .startAt([query])
+        .endAt(['$query\uf8ff'])
         .limit(numUsers)
         .get();
     return snapshot.docs

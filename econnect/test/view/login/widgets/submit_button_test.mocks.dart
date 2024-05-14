@@ -374,10 +374,17 @@ class MockDatabaseController extends _i1.Mock
       ) as _i6.Future<bool>);
 
   @override
-  _i6.Future<List<_i7.User>> searchUsers(String? query) => (super.noSuchMethod(
+  _i6.Future<List<_i7.User>> searchUsers(
+    String? query,
+    int? numUsers,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #searchUsers,
-          [query],
+          [
+            query,
+            numUsers,
+          ],
         ),
         returnValue: _i6.Future<List<_i7.User>>.value(<_i7.User>[]),
         returnValueForMissingStub:

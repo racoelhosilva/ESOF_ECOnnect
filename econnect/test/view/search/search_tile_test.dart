@@ -13,15 +13,14 @@ import 'search_tile_test.mocks.dart';
   MockSpec<DatabaseController>(),
   MockSpec<SessionController>(),
 ])
-
 void main() {
   late DatabaseController dbController;
   late SessionController sessionController;
 
   setUp(() => {
-    dbController = MockDatabaseController(),
-    sessionController = MockSessionController(),
-  });
+        dbController = MockDatabaseController(),
+        sessionController = MockSessionController(),
+      });
 
   testWidgets('Renders subcomponents correctly', (WidgetTester tester) async {
     final user = User(
@@ -46,13 +45,14 @@ void main() {
         ),
       ),
     );
-    
+
     expect(find.byType(CircleAvatar), findsOneWidget);
     expect(find.text(user.username), findsOneWidget);
     expect(find.byType(FollowButton), findsOneWidget);
   });
 
-  testWidgets('Goes to profile picture when tile is tapped', (WidgetTester tester) async {
+  testWidgets('Goes to profile picture when tile is tapped',
+      (WidgetTester tester) async {
     final user = User(
       id: '123456789',
       username: 'johndoe',
@@ -65,30 +65,27 @@ void main() {
     );
 
     await tester.pumpWidget(
-      MaterialApp(
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case '/profile':
-              return MaterialPageRoute<Widget>(
-                settings: settings,
-                builder: (_) => Text('User ${settings.arguments} Page'),
-              );
-            case '/':
-              return MaterialPageRoute<Widget>(
+      MaterialApp(onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/profile':
+            return MaterialPageRoute<Widget>(
+              settings: settings,
+              builder: (_) => Text('User ${settings.arguments} Page'),
+            );
+          case '/':
+            return MaterialPageRoute<Widget>(
                 settings: settings,
                 builder: (_) => Scaffold(
-                  body: SearchResultTile(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                    user: user,
-                  ),
-                )
-              );
-            default:
-              throw Exception('Route not found');
-          }
+                      body: SearchResultTile(
+                        dbController: dbController,
+                        sessionController: sessionController,
+                        user: user,
+                      ),
+                    ));
+          default:
+            throw Exception('Route not found');
         }
-      ),
+      }),
     );
 
     await tester.tap(find.byType(SearchResultTile));

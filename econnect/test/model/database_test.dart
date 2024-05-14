@@ -761,7 +761,7 @@ void main() {
     when(queryDocumentSnapshot2['isAdmin']).thenReturn(true);
 
     final result = await database.searchUsers(searchTerm, 2);
-    
+
     expect(result.length, 2);
     expect(result[0].id, 'user1');
     expect(result[0].username, 'john_doe');
