@@ -20,7 +20,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
-  final List<User> _searchResults = [];
+  final List<User> _searchedUsers = [];
   bool _isLoading = false;
 
   @override
@@ -34,29 +34,30 @@ class _SearchPageState extends State<SearchPage> {
         },
       ),
       appBar: AppBar(
-          toolbarHeight: 120,
-          automaticallyImplyLeading: false,
-          title: Column(children: [
+        toolbarHeight: 120,
+        automaticallyImplyLeading: false,
+        title: Column(
+          children: [
             const HeaderWidget(),
             UserSearchBar(
               controller: _searchController,
               onTextChanged: (value) {
                 if (value.isNotEmpty) {
-                  _searchUsers(value);
+                  _updateSearch(value);
                 } else {
-                  setState(() {
-                    _searchResults.clear();
-                  });
+                  _searchedUsers.clear();
                 }
               },
             )
-          ])),
+          ],
+        ),
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: _searchResults.length,
+              itemCount: _searchedUsers.length,
               itemBuilder: (context, index) {
-                final user = _searchResults[index];
+                final user = _searchedUsers[index];
                 return SearchResultTile(
                   dbController: widget.dbController,
                   sessionController: widget.sessionController,
@@ -67,14 +68,14 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Future<void> _searchUsers(String query) async {
+  Future<void> _updateSearch(String query) async {
     setState(() {
       _isLoading = true;
     });
     final users = await widget.dbController.searchUsers(query);
     setState(() {
-      _searchResults.clear();
-      _searchResults.addAll(users);
+      _searchedUsers.clear();
+      _searchedUsers.addAll(users);
       _isLoading = false;
     });
   }
