@@ -335,11 +335,13 @@ class Database {
     return dbFollow.docs.isNotEmpty;
   }
 
-  Future<List<User>> searchUsers(String query) async {
+  Future<List<User>> searchUsers(String query, int numUsers) async {
     final users = _db.collection('users');
     final snapshot = await users
         .orderBy('username')
-        .startAt([query]).endAt(['$query\uf8ff']).get();
+        .startAt([query]).endAt(['$query\uf8ff'])
+        .limit(numUsers)
+        .get();
     return snapshot.docs
         .map((user) => User(
               id: user['id'],

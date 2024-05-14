@@ -22,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   final List<User> _searchedUsers = [];
   bool _isLoading = false;
+  static const int numUsers = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _isLoading = true;
     });
-    final users = await widget.dbController.searchUsers(query);
+    final users = await widget.dbController.searchUsers(query, numUsers);
     setState(() {
       _searchedUsers.clear();
       _searchedUsers.addAll(users);
