@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class SearchWidget extends StatelessWidget {
+class UserSearchBar extends StatelessWidget {
   final TextEditingController controller;
   final Function(String) onTextChanged;
 
-  const SearchWidget({
+  const UserSearchBar({
     super.key,
     required this.controller,
     required this.onTextChanged,

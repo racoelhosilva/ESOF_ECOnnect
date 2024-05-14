@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/profile/widgets/follow_button.dart';
 import 'package:econnect/view/search/widgets/search_bar.dart';
+import 'package:econnect/view/search/widgets/search_result_tile.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -39,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
           automaticallyImplyLeading: false,
           title: Column(children: [
             const HeaderWidget(),
-            SearchWidget(
+            UserSearchBar(
               controller: _searchController,
               onTextChanged: (value) {
                 if (value.isNotEmpty) {
@@ -58,21 +57,10 @@ class _SearchPageState extends State<SearchPage> {
               itemCount: _searchResults.length,
               itemBuilder: (context, index) {
                 final user = _searchResults[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        CachedNetworkImageProvider(user.profilePicture),
-                  ),
-                  title: Text(user.username),
-                  subtitle: Text(user.description ?? ""),
-                  trailing: FollowButton(
-                      dbController: widget.dbController,
-                      sessionController: widget.sessionController,
-                      userId: user.id),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/profile",
-                        arguments: user.id);
-                  },
+                return SearchResultTile(
+                  dbController: widget.dbController,
+                  sessionController: widget.sessionController,
+                  user: user,
                 );
               },
             ),
