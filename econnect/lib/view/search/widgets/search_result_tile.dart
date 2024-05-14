@@ -6,11 +6,12 @@ import 'package:econnect/view/profile/widgets/follow_button.dart';
 import 'package:flutter/material.dart';
 
 class SearchResultTile extends StatelessWidget {
-  const SearchResultTile(
-      {super.key,
-      required this.dbController,
-      required this.sessionController,
-      required this.user});
+  const SearchResultTile({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+    required this.user,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -25,9 +26,10 @@ class SearchResultTile extends StatelessWidget {
       title: Text(user.username),
       subtitle: Text(user.description ?? ""),
       trailing: FollowButton(
-          dbController: dbController,
-          sessionController: sessionController,
-          userId: user.id),
+        dbController: dbController,
+        sessionController: sessionController,
+        userId: user.id,
+      ),
       onTap: () {
         Navigator.pushNamed(context, "/profile", arguments: user.id);
       },
