@@ -7,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 
+import 'comment.dart';
+
 class Database {
   Database(FirebaseFirestore firestore, FirebaseStorage storage)
       : _db = firestore,
@@ -60,6 +62,15 @@ class Database {
     await _db.collection('posts').doc(postId).delete();
     await _db
         .collection('likes')
+        .where('post', isEqualTo: postId)
+        .get()
+        .then((snapshot) {
+      for (var doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
+    await _db
+        .collection('comments')
         .where('post', isEqualTo: postId)
         .get()
         .then((snapshot) {
@@ -333,5 +344,61 @@ class Database {
         .get();
 
     return dbFollow.docs.isNotEmpty;
+  }
+
+  Future<void> addComment(String userId, String postId, String comment) async {
+    final comments = _db.collection('comments');
+
+    await comments.add({
+      'user': userId,
+      'post': postId,
+      'comment': comment,
+      'commentDatetime': DateTime.now(),
+    });
+  }
+
+  Future<void> deleteComment(String commentId) async {
+    final comments = _db.collection('comments');
+
+    await comments.doc(commentId).delete();
+  }
+
+  Future<(List<Comment>, String?)> getNextComments(
+      String postId, String? cursor, int numDocs) async {
+    final comments = _db.collection('comments');
+    final users = _db.collection('users');
+
+    Query<Map<String, dynamic>> query = comments
+        .where('post', isEqualTo: postId)
+        .orderBy('commentDatetime', descending: true);
+
+    if (cursor != null) {
+      final fromDoc = await comments.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
+    }
+    query = query.limit(numDocs);
+    final snapshot = await query.get();
+
+    final List<Comment> commentsList = [];
+    await Future.forEach(
+      snapshot.docs,
+      (commentDoc) async {
+        final userData = await users.doc(commentDoc['user']).get();
+        commentsList.add(
+          Comment(
+            commentId: commentDoc.id,
+            userId: commentDoc['user'],
+            username: userData['username'],
+            profilePicture: userData['profilePicture'],
+            postId: commentDoc['post'],
+            comment: commentDoc['comment'],
+            commentDatetime:
+                (commentDoc['commentDatetime'] as Timestamp).toDate(),
+          ),
+        );
+      },
+    );
+
+    return (commentsList, snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null);
   }
 }

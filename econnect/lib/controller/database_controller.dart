@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:econnect/model/comment.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class DatabaseController {
   const DatabaseController({required this.db});
@@ -111,4 +112,14 @@ class DatabaseController {
 
   Future<bool> isFollowing(String followerId, String followedId) async =>
       await db.isFollowing(followerId, followedId);
+
+  Future<void> addComment(String userId, String postId, String comment) async =>
+      await db.addComment(userId, postId, comment);
+
+  Future<void> deleteComment(String commentId) async =>
+      await db.deleteComment(commentId);
+
+  Future<(List<Comment>, String?)> getNextComments(
+          String postId, String? cursor, int numDocs) async =>
+      await db.getNextComments(postId, cursor, numDocs);
 }
