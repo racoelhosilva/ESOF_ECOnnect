@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             FollowButton(
                               dbController: widget.dbController,
                               sessionController: widget.sessionController,
-                              posterId: widget.userId,
+                              userId: widget.userId,
                             ),
                         ],
                       ),
