@@ -718,6 +718,7 @@ void main() {
     final query1 = MockQuery();
     final query2 = MockQuery();
     final query3 = MockQuery();
+    final query4 = MockQuery();
     final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
     final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
     const documentId1 = 'doc1';
@@ -729,7 +730,8 @@ void main() {
     when(usersCollection.orderBy('username')).thenReturn(query1);
     when(query1.startAt([searchTerm])).thenReturn(query2);
     when(query2.endAt(['$searchTerm\uf8ff'])).thenReturn(query3);
-    when(query3.get()).thenAnswer((_) async => querySnapshot);
+    when(query3.limit(2)).thenReturn(query4);
+    when(query4.get()).thenAnswer((_) async => querySnapshot);
     when(querySnapshot.docs).thenReturn([
       queryDocumentSnapshot1,
       queryDocumentSnapshot2,
@@ -757,7 +759,9 @@ void main() {
     when(queryDocumentSnapshot2['registerDatetime'])
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
     when(queryDocumentSnapshot2['isAdmin']).thenReturn(true);
-    final result = await database.searchUsers(searchTerm);
+
+    final result = await database.searchUsers(searchTerm, 2);
+    
     expect(result.length, 2);
     expect(result[0].id, 'user1');
     expect(result[0].username, 'john_doe');
