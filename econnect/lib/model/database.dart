@@ -337,8 +337,9 @@ class Database {
 
   Future<List<User>> searchUsers(String query) async {
     final users = _db.collection('users');
-    // TODO: See if full text search is possible
-    final snapshot = await users.where('username', isEqualTo: query).get();
+    final snapshot = await users
+        .orderBy('username')
+        .startAt([query]).endAt(['$query\uf8ff']).get();
     return snapshot.docs
         .map((user) => User(
               id: user['id'],

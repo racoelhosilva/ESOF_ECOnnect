@@ -330,6 +330,17 @@ class MockDatabaseController extends _i1.Mock
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<List<_i5.User>> searchUsers(String? query) => (super.noSuchMethod(
+        Invocation.method(
+          #searchUsers,
+          [query],
+        ),
+        returnValue: _i4.Future<List<_i5.User>>.value(<_i5.User>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i5.User>>.value(<_i5.User>[]),
+      ) as _i4.Future<List<_i5.User>>);
 }
 
 /// A class which mocks [SessionController].

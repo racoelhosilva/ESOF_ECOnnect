@@ -417,6 +417,17 @@ class MockDatabaseController extends _i1.Mock
         returnValue: _i7.Future<bool>.value(false),
         returnValueForMissingStub: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<List<_i8.User>> searchUsers(String? query) => (super.noSuchMethod(
+        Invocation.method(
+          #searchUsers,
+          [query],
+        ),
+        returnValue: _i7.Future<List<_i8.User>>.value(<_i8.User>[]),
+        returnValueForMissingStub:
+            _i7.Future<List<_i8.User>>.value(<_i8.User>[]),
+      ) as _i7.Future<List<_i8.User>>);
 }
 
 /// A class which mocks [FirebaseAuth].
