@@ -3,7 +3,7 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/search/widgets/search_bar.dart';
+import 'package:econnect/view/search/widgets/user_search_bar.dart';
 import 'package:econnect/view/search/widgets/search_result_tile.dart';
 import 'package:flutter/material.dart';
 
