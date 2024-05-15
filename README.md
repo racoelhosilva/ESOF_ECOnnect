@@ -98,7 +98,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 
 #### Assumptions and Dependencies
 
-- Firebase (Firestore and Cloud Storage)
+- Firebase (Firestore, Cloud Storage and Authentication)
 - Flutter [image_picker plugin](https://pub.dev/packages/image_picker)
 
 <!---
@@ -162,7 +162,7 @@ Furthermore, the platform hosts **challenges** (created by admin users) focused 
 Users can participate in these challenges and earn points. There is a leaderboard that displays users with the highest scores.
 
 <p align="center" justify="center">
-  <img src="img/domain-model.png"/>
+  <img src="img/diagrams/domain-model.png"/>
 </p>
 
 
@@ -196,7 +196,7 @@ The database logic layer is responsible for fetching necessary information from 
 
 
 <p align="center" justify="center">
-  <img src="img/logical-model.png"/>
+  <img src="img/diagrams/logical-model.png"/>
 </p>
 
 ### Physical architecture
@@ -216,7 +216,7 @@ Persistent data, including user profiles, posts/multimedia content, is stored in
 In the diagram, each component is identified with the hardware on which it should be installed or deployed.
 
 <p align="center" justify="center">
-  <img src="img/physical-model.png"/>
+  <img src="img/diagrams/physical-model.png"/>
 </p>
 
 
@@ -233,7 +233,7 @@ The vertical prototype we developed was implemented with the integration of the 
 By opening the app, one can see all the posts currently in the database.  When a post is created, by taking a picture with the camera, the image is sent to Cloud Storage and a new `Post` object is stored in the database. 
 
 <p align="center" justify="center">
-  <img width=300 src="img/vertical-prototype.png"/>
+  <img width=300 src="img/app/vertical-prototype.png"/>
 </p>
 
 ## Project management
@@ -248,10 +248,86 @@ Common practices for managing iterative software development are backlog managem
 You can find below information and references related to the project management in our team: 
 
 - Backlog management: Product backlog and Sprint backlog in our [Github Projects board](https://github.com/orgs/FEUP-LEIC-ES-2023-24/projects/52)
-- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype)
+- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype), [v1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v1)
   
 <!---
 - Sprint planning and retrospectives: 
   - plans: screenshots of Github Projects board at the beginning and end of each iteration;
   - retrospectives: meeting notes in a document in the repository;
 -->
+
+### Sprint 1 Overview
+
+> **Goal:** Implement login page; implement adding photos to the app/database; implement draft of the main page
+
+#### Project Board
+
+<p align="center" justify="center">
+  <b>Start of Sprint 1</b>
+  <img src="img/sprints/sprint1_start.png"/>
+  <b>End of Sprint 1</b>
+  <img src="img/sprints/sprint1_end.png"/>
+</p>
+
+#### Sprint Retrospective #1
+
+##### What should start?
+
+ - Envision the product from the perspective of a larger audience (public or mass market)
+ - Focus more on improving the User Experience (e.g. providing more visual feedback)
+
+##### What should stop?
+
+ - Merging multiple branches only at the very end of the sprint
+
+##### What should continue?
+
+ - Good teamwork and organization
+ - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
+
+---
+
+### Sprint 2 Overview
+
+> **Goal:** Perfect the elements already implemented; implement profile pages; implement likes on posts; implement following other users; implement edit/delete actions on users' own posts
+
+#### Project Board
+
+<p align="center" justify="center">
+  <b>Start of Sprint 2</b>
+  <img src="img/sprints/sprint2_start.png"/>
+    <b>End of Sprint 2</b>
+  <img src="img/sprints/sprint2_end.png"/>
+</p>
+
+#### Sprint Retrospective #2
+
+##### What should start?
+
+ - Improve the features we already have with clean code
+ - Fix any issues, bugs or glitches in our app
+ - Perform more stress testing
+
+##### What should stop?
+
+ - Merging branches at the end of the sprint
+ - Implement multiple users stories in a single pull request
+
+##### What should continue?
+
+ - Envision the product from the perspective of a larger audience (public or mass market)
+ - Good teamwork and organization
+ - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
+
+---
+
+### Sprint 3 Overview
+
+> **Goal:** Perfect the elements already implemented; implement comments on posts; implement search page; fix any issues or bugs
+
+#### Project Board
+
+<p align="center" justify="center">
+  <b>Start of Sprint 3</b>
+  <img src="img/sprints/sprint3_start.png"/>
+</p>
