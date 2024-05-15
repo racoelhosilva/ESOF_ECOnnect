@@ -101,15 +101,25 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 - Firebase (Firestore, Cloud Storage and Authentication)
 - Flutter [image_picker plugin](https://pub.dev/packages/image_picker)
 
-<!---
+
 ### Elevator Pitch
-Draft a small text to help you quickly introduce and describe your product in a short time (lift travel time ~90 seconds) and a few words (~800 characters), a technique usually known as elevator pitch.
+<!-- Draft a small text to help you quickly introduce and describe your product in a short time (lift travel time ~90 seconds) and a few words (~800 characters), a technique usually known as elevator pitch.
 
 Take a look at the following links to learn some techniques:
 * [Crafting an Elevator Pitch](https://www.mindtools.com/pages/article/elevator-pitch.htm)
 * [The Best Elevator Pitch Examples, Templates, and Tactics - A Guide to Writing an Unforgettable Elevator Speech, by strategypeak.com](https://strategypeak.com/elevator-pitch-examples/)
 * [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
 -->
+
+In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly? In a fast-paced world, when can we find the time and motivation to do what is best for the environment?
+
+ECOnnect addresses these questions by embracing community and collaboration and encouraging members to promote eco-friendly actions and ideas. With a simple and intuitive interface, ECOnnect aims to facilitate sharing and discovering new ways to be more sustainable. Unlike other social media apps, this one focuses solely on building a greener community.
+
+Post your actions daily, like and comment on other posts and follow other user to keep yourself updated with their recent activity!
+
+Did you just ride the bicycle to work today? Or gathered with others to pick up trash at the local beach? Share it! And inspire other users to improve their sustainable footprint.
+
+Together, we can achieve meaningful results with simple day-to-day contributions. Come help us!
 
 
 ## Requirements
