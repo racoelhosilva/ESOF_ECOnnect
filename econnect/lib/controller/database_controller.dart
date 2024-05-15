@@ -113,8 +113,8 @@ class DatabaseController {
   Future<bool> isFollowing(String followerId, String followedId) async =>
       await db.isFollowing(followerId, followedId);
 
-  Future<void> addComment(String userId, String postId, String comment) async =>
-      await db.addComment(userId, postId, comment);
+  Future<void> addComment(String userId, String postId, String content) async =>
+      await db.addComment(userId, postId, content);
 
   Future<void> deleteComment(String commentId) async =>
       await db.deleteComment(commentId);

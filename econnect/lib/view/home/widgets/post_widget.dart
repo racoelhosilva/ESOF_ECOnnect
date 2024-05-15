@@ -5,6 +5,7 @@ import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/home/widgets/likes_widget.dart';
 import 'package:econnect/view/home/widgets/profile_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -13,11 +14,12 @@ class PostWidget extends StatelessWidget {
       {super.key,
       required this.post,
       required this.dbController,
-      required this.sessionController});
+      required this.sessionController, required this.isCommentsPage});
 
   final Post post;
   final DatabaseController dbController;
   final SessionController sessionController;
+  final bool isCommentsPage;
 
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
@@ -28,7 +30,7 @@ class PostWidget extends StatelessWidget {
     final difference = now.difference(post.postDatetime);
 
     if (difference.inDays > 7) {
-      return formatTime((difference.inDays / 7 as int), 'week');
+      return formatTime((difference.inDays ~/ 7), 'week');
     } else if (difference.inDays > 0) {
       return formatTime(difference.inDays, 'day');
     } else if (difference.inHours > 0) {
@@ -60,18 +62,20 @@ class PostWidget extends StatelessWidget {
                       userId: snapshot.data!.id,
                       dbController: dbController,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          snapshot.data!.username,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        Text(
-                          getTimeElapsed(), // Display time elapsed
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data!.username,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            getTimeElapsed(), // Display time elapsed
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -100,14 +104,25 @@ class PostWidget extends StatelessWidget {
                         const Icon(LucideIcons.alertCircle),
                   ),
                 ),
+
+
+
                 LikeWidget(
-                  post: post,
-                  dbController: dbController,
-                  sessionController: sessionController,
-                ),
-                Text(
+                    post: post,
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  ),
+
+                if(post.description != '') Text(
                   post.description,
                   textAlign: TextAlign.left,
+                ),
+
+                if(!isCommentsPage) Text(
+                  "See all comments",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
               ],
             ),

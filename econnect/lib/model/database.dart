@@ -346,13 +346,13 @@ class Database {
     return dbFollow.docs.isNotEmpty;
   }
 
-  Future<void> addComment(String userId, String postId, String comment) async {
+  Future<void> addComment(String userId, String postId, String content) async {
     final comments = _db.collection('comments');
 
     await comments.add({
       'user': userId,
       'post': postId,
-      'comment': comment,
+      'content': content,
       'commentDatetime': DateTime.now(),
     });
   }
@@ -391,7 +391,7 @@ class Database {
             username: userData['username'],
             profilePicture: userData['profilePicture'],
             postId: commentDoc['post'],
-            comment: commentDoc['comment'],
+            comment: commentDoc['content'],
             commentDatetime:
                 (commentDoc['commentDatetime'] as Timestamp).toDate(),
           ),

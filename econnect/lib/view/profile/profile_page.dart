@@ -103,13 +103,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            user.username,
-                            style: const TextStyle(
-                              fontFamily: "Karla",
-                              color: Colors.white,
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              user.username,
+                              style: const TextStyle(
+                                fontFamily: "Karla",
+                                color: Colors.white,
+                                fontSize: 28.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           if (user.id !=

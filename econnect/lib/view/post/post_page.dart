@@ -5,7 +5,9 @@ import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/header_widget.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
 import 'package:econnect/view/post/widgets/comment_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class PostPage extends StatefulWidget {
@@ -27,26 +29,30 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final List<Comment> _comments = [];
+  final List<CommentWidget> _comments = [];
   bool _isLoading = false;
   bool _atEnd = false;
   String? _cursor;
+  PostWidget? postWidget;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_loadMoreCommentsAtEnd);
+    postWidget = PostWidget(
+      post: widget.post,
+      dbController: widget.dbController,
+      sessionController: widget.sessionController,
+      isCommentsPage: true,
+    );
+    _clearComments();
     _loadMoreComments();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+    _scrollController.addListener(_loadMoreCommentsAtEnd);
   }
 
   Future<void> _loadMoreComments() async {
-    if (_isLoading || _atEnd) return;
+    if(_isLoading || _atEnd) {
+      return;
+    }
 
     setState(() {
       _isLoading = true;
@@ -55,100 +61,106 @@ class _PostPageState extends State<PostPage> {
     final (nextComments, newCursor) = await widget.dbController.getNextComments(
       widget.post.postId,
       _cursor,
-      3,
+      5,
     );
 
     setState(() {
       _cursor = newCursor;
-      _isLoading = false;
       _atEnd = newCursor == null;
-      _comments.addAll(nextComments);
+      _comments.addAll(nextComments.map<CommentWidget>((comment) =>
+          CommentWidget(comment: comment, dbController: widget.dbController,),),);
+      _isLoading = false;
     });
   }
 
   Future<void> _loadMoreCommentsAtEnd() async {
     if (_scrollController.offset !=
             _scrollController.position.maxScrollExtent ||
-        _isLoading ||
-        _atEnd) {
+        _isLoading
+        || _atEnd) {
       return;
     }
 
     await _loadMoreComments();
   }
 
+  void _clearComments() {
+    setState(() {
+      _cursor = null;
+      _atEnd  = false;
+      _comments.clear();
+    });
+  }
+
+  Future<void> _onRefresh() async{
+    _clearComments();
+    await _loadMoreComments();
+
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              controller: _scrollController,
-              children: [
-                const HeaderWidget(),
-                PostWidget(
-                  post: widget.post,
-                  dbController: widget.dbController,
-                  sessionController: widget.sessionController,
-                ),
-                // Display comments here
-                for (final comment in _comments)
-                  CommentWidget(
-                    comment: comment,
-                    dbController: widget.dbController,
-                  ),
-                if (_isLoading)
-                  const Center(child: CircularProgressIndicator()),
-                if (_atEnd && _comments.isNotEmpty)
-                  const Text(
-                    'End of comments',
-                    textAlign: TextAlign.center,
-                  ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: TextField(
-              controller: _textEditingController,
-              maxLength: 200,
-              decoration: InputDecoration(
-                counterText: '',
-                suffixIcon: IconButton(
-                  icon: const Icon(LucideIcons.send),
-                  onPressed: () async {
-                    if (_textEditingController.text.isNotEmpty) {
-                      await widget.dbController.addComment(
-                        widget.sessionController.loggedInUser!.id,
-                        widget.post.postId,
-                        _textEditingController.text,
-                      );
-
-                      setState(() {
-                        _textEditingController.clear();
-                        _comments.clear();
-                        _cursor = null;
-                        _atEnd = false;
-                      });
-
-                      await _loadMoreComments();
-                    }
-                  },
-                ),
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.background,
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                contentPadding: const EdgeInsets.all(10.0),
-                hintText: 'Write your comment here...',
-                hintStyle: const TextStyle(
-                    fontSize: 14.0, fontFamily: 'Palanquin Dark'),
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                controller: _scrollController,
+                children: [
+                  const HeaderWidget(),
+                  if(postWidget != null) postWidget!,
+                  ..._comments,
+                ],
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: TextField(
+                  controller: _textEditingController,
+                  maxLength: 200,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    suffixIcon: IconButton(
+                      icon: const Icon(LucideIcons.send),
+                      onPressed: () async {
+                        if (_textEditingController.text.isNotEmpty) {
+                          await widget.dbController.addComment(
+                            widget.sessionController.loggedInUser!.id,
+                            widget.post.postId,
+                            _textEditingController.text,
+                          );
+
+                          setState(() {
+                            _textEditingController.clear();
+                            _comments.clear();
+                            _cursor = null;
+                            _atEnd = false;
+                          });
+
+                          await _loadMoreComments();
+                        }
+                      },
+                    ),
+                    border:  OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(color: Colors.grey),
+                    ),
+                    contentPadding: const EdgeInsets.all(10.0),
+                    hintText: 'Write your comment here...',
+                    hintStyle: const TextStyle(
+                        fontSize: 14.0,
+                        fontFamily: 'Palanquin Dark'
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

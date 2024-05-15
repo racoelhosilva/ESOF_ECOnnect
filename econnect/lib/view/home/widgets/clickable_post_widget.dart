@@ -25,6 +25,7 @@ class ClickablePostWidget extends StatelessWidget {
         dbController: dbController,
         sessionController: sessionController,
         post: post,
+        isCommentsPage: false,
       ),
     );
   }

@@ -22,7 +22,7 @@ class CommentWidget extends StatelessWidget {
     final difference = now.difference(comment.commentDatetime);
 
     if (difference.inDays > 7) {
-      return formatTime((difference.inDays / 7 as int), 'week');
+      return formatTime((difference.inDays ~/ 7), 'week');
     } else if (difference.inDays > 0) {
       return formatTime(difference.inDays, 'day');
     } else if (difference.inHours > 0) {
@@ -36,27 +36,48 @@ class CommentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ProfileButton(
-          userId: comment.userId,
-          dbController: dbController,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${comment.username} ${getTimeElapsed()}',
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleMedium,
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProfileButton(
+            userId: comment.userId,
+            dbController: dbController,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        comment.username,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                    const SizedBox(width: 6.0),
+                    Text(
+                      textAlign: TextAlign.end,
+                      getTimeElapsed(),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  comment.comment,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
             ),
-            Text(
-              comment.comment,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
