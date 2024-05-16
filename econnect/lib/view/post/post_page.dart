@@ -1,13 +1,11 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/model/comment.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/header_widget.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
 import 'package:econnect/view/post/widgets/comment_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class PostPage extends StatefulWidget {
@@ -50,7 +48,7 @@ class _PostPageState extends State<PostPage> {
   }
 
   Future<void> _loadMoreComments() async {
-    if(_isLoading || _atEnd) {
+    if (_isLoading || _atEnd) {
       return;
     }
 
@@ -67,8 +65,14 @@ class _PostPageState extends State<PostPage> {
     setState(() {
       _cursor = newCursor;
       _atEnd = newCursor == null;
-      _comments.addAll(nextComments.map<CommentWidget>((comment) =>
-          CommentWidget(comment: comment, dbController: widget.dbController,),),);
+      _comments.addAll(
+        nextComments.map<CommentWidget>(
+          (comment) => CommentWidget(
+            comment: comment,
+            dbController: widget.dbController,
+          ),
+        ),
+      );
       _isLoading = false;
     });
   }
@@ -76,8 +80,8 @@ class _PostPageState extends State<PostPage> {
   Future<void> _loadMoreCommentsAtEnd() async {
     if (_scrollController.offset !=
             _scrollController.position.maxScrollExtent ||
-        _isLoading
-        || _atEnd) {
+        _isLoading ||
+        _atEnd) {
       return;
     }
 
@@ -87,16 +91,15 @@ class _PostPageState extends State<PostPage> {
   void _clearComments() {
     setState(() {
       _cursor = null;
-      _atEnd  = false;
+      _atEnd = false;
       _comments.clear();
     });
   }
 
-  Future<void> _onRefresh() async{
+  Future<void> _onRefresh() async {
     _clearComments();
     await _loadMoreComments();
-
-}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +113,7 @@ class _PostPageState extends State<PostPage> {
                 controller: _scrollController,
                 children: [
                   const HeaderWidget(),
-                  if(postWidget != null) postWidget!,
+                  if (postWidget != null) postWidget!,
                   ..._comments,
                 ],
               ),
@@ -142,19 +145,23 @@ class _PostPageState extends State<PostPage> {
                           });
 
                           await _loadMoreComments();
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: 'Comment cannot be empty',
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error,
+                          );
                         }
                       },
                     ),
-                    border:  OutlineInputBorder(
+                    border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: const BorderSide(color: Colors.grey),
                     ),
                     contentPadding: const EdgeInsets.all(10.0),
                     hintText: 'Write your comment here...',
                     hintStyle: const TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'Palanquin Dark'
-                    ),
+                        fontSize: 14.0, fontFamily: 'Palanquin Dark'),
                   ),
                 ),
               ),
