@@ -28,7 +28,7 @@ class PostWidget extends StatelessWidget {
     final difference = now.difference(post.postDatetime);
 
     if (difference.inDays > 7) {
-      return formatTime((difference.inDays / 7 as int), 'week');
+      return formatTime(difference.inDays ~/ 7, 'week');
     } else if (difference.inDays > 0) {
       return formatTime(difference.inDays, 'day');
     } else if (difference.inHours > 0) {

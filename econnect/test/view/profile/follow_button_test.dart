@@ -31,7 +31,7 @@ void main() {
         home: FollowButton(
           dbController: dbController,
           sessionController: sessionController,
-          posterId: 'poster_id',
+          userId: 'user_id',
         ),
       ),
     );
@@ -52,7 +52,7 @@ void main() {
         home: FollowButton(
           dbController: dbController,
           sessionController: sessionController,
-          posterId: 'poster_id',
+          userId: 'user_id',
         ),
       ),
     );
@@ -77,7 +77,7 @@ void main() {
         home: FollowButton(
           dbController: dbController,
           sessionController: sessionController,
-          posterId: 'poster_id',
+          userId: 'user_id',
         ),
       ),
     );
@@ -90,13 +90,13 @@ void main() {
 
     await tester.tap(find.byType(GestureDetector));
     await tester.pumpAndSettle();
-    verify(sessionController.followUser('poster_id', dbController)).called(1);
+    verify(sessionController.followUser('user_id', dbController)).called(1);
 
     expect(find.byIcon(Icons.star), findsOneWidget);
 
     await tester.tap(find.byType(GestureDetector));
     await tester.pumpAndSettle();
-    verify(sessionController.unfollowUser('poster_id', dbController)).called(1);
+    verify(sessionController.unfollowUser('user_id', dbController)).called(1);
 
     expect(find.byIcon(Icons.star_border), findsOneWidget);
   });

@@ -334,4 +334,28 @@ class Database {
 
     return dbFollow.docs.isNotEmpty;
   }
+
+  Future<List<User>> searchUsers(String query, int numUsers) async {
+    final users = _db.collection('users');
+    final snapshot = await users
+        .orderBy('username')
+        .startAt([query])
+        .endAt(['$query\uf8ff'])
+        .limit(numUsers)
+        .get();
+    return snapshot.docs
+        .map((user) => User(
+              id: user['id'],
+              username: user['username'],
+              email: user['email'],
+              description: user['description'],
+              profilePicture: user['profilePicture'],
+              score: user['score'],
+              isBlocked: user['isBlocked'],
+              registerDatetime:
+                  (user['registerDatetime'] as Timestamp).toDate(),
+              admin: user['isAdmin'],
+            ))
+        .toList();
+  }
 }

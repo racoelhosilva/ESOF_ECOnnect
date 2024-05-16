@@ -299,4 +299,50 @@ void main() {
     expect(result[1].image, expectedPosts[1].image);
     expect(result[1].postDatetime, expectedPosts[1].postDatetime);
   });
+
+  test('Search users in the database', () async {
+    const query = 'test';
+    final expectedUsers = [
+      User(
+        id: '1',
+        email: 'test1@example.com',
+        username: 'testuser1',
+        score: 10,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '',
+      ),
+      User(
+        id: '2',
+        email: 'test2@example.com',
+        username: 'testuser2',
+        score: 5,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '',
+      ),
+    ];
+    when(database.searchUsers(query, 2)).thenAnswer((_) async => expectedUsers);
+
+    final result = await databaseController.searchUsers(query, 2);
+    expect(result.length, expectedUsers.length);
+    expect(result[0].id, expectedUsers[0].id);
+    expect(result[0].email, expectedUsers[0].email);
+    expect(result[0].username, expectedUsers[0].username);
+    expect(result[0].score, expectedUsers[0].score);
+    expect(result[0].isBlocked, expectedUsers[0].isBlocked);
+    expect(result[0].registerDatetime, expectedUsers[0].registerDatetime);
+    expect(result[0].admin, expectedUsers[0].admin);
+    expect(result[0].profilePicture, expectedUsers[0].profilePicture);
+    expect(result[1].id, expectedUsers[1].id);
+    expect(result[1].email, expectedUsers[1].email);
+    expect(result[1].username, expectedUsers[1].username);
+    expect(result[1].score, expectedUsers[1].score);
+    expect(result[1].isBlocked, expectedUsers[1].isBlocked);
+    expect(result[1].registerDatetime, expectedUsers[1].registerDatetime);
+    expect(result[1].admin, expectedUsers[1].admin);
+    expect(result[1].profilePicture, expectedUsers[1].profilePicture);
+  });
 }
