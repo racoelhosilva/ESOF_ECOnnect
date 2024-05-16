@@ -33,19 +33,20 @@ class DatabaseController {
   Future<void> deletePost(String? postId) async => await db.deletePost(postId!);
 
   Future<(List<Post>, String?)> getNextPosts(
-          String? cursor, int numDocs) async =>
+          int numDocs, String? cursor) async =>
       await db.getNextPosts(cursor, numDocs);
 
   Future<(List<Post>, String?)> getNextPostsOfFollowing(
-          String? cursor, int numDocs, String userId) async =>
-      await db.getNextPostsOfFollowing(cursor, numDocs, userId);
+          String userId, int numDocs, String? cursor) async =>
+      await db.getNextPostsOfFollowing(userId, numDocs, cursor);
 
   Future<(List<Post>, String?)> getNextPostsOfNonFollowing(
-          String? cursor, int numDocs, String userId) async =>
-      await db.getNextPostsOfNonFollowing(cursor, numDocs, userId);
+          String userId, int numDocs, String? cursor) async =>
+      await db.getNextPostsOfNonFollowing(userId, numDocs, cursor);
 
-  Future<List<Post>> getPostsFromUser(String userId) async =>
-      await db.getPostsFromUser(userId);
+  Future<(List<Post>, String?)> getNextPostsFromUser(
+          String userId, int numDocs, String? cursor) async =>
+      await db.getNextPostsFromUser(userId, numDocs, cursor);
 
   Future<void> addLike(String userId, String postId) async =>
       await db.addLike(userId, postId);
