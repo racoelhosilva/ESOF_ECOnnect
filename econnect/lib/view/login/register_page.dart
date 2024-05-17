@@ -13,10 +13,10 @@ class RegisterPage extends StatefulWidget {
   final SessionController sessionController;
 
   @override
-  State<RegisterPage> createState() => RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();

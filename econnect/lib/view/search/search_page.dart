@@ -8,8 +8,11 @@ import 'package:econnect/view/search/widgets/search_result_tile.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage(
-      {super.key, required this.dbController, required this.sessionController});
+  const SearchPage({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;

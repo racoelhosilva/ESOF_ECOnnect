@@ -17,10 +17,10 @@ class AppLikeButton extends StatefulWidget {
   final SessionController sessionController;
 
   @override
-  State<StatefulWidget> createState() => _LikeWidgetState();
+  State<StatefulWidget> createState() => _AppLikeButtonState();
 }
 
-class _LikeWidgetState extends State<AppLikeButton> {
+class _AppLikeButtonState extends State<AppLikeButton> {
   bool _isLiked = false;
   bool _isClicked = false;
 

@@ -36,9 +36,9 @@ class BottomNavbar extends StatelessWidget {
       end: Alignment.topCenter,
       stops: const [0.1, 0.73, 1.0],
       colors: [
-        Theme.of(context).colorScheme.primary,
-        Theme.of(context).colorScheme.primary.withOpacity(0.6),
-        Theme.of(context).colorScheme.primary.withOpacity(0.0),
+        Theme.of(context).colorScheme.background,
+        Theme.of(context).colorScheme.background.withOpacity(0.6),
+        Theme.of(context).colorScheme.background.withOpacity(0.0),
       ],
     );
   }

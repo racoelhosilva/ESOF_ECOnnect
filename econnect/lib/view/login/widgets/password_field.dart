@@ -7,10 +7,10 @@ class PasswordField extends StatefulWidget {
   final TextEditingController controller;
 
   @override
-  State<StatefulWidget> createState() => PasswordFieldState();
+  State<StatefulWidget> createState() => _PasswordFieldState();
 }
 
-class PasswordFieldState extends State<PasswordField> {
+class _PasswordFieldState extends State<PasswordField> {
   bool _isObscured = true;
 
   @override

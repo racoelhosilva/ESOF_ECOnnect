@@ -17,10 +17,10 @@ class LoginPage extends StatefulWidget {
   final SessionController sessionController;
 
   @override
-  State<StatefulWidget> createState() => LoginPageState();
+  State<StatefulWidget> createState() => _LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 

@@ -10,8 +10,11 @@ import 'package:econnect/view/home/widgets/middle_message.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage(
-      {super.key, required this.dbController, required this.sessionController});
+  const HomePage({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -104,7 +107,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadMorePostsAtEnd() async {
     if (_scrollController.offset !=
-            _scrollController.position.maxScrollExtent ||
+        _scrollController.position.maxScrollExtent ||
         _isLoading) {
       return;
     }
