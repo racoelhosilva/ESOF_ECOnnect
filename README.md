@@ -59,20 +59,10 @@ To learn more about how to write a good product vision, please see also:
 
 <h4 align="center"> Small actions, big impact: stay connected for a sustainable tomorrow!</h4>
 
-Did you ride your bicycle to work today? Or you just finished recycling the trash from the last 3 weeks? Or maybe even went and cleaned local beaches? Would you like to share your sustainable actions to motivate other people?  
+Did you ride your bicycle to work today? Or you just finished recycling the trash from the last 3 weeks? Would you like to share your sustainable actions to motivate other people?  
+In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?  
 ECOnnect is the app designed just for this! By embracing community and collaboration we encourage users to promote and share their eco-friendly actions and ideas.  
 Together, we can achieve meaningful results with simple everyday contributions. Come help us!
-
-In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?  
-ECOnnect addresses this question by embracing community and collaboration, and encouraging members to promote and share eco-friendly actions and ideas.  
-You just rode the bycicle to work today? Or gathered with others to pick up trash at the local beach? Share it! And inspire other users to improve their sustainable footprint.  
-Together, we can achieve meaningful results with simple day-to-day contributions. Come help us!
-
-<!--- Restructure the Product Vision 
-- Move examples to the top, along with the problem
-- Explain the solution
-- Conclude
--->
 
 ### Features, Assumptions and Dependencies
 
