@@ -10,8 +10,10 @@ import 'package:econnect/view/settings/widgets/username_field.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage(
-      {super.key, required this.dbController, required this.sessionController});
+  const SettingsPage({super.key,
+    required this.dbController,
+    required this.sessionController,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -33,15 +35,18 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     _descriptionController = TextEditingController(
-        text: widget.sessionController.loggedInUser!.description);
+      text: widget.sessionController.loggedInUser!.description,
+    );
     _usernameController = TextEditingController(
-        text: widget.sessionController.loggedInUser!.username);
+      text: widget.sessionController.loggedInUser!.username,
+    );
     setInitialPagePath();
   }
 
   Future<void> setInitialPagePath() async {
     final initImagePath = await downloadImageToTemp(
-        widget.sessionController.loggedInUser!.profilePicture);
+      widget.sessionController.loggedInUser!.profilePicture,
+    );
     setImagePath(initImagePath);
   }
 

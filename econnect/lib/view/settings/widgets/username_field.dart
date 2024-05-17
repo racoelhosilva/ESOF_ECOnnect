@@ -30,8 +30,10 @@ class UsernameField extends StatelessWidget {
               ),
               contentPadding: const EdgeInsets.all(10.0),
               hintText: 'Write your username here...',
-              hintStyle:
-                  const TextStyle(fontSize: 14.0, fontFamily: 'Palanquin Dark'),
+              hintStyle: const TextStyle(
+                fontSize: 14.0,
+                fontFamily: 'Palanquin Dark',
+              ),
             ),
           ),
         ],

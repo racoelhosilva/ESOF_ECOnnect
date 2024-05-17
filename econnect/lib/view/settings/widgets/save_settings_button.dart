@@ -4,13 +4,14 @@ import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
 
 class SaveSettingsButton extends StatefulWidget {
-  const SaveSettingsButton(
-      {super.key,
-      required this.dbController,
-      required this.sessionController,
-      required this.usernameController,
-      required this.descriptionController,
-      required this.newProfilePicturePath});
+  const SaveSettingsButton({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+    required this.usernameController,
+    required this.descriptionController,
+    required this.newProfilePicturePath,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -54,13 +55,17 @@ class _SaveSettingsButtonState extends State<SaveSettingsButton> {
 
     var i = 2;
     Navigator.of(context).pushNamedAndRemoveUntil(
-        '/profile', arguments: newUser.id, (route) => i-- == 0);
+      '/profile',
+      arguments: newUser.id, (route) => i-- == 0,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
