@@ -13,10 +13,12 @@ class DescriptionField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Description',
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Palanquin Dark')),
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Palanquin Dark',
+            ),
+          ),
           TextField(
             controller: controller,
             maxLength: 200,
@@ -27,8 +29,10 @@ class DescriptionField extends StatelessWidget {
               ),
               contentPadding: const EdgeInsets.all(10.0),
               hintText: 'Write a caption here...',
-              hintStyle:
-                  const TextStyle(fontSize: 14.0, fontFamily: 'Palanquin Dark'),
+              hintStyle: const TextStyle(
+                fontSize: 14.0,
+                fontFamily: 'Palanquin Dark',
+              ),
             ),
           ),
         ],
