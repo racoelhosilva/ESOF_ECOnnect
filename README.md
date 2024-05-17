@@ -111,13 +111,14 @@ Take a look at the following links to learn some techniques:
 * [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
 -->
 
+Did you just ride the bicycle to work today? Or gathered with others to pick up trash at the local beach? Share it! And inspire other users to improve their sustainable footprint.
+
 In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly? In a fast-paced world, when can we find the time and motivation to do what is best for the environment?
 
-ECOnnect addresses these questions by embracing community and collaboration and encouraging members to promote eco-friendly actions and ideas. With a simple and intuitive interface, ECOnnect aims to facilitate sharing and discovering new ways to be more sustainable. Unlike other social media apps, this one focuses solely on building a greener community.
+ECOnnect addresses these questions by embracing community and collaboration and encouraging members to promote eco-friendly actions and ideas. Post your actions daily, like and comment on other posts and follow other user to keep yourself updated with their recent activity! 
+<!-- Add explanations on how exactly (through posts, positive feedback...) -->
 
-Post your actions daily, like and comment on other posts and follow other user to keep yourself updated with their recent activity!
-
-Did you just ride the bicycle to work today? Or gathered with others to pick up trash at the local beach? Share it! And inspire other users to improve their sustainable footprint.
+With a simple and intuitive interface, ECOnnect aims to facilitate sharing and discovering new ways to be more sustainable. 
 
 Together, we can achieve meaningful results with simple day-to-day contributions. Come help us!
 
