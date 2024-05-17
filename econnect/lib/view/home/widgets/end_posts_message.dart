@@ -8,23 +8,27 @@ class EndPostsMessage extends StatelessWidget {
     return Column(
       children: [
         Center(
-            child: Text(
-          'You\'re all caught up!',
-          style: TextStyle(
+          child: Text(
+            'You\'re all caught up!',
+            style: TextStyle(
               fontSize: 24.0,
               fontFamily: 'Karla',
-              color: Theme.of(context).colorScheme.onBackground),
-          textAlign: TextAlign.center,
-        )),
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
         Center(
-            child: Text(
-          'There are no more posts to see!',
-          style: TextStyle(
+          child: Text(
+            'There are no more posts to see!',
+            style: TextStyle(
               fontSize: 16.0,
               fontFamily: 'Karla',
-              color: Theme.of(context).colorScheme.onBackground),
-          textAlign: TextAlign.center,
-        )),
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ],
     );
   }

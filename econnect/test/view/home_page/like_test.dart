@@ -1,6 +1,6 @@
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/home/widgets/likes_widget.dart';
+import 'package:econnect/view/home/widgets/app_like_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:like_button/like_button.dart';

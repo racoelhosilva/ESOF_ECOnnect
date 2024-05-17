@@ -25,8 +25,9 @@ class HomePageHeader extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: ProfileButton(
-                userId: sessionController.loggedInUser!.id,
-                dbController: dbController),
+              userId: sessionController.loggedInUser!.id,
+              dbController: dbController,
+            ),
           ),
         ),
       ],

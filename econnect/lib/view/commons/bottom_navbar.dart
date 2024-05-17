@@ -1,4 +1,4 @@
-import 'package:econnect/view/commons/bottom_navbar_item.dart';
+import 'package:econnect/view/commons/widgets/bottom_navbar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
