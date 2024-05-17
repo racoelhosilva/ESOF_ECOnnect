@@ -1,6 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/view/commons/logo_widget.dart';
+import 'package:econnect/view/commons/app_logo.dart';
 import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class HomePageHeader extends StatelessWidget {
       children: [
         const Align(
           alignment: Alignment.center,
-          child: LogoWidget(),
+          child: AppLogo(),
         ),
         Align(
           alignment: Alignment.centerRight,

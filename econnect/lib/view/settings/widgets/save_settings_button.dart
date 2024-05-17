@@ -3,8 +3,8 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
 
-class SaveButton extends StatefulWidget {
-  const SaveButton(
+class SaveSettingsButton extends StatefulWidget {
+  const SaveSettingsButton(
       {super.key,
       required this.dbController,
       required this.sessionController,
@@ -19,10 +19,10 @@ class SaveButton extends StatefulWidget {
   final String? newProfilePicturePath;
 
   @override
-  State<SaveButton> createState() => _SaveButtonState();
+  State<SaveSettingsButton> createState() => _SaveSettingsButtonState();
 }
 
-class _SaveButtonState extends State<SaveButton> {
+class _SaveSettingsButtonState extends State<SaveSettingsButton> {
   bool _isLoading = false;
 
   void _onPressed(BuildContext context) async {

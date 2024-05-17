@@ -24,10 +24,11 @@ class LoginPageButton extends StatelessWidget {
         child: Text(
           text,
           style: const TextStyle(
-              fontFamily: 'Karla',
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
+            fontFamily: 'Karla',
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

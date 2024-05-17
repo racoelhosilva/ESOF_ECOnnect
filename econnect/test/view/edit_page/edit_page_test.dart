@@ -1,6 +1,6 @@
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
-import 'package:econnect/view/commons/header_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
 import 'package:econnect/view/create_post/edit_post_page.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
 import 'package:econnect/view/create_post/widgets/display_image.dart';
@@ -39,7 +39,7 @@ void main() {
     expect(find.byType(BottomNavbar), findsOneWidget);
     expect(find.byType(DescriptionField), findsOneWidget);
     expect(find.byType(DisplayImage), findsOneWidget);
-    expect(find.byType(HeaderWidget), findsOneWidget);
+    expect(find.byType(MainHeader), findsOneWidget);
     expect(find.byIcon(LucideIcons.trash2), findsOneWidget);
     expect(find.text('Save'), findsOneWidget);
   });

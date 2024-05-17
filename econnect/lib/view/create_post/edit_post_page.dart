@@ -1,7 +1,7 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
-import 'package:econnect/view/commons/header_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
 import 'package:econnect/view/create_post/widgets/delete_button.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
 import 'package:econnect/view/create_post/widgets/display_image.dart';
@@ -38,7 +38,7 @@ class _EditPostPageState extends State<EditPostPage> {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const HeaderWidget(),
+          const MainHeader(),
           DisplayImage(imagePath: widget.post.image),
           DescriptionField(controller: _postController),
           SaveButton(

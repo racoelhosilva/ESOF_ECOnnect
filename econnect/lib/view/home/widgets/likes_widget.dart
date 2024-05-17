@@ -4,12 +4,13 @@ import 'package:econnect/model/post.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
-class LikeWidget extends StatefulWidget {
-  const LikeWidget(
-      {super.key,
-      required this.post,
-      required this.dbController,
-      required this.sessionController});
+class AppLikeButton extends StatefulWidget {
+  const AppLikeButton({
+    super.key,
+    required this.post,
+    required this.dbController,
+    required this.sessionController,
+  });
 
   final Post post;
   final DatabaseController dbController;
@@ -19,7 +20,7 @@ class LikeWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _LikeWidgetState();
 }
 
-class _LikeWidgetState extends State<LikeWidget> {
+class _LikeWidgetState extends State<AppLikeButton> {
   bool _isLiked = false;
   bool _isClicked = false;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EndMessage extends StatelessWidget {
-  const EndMessage({super.key});
+class EndPostsMessage extends StatelessWidget {
+  const EndPostsMessage({super.key});
 
   @override
   Widget build(BuildContext context) {

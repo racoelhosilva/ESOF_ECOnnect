@@ -2,7 +2,7 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
-import 'package:econnect/view/commons/header_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
 import 'package:econnect/view/search/widgets/user_search_bar.dart';
 import 'package:econnect/view/search/widgets/search_result_tile.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class _SearchPageState extends State<SearchPage> {
         automaticallyImplyLeading: false,
         title: Column(
           children: [
-            const HeaderWidget(),
+            const MainHeader(),
             UserSearchBar(
               controller: _searchController,
               onTextChanged: (value) {

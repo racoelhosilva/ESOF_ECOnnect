@@ -104,7 +104,7 @@ class PostWidget extends StatelessWidget {
                         const Icon(LucideIcons.alertCircle),
                   ),
                 ),
-                LikeWidget(
+                AppLikeButton(
                   post: post,
                   dbController: dbController,
                   sessionController: sessionController,

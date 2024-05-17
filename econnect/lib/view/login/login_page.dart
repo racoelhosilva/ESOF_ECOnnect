@@ -7,8 +7,11 @@ import 'package:econnect/view/login/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage(
-      {super.key, required this.dbController, required this.sessionController});
+  const LoginPage({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -34,20 +37,22 @@ class LoginPageState extends State<LoginPage> {
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: Center(
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           shrinkWrap: true,
           children: [
-            Image.asset('assets/png/logo_white.png',
-                height: 250, fit: BoxFit.contain),
+            Image.asset(
+              'assets/png/logo_white.png',
+              height: 250,
+              fit: BoxFit.contain,
+            ),
             Center(
               child: Text(
                 'ECOnnect',
                 style: TextStyle(
-                    fontFamily: 'K2D',
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold),
+                  fontFamily: 'K2D',
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 30),

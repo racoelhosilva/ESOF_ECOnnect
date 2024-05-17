@@ -34,7 +34,7 @@ void main() {
       when(mockDbController.removeLike(any, any)).thenAnswer((_) async => true);
 
       await tester.pumpWidget(MaterialApp(
-        home: LikeWidget(
+        home: AppLikeButton(
           post: post,
           dbController: mockDbController,
           sessionController: mockSessionController,
