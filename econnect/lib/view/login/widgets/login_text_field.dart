@@ -20,13 +20,19 @@ class LoginTextField extends StatelessWidget {
         maxLength: maxLength,
         controller: controller,
         style: const TextStyle(
-            color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
+          color: Colors.black,
+          fontSize: 20,
+          fontFamily: 'Karla',
+        ),
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
           hintText: fieldName,
           hintStyle: const TextStyle(
-              color: Colors.grey, fontSize: 20, fontFamily: 'Karla'),
+            color: Colors.grey,
+            fontSize: 20,
+            fontFamily: 'Karla',
+          ),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           border: OutlineInputBorder(

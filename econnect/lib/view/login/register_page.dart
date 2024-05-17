@@ -35,55 +35,58 @@ class RegisterPageState extends State<RegisterPage> {
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: Center(
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           shrinkWrap: true,
           children: [
-            Image.asset('assets/png/logo_white.png',
-                height: 250, fit: BoxFit.contain),
+            Image.asset(
+              'assets/png/logo_white.png',
+              height: 250,
+              fit: BoxFit.contain,
+            ),
             Center(
               child: Text(
                 'ECOnnect',
                 style: TextStyle(
-                    fontFamily: 'K2D',
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold),
+                  fontFamily: 'K2D',
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 30),
             Center(
-                child: SizedBox(
-              width: 270,
-              child: Column(
-                children: [
-                  LoginTextField(
-                    fieldName: 'Username',
-                    controller: usernameController,
-                    maxLength: 25,
-                  ),
-                  LoginTextField(
-                    fieldName: 'E-mail',
-                    controller: emailController,
-                  ),
-                  PasswordField(
-                    controller: passwordController,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SubmitButton(
-                        dbController: widget.dbController,
-                        sessionController: widget.sessionController,
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        usernameController: usernameController,
-                      ),
-                    ],
-                  )
-                ],
+              child: SizedBox(
+                width: 270,
+                child: Column(
+                  children: [
+                    LoginTextField(
+                      fieldName: 'Username',
+                      controller: usernameController,
+                      maxLength: 25,
+                    ),
+                    LoginTextField(
+                      fieldName: 'E-mail',
+                      controller: emailController,
+                    ),
+                    PasswordField(
+                      controller: passwordController,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SubmitButton(
+                          dbController: widget.dbController,
+                          sessionController: widget.sessionController,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          usernameController: usernameController,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ))
+            ),
           ],
         ),
       ),

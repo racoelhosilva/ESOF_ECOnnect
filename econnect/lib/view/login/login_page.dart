@@ -62,7 +62,9 @@ class LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     LoginTextField(
-                        fieldName: 'E-mail', controller: emailController),
+                      fieldName: 'E-mail',
+                      controller: emailController,
+                    ),
                     PasswordField(controller: passwordController),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
