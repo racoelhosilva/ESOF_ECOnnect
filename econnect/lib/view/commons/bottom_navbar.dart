@@ -30,22 +30,26 @@ class BottomNavbar extends StatelessWidget {
     }
   }
 
+  Gradient _getGradient(BuildContext context) {
+    return LinearGradient(
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+      stops: const [0.1, 0.73, 1.0],
+      colors: [
+        Theme.of(context).colorScheme.primary,
+        Theme.of(context).colorScheme.primary.withOpacity(0.6),
+        Theme.of(context).colorScheme.primary.withOpacity(0.0),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String? route = _getCurrentRoute(context);
 
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          stops: [0.1, 0.73, 1.0],
-          colors: [
-            Color(0xff1e1e1e),
-            Color(0x991e1e1e),
-            Color(0x001e1e1e),
-          ],
-        ),
+      decoration: BoxDecoration(
+        gradient: _getGradient(context),
       ),
       child: BottomNavigationBar(
         items: _items,
