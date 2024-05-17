@@ -26,7 +26,8 @@ Future<void> main() async {
   );
 
   final dbController = DatabaseController(
-      db: Database(FirebaseFirestore.instance, FirebaseStorage.instance));
+    db: Database(FirebaseFirestore.instance, FirebaseStorage.instance),
+  );
   final sessionController = SessionController(FirebaseAuth.instance);
   await sessionController.init(dbController);
 
@@ -51,54 +52,64 @@ class App extends StatelessWidget {
       onGenerateRoute: (settings) {
         final transitions = {
           '/login': MaterialPageRoute<LoginPage>(
-              settings: settings,
-              builder: (_) => LoginPage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                  )),
+            settings: settings,
+            builder: (_) => LoginPage(
+              dbController: dbController,
+              sessionController: sessionController,
+            ),
+          ),
           '/home': MaterialPageRoute<HomePage>(
-              settings: settings,
-              builder: (_) => HomePage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                  )),
+            settings: settings,
+            builder: (_) => HomePage(
+              dbController: dbController,
+              sessionController: sessionController,
+            ),
+          ),
           '/register': MaterialPageRoute<RegisterPage>(
-              settings: settings,
-              builder: (_) => RegisterPage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                  )),
+            settings: settings,
+            builder: (_) => RegisterPage(
+              dbController: dbController,
+              sessionController: sessionController,
+            ),
+          ),
           '/createpost': MaterialPageRoute<CreatePostPage>(
-              builder: (_) => CreatePostPage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                  )),
+            builder: (_) => CreatePostPage(
+              dbController: dbController,
+              sessionController: sessionController,
+            ),
+          ),
           '/editpost': MaterialPageRoute<EditPostPage>(
-              builder: (_) => EditPostPage(
-                    dbController: dbController,
-                    post: settings.arguments as Post,
-                  )),
+            builder: (_) => EditPostPage(
+              dbController: dbController,
+              post: settings.arguments as Post,
+            ),
+          ),
           '/profile': MaterialPageRoute<ProfilePage>(
-              builder: (_) => ProfilePage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                    userId: settings.arguments as String,
-                  )),
+            builder: (_) => ProfilePage(
+              dbController: dbController,
+              sessionController: sessionController,
+              userId: settings.arguments as String,
+            ),
+          ),
           '/settings': MaterialPageRoute<SettingsPage>(
-              builder: (_) => SettingsPage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                  )),
+            builder: (_) => SettingsPage(
+              dbController: dbController,
+              sessionController: sessionController,
+            ),
+          ),
           '/postpage': MaterialPageRoute<PostPage>(
-              builder: (_) => PostPage(
-                  dbController: dbController,
-                  sessionController: sessionController,
-                  post: settings.arguments as Post)),
+            builder: (_) => PostPage(
+              dbController: dbController,
+              sessionController: sessionController,
+              post: settings.arguments as Post,
+            ),
+          ),
           '/search': MaterialPageRoute<SearchPage>(
-              builder: (_) => SearchPage(
-                    dbController: dbController,
-                    sessionController: sessionController,
-                  ))
+            builder: (_) => SearchPage(
+              dbController: dbController,
+              sessionController: sessionController,
+            ),
+          ),
         };
         return transitions[settings.name];
       },
