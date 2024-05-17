@@ -1,4 +1,4 @@
-import 'package:econnect/view/create_post/widgets/save_button.dart';
+import 'package:econnect/view/edit_post/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:econnect/model/post.dart';

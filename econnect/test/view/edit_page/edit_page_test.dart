@@ -1,9 +1,9 @@
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/main_header.dart';
-import 'package:econnect/view/create_post/edit_post_page.dart';
+import 'package:econnect/view/edit_post/edit_post_page.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
-import 'package:econnect/view/create_post/widgets/display_image.dart';
+import 'package:econnect/view/edit_post/widgets/display_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucide_icons/lucide_icons.dart';

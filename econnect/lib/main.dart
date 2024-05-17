@@ -5,7 +5,7 @@ import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/create_post/create_post_page.dart';
-import 'package:econnect/view/create_post/edit_post_page.dart';
+import 'package:econnect/view/edit_post/edit_post_page.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';

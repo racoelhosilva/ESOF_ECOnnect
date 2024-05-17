@@ -2,10 +2,10 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/main_header.dart';
-import 'package:econnect/view/create_post/widgets/delete_button.dart';
+import 'package:econnect/view/edit_post/widgets/delete_button.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
-import 'package:econnect/view/create_post/widgets/display_image.dart';
-import 'package:econnect/view/create_post/widgets/save_button.dart';
+import 'package:econnect/view/edit_post/widgets/display_image.dart';
+import 'package:econnect/view/edit_post/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 
 class EditPostPage extends StatefulWidget {

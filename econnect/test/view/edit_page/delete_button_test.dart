@@ -1,4 +1,4 @@
-import 'package:econnect/view/create_post/widgets/delete_button.dart';
+import 'package:econnect/view/edit_post/widgets/delete_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucide_icons/lucide_icons.dart';
