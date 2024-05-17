@@ -1,6 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/view/login/widgets/submit_button.dart';
+import 'package:econnect/view/register/widget/submit_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

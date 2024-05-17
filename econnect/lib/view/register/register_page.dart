@@ -2,7 +2,7 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
-import 'package:econnect/view/login/widgets/submit_button.dart';
+import 'package:econnect/view/register/widget/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
