@@ -7,11 +7,11 @@ class FollowButton extends StatefulWidget {
       {super.key,
       required this.dbController,
       required this.sessionController,
-      required this.posterId});
+      required this.userId});
 
   final DatabaseController dbController;
   final SessionController sessionController;
-  final String posterId;
+  final String userId;
 
   @override
   State<FollowButton> createState() => _FollowButtonState();
@@ -28,7 +28,7 @@ class _FollowButtonState extends State<FollowButton> {
 
   Future<void> initFollowing() async {
     final newFollowing = await widget.sessionController
-        .isFollowing(widget.posterId, widget.dbController);
+        .isFollowing(widget.userId, widget.dbController);
     setState(() {
       isFollowing = newFollowing;
     });
@@ -36,10 +36,9 @@ class _FollowButtonState extends State<FollowButton> {
 
   void toggleFollow() {
     if (isFollowing) {
-      widget.sessionController
-          .unfollowUser(widget.posterId, widget.dbController);
+      widget.sessionController.unfollowUser(widget.userId, widget.dbController);
     } else {
-      widget.sessionController.followUser(widget.posterId, widget.dbController);
+      widget.sessionController.followUser(widget.userId, widget.dbController);
     }
     setState(() {
       isFollowing = !isFollowing;

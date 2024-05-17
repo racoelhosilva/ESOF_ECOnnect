@@ -107,7 +107,7 @@ class Database {
   }
 
   Future<(List<Post>, String?)> getNextPostsOfFollowing(
-      String? cursor, int numDocs, String userId) async {
+      String userId, int numDocs, String? cursor) async {
     final posts = _db.collection('posts');
     final following = await getFollowing(userId);
     if (following.isEmpty) {
@@ -139,7 +139,7 @@ class Database {
   }
 
   Future<(List<Post>, String?)> getNextPostsOfNonFollowing(
-      String? cursor, int numDocs, String userId) async {
+      String userId, int numDocs, String? cursor) async {
     final posts = _db.collection('posts');
     final following = await getFollowing(userId);
 
@@ -171,22 +171,32 @@ class Database {
     );
   }
 
-  Future<List<Post>> getPostsFromUser(String userId) async {
+  Future<(List<Post>, String?)> getNextPostsFromUser(
+      String userId, int numDocs, String? cursor) async {
     final posts = _db.collection('posts');
-    final snapshot = await posts
+    var query = posts
         .where('user', isEqualTo: userId)
-        .orderBy('postDatetime', descending: true)
-        .get();
-    return snapshot.docs
-        .map((post) => Post(
-              postId: post.id,
-              user: post['user'],
-              image: post['image'],
-              description: post['description'],
-              postDatetime: (post['postDatetime'] as Timestamp).toDate(),
-              likes: post['likes'],
-            ))
-        .toList();
+        .orderBy('postDatetime', descending: true);
+
+    if (cursor != null) {
+      final fromDoc = await posts.doc(cursor).get();
+      query = query.startAfterDocument(fromDoc);
+    }
+    query = query.limit(numDocs);
+    final snapshot = await query.get();
+    return (
+      snapshot.docs
+          .map((post) => Post(
+                postId: post.id,
+                user: post['user'],
+                image: post['image'],
+                description: post['description'],
+                postDatetime: (post['postDatetime'] as Timestamp).toDate(),
+                likes: post['likes'],
+              ))
+          .toList(),
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null,
+    );
   }
 
   Future<void> addUser(User user) async {
@@ -399,6 +409,33 @@ class Database {
       },
     );
 
-    return (commentsList, snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null);
+    return (
+      commentsList,
+      snapshot.docs.isNotEmpty ? snapshot.docs.last.id : null
+    );
+  }
+
+  Future<List<User>> searchUsers(String query, int numUsers) async {
+    final users = _db.collection('users');
+    final snapshot = await users
+        .orderBy('username')
+        .startAt([query])
+        .endAt(['$query\uf8ff'])
+        .limit(numUsers)
+        .get();
+    return snapshot.docs
+        .map((user) => User(
+              id: user['id'],
+              username: user['username'],
+              email: user['email'],
+              description: user['description'],
+              profilePicture: user['profilePicture'],
+              score: user['score'],
+              isBlocked: user['isBlocked'],
+              registerDatetime:
+                  (user['registerDatetime'] as Timestamp).toDate(),
+              admin: user['isAdmin'],
+            ))
+        .toList();
   }
 }

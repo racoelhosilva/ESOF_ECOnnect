@@ -10,12 +10,10 @@ class BottomNavbar extends StatelessWidget {
   final List<BottomNavigationBarItem> _items = [
     BottomNavbarItem(icon: LucideIcons.home),
     BottomNavbarItem(icon: LucideIcons.copyPlus),
+    BottomNavbarItem(icon: LucideIcons.search),
   ];
 
-  final List<String> _routes = const [
-    '/home',
-    '/createpost',
-  ];
+  final List<String> _routes = const ['/home', '/createpost', '/search'];
 
   String? _getCurrentRoute(BuildContext context) {
     return ModalRoute.of(context)?.settings.name;

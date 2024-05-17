@@ -14,14 +14,17 @@ import 'user_posts_test.mocks.dart';
 @GenerateNiceMocks([
   MockSpec<DatabaseController>(),
   MockSpec<SessionController>(),
+  MockSpec<ScrollController>(),
 ])
 void main() {
   late MockDatabaseController dbController;
   late MockSessionController sessionController;
+  late MockScrollController scrollController;
 
   setUp(() {
     dbController = MockDatabaseController();
     sessionController = MockSessionController();
+    scrollController = MockScrollController();
   });
 
   testWidgets('UserPosts renders correctly with posts',
@@ -53,7 +56,8 @@ void main() {
       ),
     ];
 
-    when(dbController.getPostsFromUser(any)).thenAnswer((_) async => mockPosts);
+    when(dbController.getNextPostsFromUser(any, any, any))
+        .thenAnswer((_) async => (mockPosts, null));
     when(sessionController.loggedInUser).thenReturn(user);
 
     await tester.pumpWidget(
@@ -61,6 +65,7 @@ void main() {
         home: UserPosts(
           dbController: dbController,
           sessionController: sessionController,
+          parentScrollController: scrollController,
           userId: 'user_id',
         ),
       ),
@@ -85,8 +90,9 @@ void main() {
       profilePicture: '',
     );
 
-    when(dbController.getPostsFromUser(any)).thenAnswer(
-        (_) async => Future.delayed(const Duration(seconds: 20), () => []));
+    when(dbController.getNextPostsFromUser(any, any, any)).thenAnswer(
+        (_) async => Future.delayed(
+            const Duration(seconds: 20), () => (<Post>[], null)));
     when(sessionController.loggedInUser).thenReturn(user);
 
     await tester.pumpWidget(
@@ -94,6 +100,7 @@ void main() {
         home: UserPosts(
           dbController: dbController,
           sessionController: sessionController,
+          parentScrollController: scrollController,
           userId: 'user_id',
         ),
       ),
@@ -106,13 +113,27 @@ void main() {
 
   testWidgets('UserPosts renders correctly when no posts are available',
       (WidgetTester tester) async {
-    when(dbController.getPostsFromUser(any)).thenAnswer((_) async => []);
+    final user = User(
+      id: '123',
+      email: 'test1@example.com',
+      username: 'test1',
+      score: 0,
+      isBlocked: false,
+      registerDatetime: DateTime.now(),
+      admin: false,
+      profilePicture: '',
+    );
+
+    when(dbController.getNextPostsFromUser(any, any, any))
+        .thenAnswer((_) async => (<Post>[], null));
+    when(sessionController.loggedInUser).thenReturn(user);
 
     await tester.pumpWidget(
       MaterialApp(
         home: UserPosts(
           dbController: dbController,
           sessionController: sessionController,
+          parentScrollController: scrollController,
           userId: 'user_id',
         ),
       ),

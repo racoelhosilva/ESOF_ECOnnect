@@ -572,7 +572,7 @@ void main() {
     when(queryDocumentSnapshot3['followed']).thenReturn('user1');
     when(queryDocumentSnapshot4['followed']).thenReturn('user2');
 
-    final result = await database.getNextPostsOfFollowing(null, 2, userId);
+    final result = await database.getNextPostsOfFollowing(userId, 2, null);
 
     expect(result.$1.length, 2);
     expect(result.$1[0].user, 'user1');
@@ -645,7 +645,7 @@ void main() {
     when(queryDocumentSnapshot3['followed']).thenReturn('user3');
     when(queryDocumentSnapshot4['followed']).thenReturn('user4');
 
-    final result = await database.getNextPostsOfNonFollowing(null, 2, userId);
+    final result = await database.getNextPostsOfNonFollowing(userId, 2, null);
 
     expect(result.$1.length, 2);
     expect(result.$1[0].user, 'user1');
@@ -665,6 +665,7 @@ void main() {
     final postsCollection = MockCollectionReference();
     final postsQuery1 = MockQuery();
     final postsQuery2 = MockQuery();
+    final postsQuery3 = MockQuery();
     final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
     final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
     const documentId1 = 'doc1';
@@ -677,7 +678,8 @@ void main() {
         .thenReturn(postsQuery1);
     when(postsQuery1.orderBy('postDatetime', descending: true))
         .thenReturn(postsQuery2);
-    when(postsQuery2.get()).thenAnswer((_) async => querySnapshot);
+    when(postsQuery2.limit(2)).thenReturn(postsQuery3);
+    when(postsQuery3.get()).thenAnswer((_) async => querySnapshot);
     when(querySnapshot.docs).thenReturn([
       queryDocumentSnapshot1,
       queryDocumentSnapshot2,
@@ -699,17 +701,89 @@ void main() {
         .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
     when(queryDocumentSnapshot2['likes']).thenReturn(0);
 
-    final result = await database.getPostsFromUser(userId);
+    final result = await database.getNextPostsFromUser(userId, 2, null);
 
-    expect(result[0].user, 'user1');
-    expect(result[0].image, 'image1');
-    expect(result[0].description, 'description1');
-    expect(result[0].postDatetime, DateTime(2022, 1, 1));
-    expect(result[0].likes, 0);
-    expect(result[1].user, 'user2');
-    expect(result[1].image, 'image2');
-    expect(result[1].description, 'description2');
-    expect(result[1].postDatetime, DateTime(2022, 1, 2));
-    expect(result[1].likes, 0);
+    expect(result.$1.length, 2);
+    expect(result.$1[0].user, 'user1');
+    expect(result.$1[0].image, 'image1');
+    expect(result.$1[0].description, 'description1');
+    expect(result.$1[0].postDatetime, DateTime(2022, 1, 1));
+    expect(result.$1[0].likes, 0);
+    expect(result.$1[1].user, 'user2');
+    expect(result.$1[1].image, 'image2');
+    expect(result.$1[1].description, 'description2');
+    expect(result.$1[1].postDatetime, DateTime(2022, 1, 2));
+    expect(result.$1[1].likes, 0);
+    expect(result.$2, documentId2);
+  });
+
+  test('Database searches users correctly with a query', () async {
+    final usersCollection = MockCollectionReference();
+    final query1 = MockQuery();
+    final query2 = MockQuery();
+    final query3 = MockQuery();
+    final query4 = MockQuery();
+    final queryDocumentSnapshot1 = MockQueryDocumentSnapshot();
+    final queryDocumentSnapshot2 = MockQueryDocumentSnapshot();
+    const documentId1 = 'doc1';
+    const documentId2 = 'doc2';
+    final querySnapshot = MockQuerySnapshot();
+    const searchTerm = 'john';
+
+    when(firestore.collection('users')).thenReturn(usersCollection);
+    when(usersCollection.orderBy('username')).thenReturn(query1);
+    when(query1.startAt([searchTerm])).thenReturn(query2);
+    when(query2.endAt(['$searchTerm\uf8ff'])).thenReturn(query3);
+    when(query3.limit(2)).thenReturn(query4);
+    when(query4.get()).thenAnswer((_) async => querySnapshot);
+    when(querySnapshot.docs).thenReturn([
+      queryDocumentSnapshot1,
+      queryDocumentSnapshot2,
+    ]);
+
+    when(queryDocumentSnapshot1.id).thenReturn(documentId1);
+    when(queryDocumentSnapshot2.id).thenReturn(documentId2);
+    when(queryDocumentSnapshot1['id']).thenReturn('user1');
+    when(queryDocumentSnapshot1['username']).thenReturn('john_doe');
+    when(queryDocumentSnapshot1['email']).thenReturn('john@example.com');
+    when(queryDocumentSnapshot1['description']).thenReturn('User John Doe');
+    when(queryDocumentSnapshot1['profilePicture']).thenReturn('profile1.png');
+    when(queryDocumentSnapshot1['score']).thenReturn(100);
+    when(queryDocumentSnapshot1['isBlocked']).thenReturn(false);
+    when(queryDocumentSnapshot1['registerDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 1)));
+    when(queryDocumentSnapshot1['isAdmin']).thenReturn(false);
+    when(queryDocumentSnapshot2['id']).thenReturn('user2');
+    when(queryDocumentSnapshot2['username']).thenReturn('john_smith');
+    when(queryDocumentSnapshot2['email']).thenReturn('john@example.com');
+    when(queryDocumentSnapshot2['description']).thenReturn('User John Smith');
+    when(queryDocumentSnapshot2['profilePicture']).thenReturn('profile2.png');
+    when(queryDocumentSnapshot2['score']).thenReturn(200);
+    when(queryDocumentSnapshot2['isBlocked']).thenReturn(true);
+    when(queryDocumentSnapshot2['registerDatetime'])
+        .thenReturn(Timestamp.fromDate(DateTime(2022, 1, 2)));
+    when(queryDocumentSnapshot2['isAdmin']).thenReturn(true);
+
+    final result = await database.searchUsers(searchTerm, 2);
+
+    expect(result.length, 2);
+    expect(result[0].id, 'user1');
+    expect(result[0].username, 'john_doe');
+    expect(result[0].email, 'john@example.com');
+    expect(result[0].description, 'User John Doe');
+    expect(result[0].profilePicture, 'profile1.png');
+    expect(result[0].score, 100);
+    expect(result[0].isBlocked, false);
+    expect(result[0].registerDatetime, DateTime(2022, 1, 1));
+    expect(result[0].admin, false);
+    expect(result[1].id, 'user2');
+    expect(result[1].username, 'john_smith');
+    expect(result[1].email, 'john@example.com');
+    expect(result[1].description, 'User John Smith');
+    expect(result[1].profilePicture, 'profile2.png');
+    expect(result[1].score, 200);
+    expect(result[1].isBlocked, true);
+    expect(result[1].registerDatetime, DateTime(2022, 1, 2));
+    expect(result[1].admin, true);
   });
 }

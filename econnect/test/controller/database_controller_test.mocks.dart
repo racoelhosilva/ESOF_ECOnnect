@@ -132,17 +132,17 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
 
   @override
   _i3.Future<(List<_i5.Post>, String?)> getNextPostsOfFollowing(
-    String? cursor,
-    int? numDocs,
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -153,17 +153,17 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
 
   @override
   _i3.Future<(List<_i5.Post>, String?)> getNextPostsOfNonFollowing(
-    String? cursor,
-    int? numDocs,
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfNonFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -173,16 +173,25 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       ) as _i3.Future<(List<_i5.Post>, String?)>);
 
   @override
-  _i3.Future<List<_i5.Post>> getPostsFromUser(String? userId) =>
+  _i3.Future<(List<_i5.Post>, String?)> getNextPostsFromUser(
+    String? userId,
+    int? numDocs,
+    String? cursor,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getPostsFromUser,
-          [userId],
+          #getNextPostsFromUser,
+          [
+            userId,
+            numDocs,
+            cursor,
+          ],
         ),
-        returnValue: _i3.Future<List<_i5.Post>>.value(<_i5.Post>[]),
+        returnValue:
+            _i3.Future<(List<_i5.Post>, String?)>.value((<_i5.Post>[], null)),
         returnValueForMissingStub:
-            _i3.Future<List<_i5.Post>>.value(<_i5.Post>[]),
-      ) as _i3.Future<List<_i5.Post>>);
+            _i3.Future<(List<_i5.Post>, String?)>.value((<_i5.Post>[], null)),
+      ) as _i3.Future<(List<_i5.Post>, String?)>);
 
   @override
   _i3.Future<void> addUser(_i6.User? user) => (super.noSuchMethod(
@@ -325,4 +334,22 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
         returnValue: _i3.Future<bool>.value(false),
         returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
+
+  @override
+  _i3.Future<List<_i6.User>> searchUsers(
+    String? query,
+    int? numUsers,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchUsers,
+          [
+            query,
+            numUsers,
+          ],
+        ),
+        returnValue: _i3.Future<List<_i6.User>>.value(<_i6.User>[]),
+        returnValueForMissingStub:
+            _i3.Future<List<_i6.User>>.value(<_i6.User>[]),
+      ) as _i3.Future<List<_i6.User>>);
 }

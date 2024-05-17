@@ -177,7 +177,7 @@ void main() {
     when(database.getNextPosts(cursor, numDocs))
         .thenAnswer((_) async => (expectedPosts, expectedCursor));
 
-    final result = await databaseController.getNextPosts(cursor, numDocs);
+    final result = await databaseController.getNextPosts(numDocs, cursor);
 
     expect(result.$1.length, expectedPosts.length);
     expect(result.$1[0].user, expectedPosts[0].user);
@@ -284,19 +284,67 @@ void main() {
           postId: '')
     ];
 
-    when(database.getPostsFromUser(userId))
-        .thenAnswer((_) async => expectedPosts);
+    when(database.getNextPostsFromUser(userId, 2, null))
+        .thenAnswer((_) async => (expectedPosts, null));
 
-    final result = await databaseController.getPostsFromUser(userId);
+    final result =
+        await databaseController.getNextPostsFromUser(userId, 2, null);
 
-    expect(result.length, expectedPosts.length);
-    expect(result[0].user, expectedPosts[0].user);
-    expect(result[0].description, expectedPosts[0].description);
-    expect(result[0].image, expectedPosts[0].image);
-    expect(result[0].postDatetime, expectedPosts[0].postDatetime);
-    expect(result[1].user, expectedPosts[1].user);
-    expect(result[1].description, expectedPosts[1].description);
-    expect(result[1].image, expectedPosts[1].image);
-    expect(result[1].postDatetime, expectedPosts[1].postDatetime);
+    expect(result.$1.length, expectedPosts.length);
+    expect(result.$1[0].user, expectedPosts[0].user);
+    expect(result.$1[0].description, expectedPosts[0].description);
+    expect(result.$1[0].image, expectedPosts[0].image);
+    expect(result.$1[0].postDatetime, expectedPosts[0].postDatetime);
+    expect(result.$1[1].user, expectedPosts[1].user);
+    expect(result.$1[1].description, expectedPosts[1].description);
+    expect(result.$1[1].image, expectedPosts[1].image);
+    expect(result.$1[1].postDatetime, expectedPosts[1].postDatetime);
+    expect(result.$2, isNull);
+  });
+
+  test('Search users in the database', () async {
+    const query = 'test';
+    final expectedUsers = [
+      User(
+        id: '1',
+        email: 'test1@example.com',
+        username: 'testuser1',
+        score: 10,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '',
+      ),
+      User(
+        id: '2',
+        email: 'test2@example.com',
+        username: 'testuser2',
+        score: 5,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '',
+      ),
+    ];
+    when(database.searchUsers(query, 2)).thenAnswer((_) async => expectedUsers);
+
+    final result = await databaseController.searchUsers(query, 2);
+    expect(result.length, expectedUsers.length);
+    expect(result[0].id, expectedUsers[0].id);
+    expect(result[0].email, expectedUsers[0].email);
+    expect(result[0].username, expectedUsers[0].username);
+    expect(result[0].score, expectedUsers[0].score);
+    expect(result[0].isBlocked, expectedUsers[0].isBlocked);
+    expect(result[0].registerDatetime, expectedUsers[0].registerDatetime);
+    expect(result[0].admin, expectedUsers[0].admin);
+    expect(result[0].profilePicture, expectedUsers[0].profilePicture);
+    expect(result[1].id, expectedUsers[1].id);
+    expect(result[1].email, expectedUsers[1].email);
+    expect(result[1].username, expectedUsers[1].username);
+    expect(result[1].score, expectedUsers[1].score);
+    expect(result[1].isBlocked, expectedUsers[1].isBlocked);
+    expect(result[1].registerDatetime, expectedUsers[1].registerDatetime);
+    expect(result[1].admin, expectedUsers[1].admin);
+    expect(result[1].profilePicture, expectedUsers[1].profilePicture);
   });
 }

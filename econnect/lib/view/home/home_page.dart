@@ -6,7 +6,6 @@ import 'package:econnect/view/home/widgets/end_message.dart';
 import 'package:econnect/view/home/widgets/home_page_header.dart';
 import 'package:econnect/view/home/widgets/middle_message.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -52,9 +51,9 @@ class _HomePageState extends State<HomePage> {
     });
     final (nextPosts, newCursor) =
         await widget.dbController.getNextPostsOfFollowing(
-      _cursor,
-      postsToLoad,
       widget.sessionController.loggedInUser!.id,
+      postsToLoad,
+      _cursor,
     );
     setState(() {
       _cursor = newCursor;
@@ -81,9 +80,9 @@ class _HomePageState extends State<HomePage> {
     });
     final (nextPosts, newCursor) =
         await widget.dbController.getNextPostsOfNonFollowing(
-      _cursor,
-      postsToLoad,
       widget.sessionController.loggedInUser!.id,
+      postsToLoad,
+      _cursor,
     );
     setState(() {
       _cursor = newCursor;
@@ -107,7 +106,6 @@ class _HomePageState extends State<HomePage> {
         _isLoading) {
       return;
     }
-    Logger().w(_cursor);
     if (!_atEnd1) {
       await _loadMorePostsFromFollowing();
     } else if (!_atEnd2) {
