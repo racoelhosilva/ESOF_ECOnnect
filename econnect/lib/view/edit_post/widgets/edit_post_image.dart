@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class DisplayImage extends StatelessWidget {
-  const DisplayImage({super.key, required this.imagePath});
+class EditPostImage extends StatelessWidget {
+  const EditPostImage({super.key, required this.imagePath});
   final String imagePath;
 
   @override

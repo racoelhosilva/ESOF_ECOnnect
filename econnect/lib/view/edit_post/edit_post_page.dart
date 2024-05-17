@@ -4,7 +4,7 @@ import 'package:econnect/view/commons/bottom_navbar.dart';
 import 'package:econnect/view/commons/main_header.dart';
 import 'package:econnect/view/edit_post/widgets/delete_button.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
-import 'package:econnect/view/edit_post/widgets/display_image.dart';
+import 'package:econnect/view/edit_post/widgets/edit_post_image.dart';
 import 'package:econnect/view/edit_post/widgets/save_button.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class _EditPostPageState extends State<EditPostPage> {
         padding: const EdgeInsets.all(16.0),
         children: [
           const MainHeader(),
-          DisplayImage(imagePath: widget.post.image),
+          EditPostImage(imagePath: widget.post.image),
           DescriptionField(controller: _postController),
           SaveButton(
             dbController: widget.dbController,
