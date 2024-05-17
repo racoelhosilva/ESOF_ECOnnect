@@ -7,7 +7,6 @@ import 'package:mockito/mockito.dart';
 import 'image_editor_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<ImageEditor>()])
-
 void main() {
   late ImageEditor mockImageWidget;
 

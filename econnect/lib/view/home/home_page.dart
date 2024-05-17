@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadMorePostsAtEnd() async {
     if (_scrollController.offset !=
-        _scrollController.position.maxScrollExtent ||
+            _scrollController.position.maxScrollExtent ||
         _isLoading) {
       return;
     }
@@ -146,7 +146,8 @@ class _HomePageState extends State<HomePage> {
               sessionController: widget.sessionController,
             ),
             ..._followingPosts,
-            if (_atEnd1 && _followingPosts.isNotEmpty) const EndFollowingPostsMessage(),
+            if (_atEnd1 && _followingPosts.isNotEmpty)
+              const EndFollowingPostsMessage(),
             ..._othersPosts,
             if (_atEnd2) const EndPostsMessage(),
             if (_isLoading) const Center(child: CircularProgressIndicator()),

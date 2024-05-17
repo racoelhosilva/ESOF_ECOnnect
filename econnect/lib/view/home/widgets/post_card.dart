@@ -33,7 +33,11 @@ class PostCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PostCardHeader(post: post, user: snapshot.data!, dbController: dbController),
+                PostCardHeader(
+                  post: post,
+                  user: snapshot.data!,
+                  dbController: dbController,
+                ),
                 PostImage(postImageUrl: post.image),
                 AppLikeButton(
                   post: post,

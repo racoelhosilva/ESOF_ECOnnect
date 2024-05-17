@@ -8,7 +8,7 @@ class HomePageHeader extends StatelessWidget {
   const HomePageHeader({
     super.key,
     required this.dbController,
-    required this.sessionController
+    required this.sessionController,
   });
 
   final DatabaseController dbController;

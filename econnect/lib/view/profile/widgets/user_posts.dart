@@ -66,7 +66,11 @@ class _UserPostsState extends State<UserPosts> {
       children: [
         const Padding(
           padding: EdgeInsets.only(
-              left: 16.0, right: 20.0, top: 4.0, bottom: 12.0),
+            left: 16.0,
+            right: 20.0,
+            top: 4.0,
+            bottom: 12.0,
+          ),
           child: Text(
             "Recent Activity",
             textAlign: TextAlign.left,
@@ -123,14 +127,14 @@ class _UserPostsState extends State<UserPosts> {
               ),
             ..._posts.map((post) {
               return UserPostTile(
-                userLoggedIn: widget.userId == widget.sessionController.loggedInUser!.id,
+                userLoggedIn:
+                    widget.userId == widget.sessionController.loggedInUser!.id,
                 post: post,
               );
             }),
           ],
         ),
-        if (_isLoading)
-          const Center(child: CircularProgressIndicator()),
+        if (_isLoading) const Center(child: CircularProgressIndicator()),
       ],
     );
   }

@@ -12,7 +12,8 @@ class DescriptionField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Description',
+          const Text(
+            'Description',
             style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,

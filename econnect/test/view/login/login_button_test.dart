@@ -16,7 +16,6 @@ import '../settings/save_button_test.mocks.dart';
   MockSpec<TextEditingController>(),
   MockSpec<NavigatorObserver>(onMissingStub: OnMissingStub.returnDefault),
 ])
-
 void main() {
   group('LoginButton Widget Tests', () {
     late MockDatabaseController dbController;

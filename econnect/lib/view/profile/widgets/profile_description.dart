@@ -16,7 +16,11 @@ class ProfileDescription extends StatelessWidget {
       children: <Widget>[
         const Padding(
           padding: EdgeInsets.only(
-              left: 16.0, right: 20.0, top: 4.0, bottom: 4.0),
+            left: 16.0,
+            right: 20.0,
+            top: 4.0,
+            bottom: 4.0,
+          ),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(

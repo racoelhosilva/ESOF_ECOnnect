@@ -56,7 +56,8 @@ class _SaveSettingsButtonState extends State<SaveSettingsButton> {
     var i = 2;
     Navigator.of(context).pushNamedAndRemoveUntil(
       '/profile',
-      arguments: newUser.id, (route) => i-- == 0,
+      arguments: newUser.id,
+      (route) => i-- == 0,
     );
   }
 

@@ -10,7 +10,8 @@ import 'package:econnect/view/settings/widgets/username_field.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key,
+  const SettingsPage({
+    super.key,
     required this.dbController,
     required this.sessionController,
   });

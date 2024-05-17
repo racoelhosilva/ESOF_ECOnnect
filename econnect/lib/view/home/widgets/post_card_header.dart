@@ -5,12 +5,17 @@ import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 
 class PostCardHeader extends StatelessWidget {
-  const PostCardHeader({super.key, required this.post, required this.user, required this.dbController});
+  const PostCardHeader({
+    super.key,
+    required this.post,
+    required this.user,
+    required this.dbController,
+  });
 
   final Post post;
   final User user;
   final DatabaseController dbController;
-  
+
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
   }
