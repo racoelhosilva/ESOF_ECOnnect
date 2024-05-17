@@ -64,6 +64,20 @@ class _UserPostsState extends State<UserPosts> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Padding(
+          padding: EdgeInsets.only(
+              left: 16.0, right: 20.0, top: 4.0, bottom: 12.0),
+          child: Text(
+            "Recent Activity",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontFamily: "Karla",
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         GridView.count(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -115,7 +129,8 @@ class _UserPostsState extends State<UserPosts> {
             }),
           ],
         ),
-        if (_isLoading) const Center(child: CircularProgressIndicator()),
+        if (_isLoading)
+          const Center(child: CircularProgressIndicator()),
       ],
     );
   }

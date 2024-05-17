@@ -3,11 +3,12 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:flutter/material.dart';
 
 class FollowButton extends StatefulWidget {
-  const FollowButton(
-      {super.key,
-      required this.dbController,
-      required this.sessionController,
-      required this.userId});
+  const FollowButton({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+    required this.userId,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
