@@ -4,11 +4,12 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/firebase_options.dart';
 import 'package:econnect/model/database.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/view/create_post/create_post_page.dart';
 import 'package:econnect/view/create_post/edit_post_page.dart';
 import 'package:econnect/view/home/home_page.dart';
 import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
-import 'package:econnect/view/create_post/create_post_page.dart';
+import 'package:econnect/view/post/post_page.dart';
 import 'package:econnect/view/profile/profile_page.dart';
 import 'package:econnect/view/search/search_page.dart';
 import 'package:econnect/view/settings/settings_page.dart';
@@ -64,16 +65,19 @@ class App extends StatelessWidget {
           '/register': MaterialPageRoute<RegisterPage>(
               settings: settings,
               builder: (_) => RegisterPage(
-                  dbController: dbController,
-                  sessionController: sessionController)),
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  )),
           '/createpost': MaterialPageRoute<CreatePostPage>(
               builder: (_) => CreatePostPage(
-                  dbController: dbController,
-                  sessionController: sessionController)),
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  )),
           '/editpost': MaterialPageRoute<EditPostPage>(
               builder: (_) => EditPostPage(
-                  dbController: dbController,
-                  post: settings.arguments as Post)),
+                    dbController: dbController,
+                    post: settings.arguments as Post,
+                  )),
           '/profile': MaterialPageRoute<ProfilePage>(
               builder: (_) => ProfilePage(
                     dbController: dbController,
@@ -85,6 +89,11 @@ class App extends StatelessWidget {
                     dbController: dbController,
                     sessionController: sessionController,
                   )),
+          '/postpage': MaterialPageRoute<PostPage>(
+              builder: (_) => PostPage(
+                  dbController: dbController,
+                  sessionController: sessionController,
+                  post: settings.arguments as Post)),
           '/search': MaterialPageRoute<SearchPage>(
               builder: (_) => SearchPage(
                     dbController: dbController,

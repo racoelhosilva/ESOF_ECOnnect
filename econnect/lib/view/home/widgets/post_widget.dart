@@ -13,11 +13,13 @@ class PostWidget extends StatelessWidget {
       {super.key,
       required this.post,
       required this.dbController,
-      required this.sessionController});
+      required this.sessionController,
+      required this.isCommentsPage});
 
   final Post post;
   final DatabaseController dbController;
   final SessionController sessionController;
+  final bool isCommentsPage;
 
   String formatTime(int value, String unit) {
     return '$value ${value == 1 ? unit : '${unit}s'} ago';
@@ -28,7 +30,7 @@ class PostWidget extends StatelessWidget {
     final difference = now.difference(post.postDatetime);
 
     if (difference.inDays > 7) {
-      return formatTime(difference.inDays ~/ 7, 'week');
+      return formatTime((difference.inDays ~/ 7), 'week');
     } else if (difference.inDays > 0) {
       return formatTime(difference.inDays, 'day');
     } else if (difference.inHours > 0) {
@@ -60,18 +62,20 @@ class PostWidget extends StatelessWidget {
                       userId: snapshot.data!.id,
                       dbController: dbController,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          snapshot.data!.username,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        Text(
-                          getTimeElapsed(), // Display time elapsed
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data!.username,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            getTimeElapsed(), // Display time elapsed
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -105,10 +109,18 @@ class PostWidget extends StatelessWidget {
                   dbController: dbController,
                   sessionController: sessionController,
                 ),
-                Text(
-                  post.description,
-                  textAlign: TextAlign.left,
-                ),
+                if (post.description != '')
+                  Text(
+                    post.description,
+                    textAlign: TextAlign.left,
+                  ),
+                if (!isCommentsPage)
+                  Text(
+                    "See all comments",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                  ),
               ],
             ),
           );
