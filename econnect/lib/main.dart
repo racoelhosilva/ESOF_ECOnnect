@@ -11,6 +11,7 @@ import 'package:econnect/view/login/login_page.dart';
 import 'package:econnect/view/login/register_page.dart';
 import 'package:econnect/view/post/post_page.dart';
 import 'package:econnect/view/profile/profile_page.dart';
+import 'package:econnect/view/search/search_page.dart';
 import 'package:econnect/view/settings/settings_page.dart';
 import 'package:econnect/view/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
@@ -92,7 +93,12 @@ class App extends StatelessWidget {
               builder: (_) => PostPage(
                   dbController: dbController,
                   sessionController: sessionController,
-                  post: settings.arguments as Post))
+                  post: settings.arguments as Post)),
+          '/search': MaterialPageRoute<SearchPage>(
+              builder: (_) => SearchPage(
+                    dbController: dbController,
+                    sessionController: sessionController,
+                  ))
         };
         return transitions[settings.name];
       },
