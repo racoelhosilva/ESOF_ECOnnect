@@ -59,10 +59,10 @@ To learn more about how to write a good product vision, please see also:
 
 <h4 align="center"> Small actions, big impact: stay connected for a sustainable tomorrow!</h4>
 
+Did you ride your bicycle to work today? Or you just finished recycling the trash from the last 3 weeks? Would you like to share your sustainable actions to motivate other people?  
 In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?  
-ECOnnect addresses this question by embracing community and collaboration, and encouraging academic members to promote and share eco-friendly actions and ideas.  
+ECOnnect is the app designed just for this! By embracing community and collaboration we encourage users to promote and share their eco-friendly actions and ideas.  
 Together, we can achieve meaningful results with simple everyday contributions. Come help us!
-
 
 ### Features, Assumptions and Dependencies
 
@@ -238,7 +238,7 @@ Common practices for managing iterative software development are backlog managem
 You can find below information and references related to the project management in our team: 
 
 - Backlog management: Product backlog and Sprint backlog in our [Github Projects board](https://github.com/orgs/FEUP-LEIC-ES-2023-24/projects/52)
-- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype), [v1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v1)
+- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype), [v1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v1), [v2](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v2)
   
 <!---
 - Sprint planning and retrospectives: 
