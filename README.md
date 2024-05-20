@@ -91,15 +91,26 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 - Firebase (Firestore, Cloud Storage and Authentication)
 - Flutter [image_picker plugin](https://pub.dev/packages/image_picker)
 
-<!---
+
 ### Elevator Pitch
-Draft a small text to help you quickly introduce and describe your product in a short time (lift travel time ~90 seconds) and a few words (~800 characters), a technique usually known as elevator pitch.
+<!-- Draft a small text to help you quickly introduce and describe your product in a short time (lift travel time ~90 seconds) and a few words (~800 characters), a technique usually known as elevator pitch.
 
 Take a look at the following links to learn some techniques:
 * [Crafting an Elevator Pitch](https://www.mindtools.com/pages/article/elevator-pitch.htm)
 * [The Best Elevator Pitch Examples, Templates, and Tactics - A Guide to Writing an Unforgettable Elevator Speech, by strategypeak.com](https://strategypeak.com/elevator-pitch-examples/)
 * [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
 -->
+
+Did you ride your bicycle to work today? Or you just finished recycling the trash from the last 3 weeks? Would you like to share your sustainable actions to motivate other people?
+
+In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?
+
+ECOnnect addresses these questions by embracing community and collaboration and encouraging members to promote eco-friendly actions and ideas. 
+Post your actions daily, like and comment on other posts and follow other user to keep yourself updated with their recent activity! 
+
+By focusing on sustainable actions and positive user feedback, ECOnnect aims to facilitate sharing new ways to make the world a better place and inspire others to do the same.
+
+Together, we can achieve meaningful results with simple day-to-day contributions. Come help us!
 
 
 ## Requirements
