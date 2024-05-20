@@ -1,5 +1,6 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
+import 'package:econnect/model/comment.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/view/commons/header_widget.dart';
 import 'package:econnect/view/home/widgets/post_widget.dart';
@@ -7,6 +8,7 @@ import 'package:econnect/view/post/widgets/comment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:uuid/uuid.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({
@@ -115,12 +117,20 @@ class _PostPageState extends State<PostPage> {
                   const HeaderWidget(),
                   if (postWidget != null) postWidget!,
                   ..._comments,
+                  if (_isLoading)
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 0),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
                 ],
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Padding(
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextField(
                   controller: _textEditingController,
@@ -137,14 +147,31 @@ class _PostPageState extends State<PostPage> {
                             _textEditingController.text,
                           );
 
-                          setState(() {
-                            _textEditingController.clear();
-                            _comments.clear();
-                            _cursor = null;
-                            _atEnd = false;
-                          });
+                          FocusManager.instance.primaryFocus?.unfocus();
 
-                          await _loadMoreComments();
+                          setState(
+                            () {
+                              _comments.insert(
+                                0,
+                                CommentWidget(
+                                  comment: Comment(
+                                    commentId: const Uuid().v4(),
+                                    userId: widget
+                                        .sessionController.loggedInUser!.id,
+                                    username: widget.sessionController
+                                        .loggedInUser!.username,
+                                    profilePicture: widget.sessionController
+                                        .loggedInUser!.profilePicture,
+                                    postId: '',
+                                    comment: _textEditingController.text,
+                                    commentDatetime: DateTime.now(),
+                                  ),
+                                  dbController: widget.dbController,
+                                ),
+                              );
+                            },
+                          );
+                          _textEditingController.clear();
                         } else {
                           Fluttertoast.showToast(
                             msg: 'Comment cannot be empty',
@@ -161,7 +188,9 @@ class _PostPageState extends State<PostPage> {
                     contentPadding: const EdgeInsets.all(10.0),
                     hintText: 'Write your comment here...',
                     hintStyle: const TextStyle(
-                        fontSize: 14.0, fontFamily: 'Palanquin Dark'),
+                      fontSize: 14.0,
+                      fontFamily: 'Palanquin Dark',
+                    ),
                   ),
                 ),
               ),
