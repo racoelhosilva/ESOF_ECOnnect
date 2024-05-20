@@ -189,15 +189,15 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i7.Future<(List<_i9.Post>, String?)> getNextPosts(
-    String? cursor,
     int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPosts,
           [
-            cursor,
             numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -208,17 +208,17 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i7.Future<(List<_i9.Post>, String?)> getNextPostsOfFollowing(
-    String? cursor,
-    int? numDocs,
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -229,17 +229,17 @@ class MockDatabaseController extends _i1.Mock
 
   @override
   _i7.Future<(List<_i9.Post>, String?)> getNextPostsOfNonFollowing(
-    String? cursor,
-    int? numDocs,
     String? userId,
+    int? numDocs,
+    String? cursor,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getNextPostsOfNonFollowing,
           [
-            cursor,
-            numDocs,
             userId,
+            numDocs,
+            cursor,
           ],
         ),
         returnValue:
@@ -249,16 +249,25 @@ class MockDatabaseController extends _i1.Mock
       ) as _i7.Future<(List<_i9.Post>, String?)>);
 
   @override
-  _i7.Future<List<_i9.Post>> getPostsFromUser(String? userId) =>
+  _i7.Future<(List<_i9.Post>, String?)> getNextPostsFromUser(
+    String? userId,
+    int? numDocs,
+    String? cursor,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getPostsFromUser,
-          [userId],
+          #getNextPostsFromUser,
+          [
+            userId,
+            numDocs,
+            cursor,
+          ],
         ),
-        returnValue: _i7.Future<List<_i9.Post>>.value(<_i9.Post>[]),
+        returnValue:
+            _i7.Future<(List<_i9.Post>, String?)>.value((<_i9.Post>[], null)),
         returnValueForMissingStub:
-            _i7.Future<List<_i9.Post>>.value(<_i9.Post>[]),
-      ) as _i7.Future<List<_i9.Post>>);
+            _i7.Future<(List<_i9.Post>, String?)>.value((<_i9.Post>[], null)),
+      ) as _i7.Future<(List<_i9.Post>, String?)>);
 
   @override
   _i7.Future<void> addLike(
@@ -417,6 +426,24 @@ class MockDatabaseController extends _i1.Mock
         returnValue: _i7.Future<bool>.value(false),
         returnValueForMissingStub: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<List<_i8.User>> searchUsers(
+    String? query,
+    int? numUsers,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchUsers,
+          [
+            query,
+            numUsers,
+          ],
+        ),
+        returnValue: _i7.Future<List<_i8.User>>.value(<_i8.User>[]),
+        returnValueForMissingStub:
+            _i7.Future<List<_i8.User>>.value(<_i8.User>[]),
+      ) as _i7.Future<List<_i8.User>>);
 }
 
 /// A class which mocks [FirebaseAuth].
