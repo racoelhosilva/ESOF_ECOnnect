@@ -101,17 +101,21 @@ Take a look at the following links to learn some techniques:
 * [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
 -->
 
-Did you ride your bicycle to work today? Or you just finished recycling the trash from the last 3 weeks? Would you like to share your sustainable actions to motivate other people?
-
-In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?
-
-ECOnnect addresses these questions by embracing community and collaboration and encouraging members to promote eco-friendly actions and ideas. 
-Post your actions daily, like and comment on other posts and follow other user to keep yourself updated with their recent activity! 
-
-By focusing on sustainable actions and positive user feedback, ECOnnect aims to facilitate sharing new ways to make the world a better place and inspire others to do the same.
-
+Did you ride your bicycle to work today? Or you just finished recycling the trash from the last 3 weeks? Would you like to share your sustainable actions to motivate other people?  
+In an era facing serious environmental issues, everyone needs to take action toward a brighter future, but how exactly?  
+ECOnnect addresses these questions by embracing community and collaboration and encouraging members to promote eco-friendly actions and ideas.   
+Post your actions daily, like and comment on other posts and follow other user to keep yourself updated with their recent activity!   
+By focusing on sustainable actions and positive user feedback, ECOnnect aims to facilitate sharing new ways to make the world a better place and inspire others to do the same.  
 Together, we can achieve meaningful results with simple day-to-day contributions. Come help us!
 
+---
+
+Quantos de vocês vieram de transporte público hoje para a faculdade? Ou quantos de vocês reciclam frequentemente? Gostavam de partilhar essas ações e motivar outras pessoas?  
+Numa era que enfrenta graves problemas ambientais, todos nós precisamos de tomar ação para um futuro melhor, mas como exatamente?  
+ECOnnect resolve estas questões, ao usar valores de comunidade e colaboração, e incentivando membros a promover ações e ideias sustentáveis.  
+Publica as tuas ações diárias, dá gosto e comenta nas publicações de outros utilizadores para os motivar, ou até segue-os para te manteres atualizado das suas atividades.  
+Com foco nas ações sustentáveis e em feedback positivo dos utilizadores, ECOnnect procura facilitar a partilha de novas maneiras de tornar o mundo num lugar melhor e inspirar os outros a fazer o mesmo.  
+Juntos, podemos alcançar resultados incríveis com simples ações diárias. Junta-te a nós!
 
 ## Requirements
 
