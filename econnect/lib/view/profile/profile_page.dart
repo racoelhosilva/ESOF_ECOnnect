@@ -3,16 +3,18 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/profile/widgets/follow_button.dart';
+import 'package:econnect/view/profile/widgets/logout_button.dart';
 import 'package:econnect/view/profile/widgets/settings_button.dart';
 import 'package:econnect/view/profile/widgets/user_posts.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage(
-      {super.key,
-      required this.dbController,
-      required this.sessionController,
-      required this.userId});
+  const ProfilePage({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+    required this.userId,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -92,11 +94,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: const BackButton(),
                       ),
                       if (user.id == widget.sessionController.loggedInUser!.id)
-                        Container(
-                          margin: const EdgeInsets.only(right: 8),
+                        Align(
                           alignment: Alignment.topRight,
-                          child: const SettingsButton(),
-                        ),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 8),
+                                child: const SettingsButton(),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(right: 8),
+                                child: const LogoutButton(),
+                              )
+                            ],
+                          )
+                        )
                     ],
                   ),
                   Align(
