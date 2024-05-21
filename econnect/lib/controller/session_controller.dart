@@ -85,6 +85,7 @@ class SessionController {
   }
 
   Future<void> logout() async {
-    return await _auth.signOut();
+    await _auth.signOut();
+    _loggedInUser = null;
   }
 }

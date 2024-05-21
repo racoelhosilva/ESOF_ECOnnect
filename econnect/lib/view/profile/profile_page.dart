@@ -95,8 +95,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       if (user.id == widget.sessionController.loggedInUser!.id)
                         Align(
-                          alignment: Alignment.topRight,
+                          alignment: Alignment.bottomCenter,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
                                 margin: const EdgeInsets.only(right: 8),
@@ -104,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               Container(
                                 margin: const EdgeInsets.only(right: 8),
-                                child: const LogoutButton(),
+                                child: LogoutButton(sessionController: widget.sessionController),
                               )
                             ],
                           )
