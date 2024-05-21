@@ -83,4 +83,8 @@ class SessionController {
     }
     return await dbController.isFollowing(_loggedInUser!.id, followedId);
   }
+
+  Future<void> logout() async {
+    return await _auth.signOut();
+  }
 }
