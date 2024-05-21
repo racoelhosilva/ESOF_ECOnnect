@@ -95,21 +95,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       if (user.id == widget.sessionController.loggedInUser!.id)
                         Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 8),
-                                child: const SettingsButton(),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(right: 8),
-                                child: LogoutButton(sessionController: widget.sessionController),
-                              )
-                            ],
-                          )
-                        )
+                            alignment: Alignment.bottomCenter,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(right: 8),
+                                  child: const SettingsButton(),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(right: 8),
+                                  child: LogoutButton(
+                                      sessionController:
+                                          widget.sessionController),
+                                )
+                              ],
+                            ))
                     ],
                   ),
                   Align(

@@ -6,7 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:econnect/controller/database_controller.dart' as _i3;
-import 'package:econnect/controller/session_controller.dart' as _i7;
+import 'package:econnect/controller/session_controller.dart' as _i8;
+import 'package:econnect/model/comment.dart' as _i7;
 import 'package:econnect/model/database.dart' as _i2;
 import 'package:econnect/model/post.dart' as _i6;
 import 'package:econnect/model/user.dart' as _i5;
@@ -341,6 +342,57 @@ class MockDatabaseController extends _i1.Mock
       ) as _i4.Future<bool>);
 
   @override
+  _i4.Future<void> addComment(
+    String? userId,
+    String? postId,
+    String? content,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addComment,
+          [
+            userId,
+            postId,
+            content,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteComment(String? commentId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteComment,
+          [commentId],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<(List<_i7.Comment>, String?)> getNextComments(
+    String? postId,
+    String? cursor,
+    int? numDocs,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNextComments,
+          [
+            postId,
+            cursor,
+            numDocs,
+          ],
+        ),
+        returnValue: _i4.Future<(List<_i7.Comment>, String?)>.value(
+            (<_i7.Comment>[], null)),
+        returnValueForMissingStub:
+            _i4.Future<(List<_i7.Comment>, String?)>.value(
+                (<_i7.Comment>[], null)),
+      ) as _i4.Future<(List<_i7.Comment>, String?)>);
+
+  @override
   _i4.Future<List<_i5.User>> searchUsers(
     String? query,
     int? numUsers,
@@ -362,7 +414,7 @@ class MockDatabaseController extends _i1.Mock
 /// A class which mocks [SessionController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSessionController extends _i1.Mock implements _i7.SessionController {
+class MockSessionController extends _i1.Mock implements _i8.SessionController {
   @override
   _i4.Future<void> init(_i3.DatabaseController? databaseController) =>
       (super.noSuchMethod(
@@ -501,4 +553,14 @@ class MockSessionController extends _i1.Mock implements _i7.SessionController {
         returnValue: _i4.Future<bool>.value(false),
         returnValueForMissingStub: _i4.Future<bool>.value(false),
       ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<void> logout() => (super.noSuchMethod(
+        Invocation.method(
+          #logout,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

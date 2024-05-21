@@ -88,7 +88,7 @@ class SessionController {
     if (_loggedInUser == null) {
       throw StateError("No user is logged in\n");
     }
-    
+
     await _auth.signOut();
     _loggedInUser = null;
   }

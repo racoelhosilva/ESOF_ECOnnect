@@ -27,6 +27,7 @@ class LogoutDialog extends StatelessWidget {
           child: const Text('Cancel'),
         ),
         TextButton(
+          key: const Key('dialog_logout_button'),
           onPressed: () => logout(context),
           child: const Text('Logout'),
         )

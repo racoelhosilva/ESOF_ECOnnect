@@ -186,8 +186,6 @@ void main() {
   });
 
   test('User is not logged out if no user is logged in', () async {
-    expect(
-        () async => await sessionController.logoutUser(),
-        throwsStateError);
+    expect(() async => await sessionController.logoutUser(), throwsStateError);
   });
 }

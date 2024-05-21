@@ -16,7 +16,8 @@ class LogoutButton extends StatelessWidget {
     return IconButton(
       onPressed: () => showDialog(
         context: context,
-        builder: (context) => LogoutDialog(sessionController: sessionController),
+        builder: (context) =>
+            LogoutDialog(sessionController: sessionController),
       ),
       icon: const Icon(LucideIcons.logOut),
     );
