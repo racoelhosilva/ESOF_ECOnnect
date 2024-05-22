@@ -1,11 +1,11 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
-import 'package:econnect/view/home/widgets/post_widget.dart';
+import 'package:econnect/view/home/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 
-class ClickablePostWidget extends StatelessWidget {
-  const ClickablePostWidget(
+class ClickablePostCard extends StatelessWidget {
+  const ClickablePostCard(
       {super.key,
       required this.post,
       required this.dbController,
@@ -21,7 +21,7 @@ class ClickablePostWidget extends StatelessWidget {
       onTap: () async {
         Navigator.pushNamed(context, "/postpage", arguments: post);
       },
-      child: PostWidget(
+      child: PostCard(
         dbController: dbController,
         sessionController: sessionController,
         post: post,
