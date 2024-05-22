@@ -127,7 +127,7 @@ class _UserPostsState extends State<UserPosts> {
               ),
             ..._posts.map((post) {
               return UserPostTile(
-                userLoggedIn:
+                userIsOwner:
                     widget.userId == widget.sessionController.loggedInUser!.id,
                 post: post,
               );

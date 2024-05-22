@@ -5,18 +5,21 @@ import 'package:flutter/material.dart';
 class UserPostTile extends StatelessWidget {
   const UserPostTile({
     super.key,
-    required this.userLoggedIn,
+    required this.userIsOwner,
     required this.post,
   });
 
-  final bool userLoggedIn;
+  final bool userIsOwner;
   final Post post;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        if (userLoggedIn) {
+      onTap:() {
+        Navigator.pushNamed(context, "/postpage", arguments: post);
+      },
+      onDoubleTap: () async {
+        if (userIsOwner) {
           Navigator.pushNamed(context, "/editpost", arguments: post);
         }
       },

@@ -9,12 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard(
-      {super.key,
-      required this.post,
-      required this.dbController,
-      required this.sessionController,
-      required this.isCommentsPage});
+  const PostCard({
+    super.key,
+    required this.post,
+    required this.dbController,
+    required this.sessionController,
+    required this.isCommentsPage,
+  });
 
   final Post post;
   final DatabaseController dbController;
