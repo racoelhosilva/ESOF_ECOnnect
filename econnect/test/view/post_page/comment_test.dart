@@ -1,11 +1,17 @@
+import 'package:econnect/controller/database_controller.dart';
+import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/comment.dart';
 import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:econnect/view/post/widgets/comment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import '../../controller/session_controller_test.mocks.dart';
 
-import '../login/widgets/login_button_test.mocks.dart';
-
+@GenerateNiceMocks([
+  MockSpec<DatabaseController>(),
+  MockSpec<SessionController>(),
+])
 void main() {
   late MockDatabaseController mockDatabaseController;
   late Comment testComment;
