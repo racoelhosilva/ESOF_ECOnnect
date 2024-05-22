@@ -4,19 +4,20 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
-import 'dart:ui' as _i13;
+import 'dart:ui' as _i14;
 
 import 'package:econnect/controller/database_controller.dart' as _i5;
-import 'package:econnect/controller/session_controller.dart' as _i9;
+import 'package:econnect/controller/session_controller.dart' as _i10;
+import 'package:econnect/model/comment.dart' as _i9;
 import 'package:econnect/model/database.dart' as _i2;
 import 'package:econnect/model/post.dart' as _i8;
 import 'package:econnect/model/user.dart' as _i7;
 import 'package:flutter/rendering.dart' as _i4;
 import 'package:flutter/services.dart' as _i3;
-import 'package:flutter/src/widgets/editable_text.dart' as _i10;
-import 'package:flutter/src/widgets/framework.dart' as _i12;
+import 'package:flutter/src/widgets/editable_text.dart' as _i11;
+import 'package:flutter/src/widgets/framework.dart' as _i13;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:mockito/src/dummies.dart' as _i12;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -382,6 +383,57 @@ class MockDatabaseController extends _i1.Mock
       ) as _i6.Future<bool>);
 
   @override
+  _i6.Future<void> addComment(
+    String? userId,
+    String? postId,
+    String? content,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addComment,
+          [
+            userId,
+            postId,
+            content,
+          ],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> deleteComment(String? commentId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteComment,
+          [commentId],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<(List<_i9.Comment>, String?)> getNextComments(
+    String? postId,
+    String? cursor,
+    int? numDocs,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNextComments,
+          [
+            postId,
+            cursor,
+            numDocs,
+          ],
+        ),
+        returnValue: _i6.Future<(List<_i9.Comment>, String?)>.value(
+            (<_i9.Comment>[], null)),
+        returnValueForMissingStub:
+            _i6.Future<(List<_i9.Comment>, String?)>.value(
+                (<_i9.Comment>[], null)),
+      ) as _i6.Future<(List<_i9.Comment>, String?)>);
+
+  @override
   _i6.Future<List<_i7.User>> searchUsers(
     String? query,
     int? numUsers,
@@ -403,7 +455,7 @@ class MockDatabaseController extends _i1.Mock
 /// A class which mocks [SessionController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSessionController extends _i1.Mock implements _i9.SessionController {
+class MockSessionController extends _i1.Mock implements _i10.SessionController {
   @override
   _i6.Future<void> init(_i5.DatabaseController? databaseController) =>
       (super.noSuchMethod(
@@ -542,21 +594,31 @@ class MockSessionController extends _i1.Mock implements _i9.SessionController {
         returnValue: _i6.Future<bool>.value(false),
         returnValueForMissingStub: _i6.Future<bool>.value(false),
       ) as _i6.Future<bool>);
+
+  @override
+  _i6.Future<void> logout() => (super.noSuchMethod(
+        Invocation.method(
+          #logout,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
 
 /// A class which mocks [TextEditingController].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTextEditingController extends _i1.Mock
-    implements _i10.TextEditingController {
+    implements _i11.TextEditingController {
   @override
   String get text => (super.noSuchMethod(
         Invocation.getter(#text),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#text),
         ),
-        returnValueForMissingStub: _i11.dummyValue<String>(
+        returnValueForMissingStub: _i12.dummyValue<String>(
           this,
           Invocation.getter(#text),
         ),
@@ -624,7 +686,7 @@ class MockTextEditingController extends _i1.Mock
 
   @override
   _i4.TextSpan buildTextSpan({
-    required _i12.BuildContext? context,
+    required _i13.BuildContext? context,
     _i4.TextStyle? style,
     required bool? withComposing,
   }) =>
@@ -694,7 +756,7 @@ class MockTextEditingController extends _i1.Mock
       ) as bool);
 
   @override
-  void addListener(_i13.VoidCallback? listener) => super.noSuchMethod(
+  void addListener(_i14.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -703,7 +765,7 @@ class MockTextEditingController extends _i1.Mock
       );
 
   @override
-  void removeListener(_i13.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i14.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],

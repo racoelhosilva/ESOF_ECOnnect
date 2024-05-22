@@ -6,6 +6,7 @@
 import 'dart:async' as _i7;
 
 import 'package:econnect/controller/database_controller.dart' as _i6;
+import 'package:econnect/model/comment.dart' as _i10;
 import 'package:econnect/model/database.dart' as _i2;
 import 'package:econnect/model/post.dart' as _i9;
 import 'package:econnect/model/user.dart' as _i8;
@@ -14,7 +15,7 @@ import 'package:firebase_auth_platform_interface/firebase_auth_platform_interfac
     as _i4;
 import 'package:firebase_core/firebase_core.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
+import 'package:mockito/src/dummies.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -426,6 +427,57 @@ class MockDatabaseController extends _i1.Mock
         returnValue: _i7.Future<bool>.value(false),
         returnValueForMissingStub: _i7.Future<bool>.value(false),
       ) as _i7.Future<bool>);
+
+  @override
+  _i7.Future<void> addComment(
+    String? userId,
+    String? postId,
+    String? content,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addComment,
+          [
+            userId,
+            postId,
+            content,
+          ],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<void> deleteComment(String? commentId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteComment,
+          [commentId],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<(List<_i10.Comment>, String?)> getNextComments(
+    String? postId,
+    String? cursor,
+    int? numDocs,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNextComments,
+          [
+            postId,
+            cursor,
+            numDocs,
+          ],
+        ),
+        returnValue: _i7.Future<(List<_i10.Comment>, String?)>.value(
+            (<_i10.Comment>[], null)),
+        returnValueForMissingStub:
+            _i7.Future<(List<_i10.Comment>, String?)>.value(
+                (<_i10.Comment>[], null)),
+      ) as _i7.Future<(List<_i10.Comment>, String?)>);
 
   @override
   _i7.Future<List<_i8.User>> searchUsers(
@@ -1062,7 +1114,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i5.FirebaseAuth {
           #verifyPasswordResetCode,
           [code],
         ),
-        returnValue: _i7.Future<String>.value(_i10.dummyValue<String>(
+        returnValue: _i7.Future<String>.value(_i11.dummyValue<String>(
           this,
           Invocation.method(
             #verifyPasswordResetCode,
@@ -1070,7 +1122,7 @@ class MockFirebaseAuth extends _i1.Mock implements _i5.FirebaseAuth {
           ),
         )),
         returnValueForMissingStub:
-            _i7.Future<String>.value(_i10.dummyValue<String>(
+            _i7.Future<String>.value(_i11.dummyValue<String>(
           this,
           Invocation.method(
             #verifyPasswordResetCode,
@@ -1172,11 +1224,11 @@ class MockUser extends _i1.Mock implements _i5.User {
   @override
   String get uid => (super.noSuchMethod(
         Invocation.getter(#uid),
-        returnValue: _i10.dummyValue<String>(
+        returnValue: _i11.dummyValue<String>(
           this,
           Invocation.getter(#uid),
         ),
-        returnValueForMissingStub: _i10.dummyValue<String>(
+        returnValueForMissingStub: _i11.dummyValue<String>(
           this,
           Invocation.getter(#uid),
         ),
