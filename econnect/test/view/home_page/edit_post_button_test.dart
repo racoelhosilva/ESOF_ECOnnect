@@ -6,7 +6,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 void main() {
   group('EditPostButton', () {
-    testWidgets('renders IconButton with pencil icon', (WidgetTester tester) async {
+    testWidgets('renders IconButton with pencil icon',
+        (WidgetTester tester) async {
       final post = Post(
         postId: '1',
         description: 'This is a test post',
@@ -25,7 +26,8 @@ void main() {
       expect(find.byIcon(LucideIcons.pencil), findsOneWidget);
     });
 
-    testWidgets('navigates to edit post screen when pressed', (WidgetTester tester) async {
+    testWidgets('navigates to edit post screen when pressed',
+        (WidgetTester tester) async {
       final post = Post(
         postId: '1',
         description: 'This is a test post',
@@ -39,7 +41,8 @@ void main() {
             body: EditPostButton(post: post),
           ),
           routes: {
-            '/editpost': (context) => Container(), // Replace with your edit post screen widget
+            '/editpost': (context) =>
+                Container(), // Replace with your edit post screen widget
           },
         ),
       );
@@ -47,7 +50,8 @@ void main() {
       await tester.tap(find.byIcon(LucideIcons.pencil));
       await tester.pumpAndSettle();
 
-      expect(find.byType(Container), findsOneWidget); // Replace with your edit post screen widget
+      expect(find.byType(Container),
+          findsOneWidget); // Replace with your edit post screen widget
     });
   });
 }

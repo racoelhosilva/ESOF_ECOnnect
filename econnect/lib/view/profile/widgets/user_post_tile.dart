@@ -15,7 +15,7 @@ class UserPostTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() {
+      onTap: () {
         Navigator.pushNamed(context, "/postpage", arguments: post);
       },
       onDoubleTap: () async {
