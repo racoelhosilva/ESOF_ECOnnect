@@ -7,4 +7,4 @@ Feature: Search for other users
     When I navigate to the "Search Users" page
     And I tap on the search bar
     And I enter a name in the search bar
-    Then I should see a list of users whose usernames are start with the name I wrote
+    Then I should see a list of users whose usernames start with the name I wrote

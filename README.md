@@ -253,7 +253,7 @@ Common practices for managing iterative software development are backlog managem
 You can find below information and references related to the project management in our team: 
 
 - Backlog management: Product backlog and Sprint backlog in our [Github Projects board](https://github.com/orgs/FEUP-LEIC-ES-2023-24/projects/52)
-- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype), [v1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v1), [v2](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v2)
+- Release management: [v0](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/vertical-prototype), [v1](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v1), [v2](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v2), [v3](https://github.com/FEUP-LEIC-ES-2023-24/2LEIC16T1/releases/tag/release-v3)
   
 <!---
 - Sprint planning and retrospectives: 
@@ -335,4 +335,22 @@ You can find below information and references related to the project management 
 <p align="center" justify="center">
   <b>Start of Sprint 3</b>
   <img src="img/sprints/sprint3_start.png"/>
+  <b>End of Sprint 3</b>
+  <img src="img/sprints/sprint3_end.png"/>
 </p>
+
+#### Sprint Retrospective #3
+
+##### What should start?
+
+ - Better communication between some of the members of the group
+
+##### What should stop?
+
+ - Merge features without associated unit tests (this was an exception for our demo presentation)
+
+##### What should continue?
+
+ - Features developed are tested and robust, they have visual queues for users already implemented, ...
+ - Envision the product from the perspective of a larger audience (public or mass market)
+ - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
