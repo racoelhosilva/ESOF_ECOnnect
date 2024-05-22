@@ -4,6 +4,7 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
 import 'package:econnect/view/home/widgets/app_like_button.dart';
+import 'package:econnect/view/home/widgets/edit_post_button.dart';
 import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -77,7 +78,10 @@ class PostCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    const Spacer(),
+                    if (snapshot.data!.id == sessionController.loggedInUser!.id)
+                      EditPostButton(post: post),
                   ],
                 ),
                 Container(
