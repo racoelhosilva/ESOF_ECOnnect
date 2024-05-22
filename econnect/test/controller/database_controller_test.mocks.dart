@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:econnect/model/comment.dart' as _i7;
 import 'package:econnect/model/database.dart' as _i2;
 import 'package:econnect/model/post.dart' as _i5;
 import 'package:econnect/model/user.dart' as _i6;
@@ -334,6 +335,57 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
         returnValue: _i3.Future<bool>.value(false),
         returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
+
+  @override
+  _i3.Future<void> addComment(
+    String? userId,
+    String? postId,
+    String? content,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addComment,
+          [
+            userId,
+            postId,
+            content,
+          ],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> deleteComment(String? commentId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteComment,
+          [commentId],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<(List<_i7.Comment>, String?)> getNextComments(
+    String? postId,
+    String? cursor,
+    int? numDocs,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNextComments,
+          [
+            postId,
+            cursor,
+            numDocs,
+          ],
+        ),
+        returnValue: _i3.Future<(List<_i7.Comment>, String?)>.value(
+            (<_i7.Comment>[], null)),
+        returnValueForMissingStub:
+            _i3.Future<(List<_i7.Comment>, String?)>.value(
+                (<_i7.Comment>[], null)),
+      ) as _i3.Future<(List<_i7.Comment>, String?)>);
 
   @override
   _i3.Future<List<_i6.User>> searchUsers(
