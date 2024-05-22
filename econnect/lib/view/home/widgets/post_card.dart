@@ -3,18 +3,20 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/home/widgets/likes_widget.dart';
+import 'package:econnect/view/home/widgets/app_like_button.dart';
+import 'package:econnect/view/home/widgets/edit_post_button.dart';
 import 'package:econnect/view/home/widgets/profile_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class PostWidget extends StatelessWidget {
-  const PostWidget(
-      {super.key,
-      required this.post,
-      required this.dbController,
-      required this.sessionController,
-      required this.isCommentsPage});
+class PostCard extends StatelessWidget {
+  const PostCard({
+    super.key,
+    required this.post,
+    required this.dbController,
+    required this.sessionController,
+    required this.isCommentsPage,
+  });
 
   final Post post;
   final DatabaseController dbController;
@@ -76,7 +78,10 @@ class PostWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    const Spacer(),
+                    if (snapshot.data!.id == sessionController.loggedInUser!.id)
+                      EditPostButton(post: post),
                   ],
                 ),
                 Container(
@@ -104,7 +109,7 @@ class PostWidget extends StatelessWidget {
                         const Icon(LucideIcons.alertCircle),
                   ),
                 ),
-                LikeWidget(
+                AppLikeButton(
                   post: post,
                   dbController: dbController,
                   sessionController: sessionController,

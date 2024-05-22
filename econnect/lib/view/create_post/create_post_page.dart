@@ -1,7 +1,7 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
-import 'package:econnect/view/commons/header_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
 import 'package:econnect/view/create_post/widgets/image_editor.dart';
 import 'package:econnect/view/create_post/widgets/post_button.dart';
@@ -35,7 +35,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const HeaderWidget(),
+          const MainHeader(),
           ImageEditor(_imagePath,
               setImagePath: setImagePath, proportion: 4 / 3),
           DescriptionField(controller: _postController),

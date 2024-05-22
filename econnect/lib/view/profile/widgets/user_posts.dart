@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/post.dart';
+import 'package:econnect/view/profile/widgets/user_post_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -64,6 +64,24 @@ class _UserPostsState extends State<UserPosts> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Padding(
+          padding: EdgeInsets.only(
+            left: 16.0,
+            right: 20.0,
+            top: 4.0,
+            bottom: 12.0,
+          ),
+          child: Text(
+            "Recent Activity",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontFamily: "Karla",
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         GridView.count(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -108,34 +126,10 @@ class _UserPostsState extends State<UserPosts> {
                 ),
               ),
             ..._posts.map((post) {
-              return GestureDetector(
-                onTap: () async {
-                  if (widget.userId ==
-                      widget.sessionController.loggedInUser!.id) {
-                    Navigator.pushNamed(context, "/editpost", arguments: post);
-                  }
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  foregroundDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outline,
-                      width: 2,
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: CachedNetworkImage(
-                    imageUrl: post.image,
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.width * 4 / 9,
-                  ),
-                ),
+              return UserPostTile(
+                userIsOwner:
+                    widget.userId == widget.sessionController.loggedInUser!.id,
+                post: post,
               );
             }),
           ],

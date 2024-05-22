@@ -1,14 +1,14 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:flutter/material.dart';
-
-import '../../../model/post.dart';
+import 'package:econnect/model/post.dart';
 
 class SaveButton extends StatefulWidget {
-  const SaveButton(
-      {super.key,
-      required this.dbController,
-      required this.post,
-      required this.postController});
+  const SaveButton({
+    super.key,
+    required this.dbController,
+    required this.post,
+    required this.postController,
+  });
 
   final DatabaseController dbController;
   final Post? post;

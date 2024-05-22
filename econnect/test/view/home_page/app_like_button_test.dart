@@ -1,6 +1,6 @@
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/home/widgets/likes_widget.dart';
+import 'package:econnect/view/home/widgets/app_like_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:like_button/like_button.dart';
@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import '../settings/save_button_test.mocks.dart';
 
 void main() {
-  group('LikeWidget', () {
+  group('AppLikeButton', () {
     testWidgets('Toggles like state when tapped', (WidgetTester tester) async {
       final mockDbController = MockDatabaseController();
       final mockSessionController = MockSessionController();
@@ -34,7 +34,7 @@ void main() {
       when(mockDbController.removeLike(any, any)).thenAnswer((_) async => true);
 
       await tester.pumpWidget(MaterialApp(
-        home: LikeWidget(
+        home: AppLikeButton(
           post: post,
           dbController: mockDbController,
           sessionController: mockSessionController,

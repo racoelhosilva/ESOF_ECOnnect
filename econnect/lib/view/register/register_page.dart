@@ -1,33 +1,31 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/view/login/widgets/login_button.dart';
 import 'package:econnect/view/login/widgets/login_text_field.dart';
-import 'package:econnect/view/login/widgets/register_button.dart';
 import 'package:econnect/view/login/widgets/password_field.dart';
+import 'package:econnect/view/register/widget/submit_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({
-    super.key,
-    required this.dbController,
-    required this.sessionController,
-  });
+class RegisterPage extends StatefulWidget {
+  const RegisterPage(
+      {super.key, required this.dbController, required this.sessionController});
 
   final DatabaseController dbController;
   final SessionController sessionController;
 
   @override
-  State<StatefulWidget> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    usernameController.dispose();
     super.dispose();
   }
 
@@ -62,19 +60,26 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     LoginTextField(
+                      fieldName: 'Username',
+                      controller: usernameController,
+                      maxLength: 25,
+                    ),
+                    LoginTextField(
                       fieldName: 'E-mail',
                       controller: emailController,
                     ),
-                    PasswordField(controller: passwordController),
+                    PasswordField(
+                      controller: passwordController,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const RegisterButton(),
-                        LoginButton(
+                        SubmitButton(
                           dbController: widget.dbController,
                           sessionController: widget.sessionController,
                           emailController: emailController,
                           passwordController: passwordController,
+                          usernameController: usernameController,
                         ),
                       ],
                     )

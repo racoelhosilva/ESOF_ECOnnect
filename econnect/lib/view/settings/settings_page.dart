@@ -2,16 +2,19 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/utils/download_image.dart';
 import 'package:econnect/view/commons/bottom_navbar.dart';
-import 'package:econnect/view/commons/header_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
 import 'package:econnect/view/create_post/widgets/image_editor.dart';
 import 'package:econnect/view/create_post/widgets/description_field.dart';
-import 'package:econnect/view/settings/widgets/save_button.dart';
+import 'package:econnect/view/settings/widgets/save_settings_button.dart';
 import 'package:econnect/view/settings/widgets/username_field.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage(
-      {super.key, required this.dbController, required this.sessionController});
+  const SettingsPage({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;
@@ -33,15 +36,18 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     _descriptionController = TextEditingController(
-        text: widget.sessionController.loggedInUser!.description);
+      text: widget.sessionController.loggedInUser!.description,
+    );
     _usernameController = TextEditingController(
-        text: widget.sessionController.loggedInUser!.username);
+      text: widget.sessionController.loggedInUser!.username,
+    );
     setInitialPagePath();
   }
 
   Future<void> setInitialPagePath() async {
     final initImagePath = await downloadImageToTemp(
-        widget.sessionController.loggedInUser!.profilePicture);
+      widget.sessionController.loggedInUser!.profilePicture,
+    );
     setImagePath(initImagePath);
   }
 
@@ -58,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const HeaderWidget(),
+          const MainHeader(),
           ImageEditor(
             _imagePath,
             setImagePath: setImagePath,
@@ -66,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           UsernameField(controller: _usernameController),
           DescriptionField(controller: _descriptionController),
-          SaveButton(
+          SaveSettingsButton(
             dbController: widget.dbController,
             sessionController: widget.sessionController,
             usernameController: _usernameController,

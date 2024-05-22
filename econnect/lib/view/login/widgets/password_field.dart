@@ -7,10 +7,10 @@ class PasswordField extends StatefulWidget {
   final TextEditingController controller;
 
   @override
-  State<StatefulWidget> createState() => PasswordFieldState();
+  State<StatefulWidget> createState() => _PasswordFieldState();
 }
 
-class PasswordFieldState extends State<PasswordField> {
+class _PasswordFieldState extends State<PasswordField> {
   bool _isObscured = true;
 
   @override
@@ -20,7 +20,10 @@ class PasswordFieldState extends State<PasswordField> {
       child: TextFormField(
         controller: widget.controller,
         style: const TextStyle(
-            color: Colors.black, fontSize: 20, fontFamily: 'Karla'),
+          color: Colors.black,
+          fontSize: 20,
+          fontFamily: 'Karla',
+        ),
         obscureText: _isObscured,
         decoration: InputDecoration(
           suffixIcon: IconButton(
@@ -38,7 +41,10 @@ class PasswordFieldState extends State<PasswordField> {
           fillColor: Colors.white,
           hintText: "Password",
           hintStyle: const TextStyle(
-              color: Colors.grey, fontSize: 20, fontFamily: 'Karla'),
+            color: Colors.grey,
+            fontSize: 20,
+            fontFamily: 'Karla',
+          ),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           border: OutlineInputBorder(
