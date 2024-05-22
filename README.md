@@ -160,9 +160,9 @@ Example:
 </p>
 -->
 
-A **user** is any individual registered on the platform. Users are authenticated via academic email and password.
+A **user** is any individual registered on the platform. Users are authenticated via email and password.
 They have the option to personalize their profiles by including a description and uploading a profile picture.  
-They can also create **posts** consisting of pictures along with textual descriptions. Users may also follow other users and like each other's posts.  
+They can also create **posts** consisting of pictures along with textual descriptions. Users may also follow other users and like / comment on each other's posts.  
 Furthermore, the platform hosts **challenges** (created by admin users) focused on eco-friendly activities (with defined start/end dates and specific goals).  
 Users can participate in these challenges and earn points. There is a leaderboard that displays users with the highest scores.
 
