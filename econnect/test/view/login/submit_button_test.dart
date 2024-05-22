@@ -1,14 +1,14 @@
 import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
-import 'package:econnect/view/login/widgets/submit_button.dart';
+import 'package:econnect/view/register/widget/submit_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../commons/bottom_navbar_test.mocks.dart';
-import '../../settings/save_button_test.mocks.dart';
+import '../commons/bottom_navbar_test.mocks.dart';
+import '../settings/save_button_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<DatabaseController>(),

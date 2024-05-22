@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:econnect/view/commons/logo_widget.dart';
+import 'package:econnect/view/commons/app_logo.dart';
 
 void main() {
-  testWidgets('LogoWidget displays "ECOnnect" text with correct style',
+  testWidgets('AppLogo displays "ECOnnect" text with correct style',
       (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
-          body: LogoWidget(),
+          body: AppLogo(),
         ),
       ),
     );

@@ -148,4 +148,44 @@ void main() {
             user2.email, password2, databaseController),
         throwsStateError);
   });
+
+  test('User is logged out successfully from the application', () async {
+    const id = '123';
+    const email = 'test@example.com';
+    const username = 'testuser';
+    const password = 'password';
+    final user = User(
+        id: id,
+        email: email,
+        username: username,
+        score: 0,
+        isBlocked: false,
+        registerDatetime: DateTime.now(),
+        admin: false,
+        profilePicture: '');
+
+    expect(sessionController.isLoggedIn(), false);
+    when(userCredential.user).thenReturn(fauser);
+    when(fauser.uid).thenReturn(id);
+    when(firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password))
+        .thenAnswer((_) async => userCredential);
+
+    when(databaseController.getUser(id)).thenAnswer((_) async => user);
+    await sessionController.loginUser(email, password, databaseController);
+    verify(firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password))
+        .called(1);
+    verify(databaseController.getUser(id)).called(1);
+    expect(sessionController.isLoggedIn(), true);
+
+    await sessionController.logoutUser();
+
+    verify(firebaseAuth.signOut()).called(1);
+    expect(sessionController.isLoggedIn(), false);
+  });
+
+  test('User is not logged out if no user is logged in', () async {
+    expect(() async => await sessionController.logoutUser(), throwsStateError);
+  });
 }

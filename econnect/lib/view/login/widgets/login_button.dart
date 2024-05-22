@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginButton extends StatefulWidget {
-  const LoginButton(
-      {super.key,
-      required this.dbController,
-      required this.sessionController,
-      required this.emailController,
-      required this.passwordController});
+  const LoginButton({
+    super.key,
+    required this.dbController,
+    required this.sessionController,
+    required this.emailController,
+    required this.passwordController,
+  });
 
   final DatabaseController dbController;
   final SessionController sessionController;

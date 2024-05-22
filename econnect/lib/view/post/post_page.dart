@@ -2,8 +2,8 @@ import 'package:econnect/controller/database_controller.dart';
 import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/comment.dart';
 import 'package:econnect/model/post.dart';
-import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/home/widgets/post_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
+import 'package:econnect/view/home/widgets/post_card.dart';
 import 'package:econnect/view/post/widgets/comment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,12 +33,12 @@ class _PostPageState extends State<PostPage> {
   bool _isLoading = false;
   bool _atEnd = false;
   String? _cursor;
-  PostWidget? postWidget;
+  PostCard? postWidget;
 
   @override
   void initState() {
     super.initState();
-    postWidget = PostWidget(
+    postWidget = PostCard(
       post: widget.post,
       dbController: widget.dbController,
       sessionController: widget.sessionController,
@@ -114,7 +114,7 @@ class _PostPageState extends State<PostPage> {
               child: ListView(
                 controller: _scrollController,
                 children: [
-                  const HeaderWidget(),
+                  const MainHeader(),
                   if (postWidget != null) postWidget!,
                   ..._comments,
                   if (_isLoading)

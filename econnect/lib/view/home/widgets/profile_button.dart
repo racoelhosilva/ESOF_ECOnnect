@@ -4,8 +4,11 @@ import 'package:econnect/model/user.dart';
 import 'package:flutter/material.dart';
 
 class ProfileButton extends StatelessWidget {
-  const ProfileButton(
-      {super.key, required this.userId, required this.dbController});
+  const ProfileButton({
+    super.key,
+    required this.userId,
+    required this.dbController,
+  });
 
   final String userId;
   final DatabaseController dbController;

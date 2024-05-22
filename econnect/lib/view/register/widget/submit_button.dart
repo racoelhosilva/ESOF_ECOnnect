@@ -48,10 +48,11 @@ class _SubmitButtonState extends State<SubmitButton> {
 
     try {
       await widget.sessionController.registerUser(
-          widget.emailController.text,
-          widget.passwordController.text,
-          widget.usernameController.text,
-          widget.dbController);
+        widget.emailController.text,
+        widget.passwordController.text,
+        widget.usernameController.text,
+        widget.dbController,
+      );
     } on FirebaseAuthException catch (e) {
       if (!context.mounted) {
         return;

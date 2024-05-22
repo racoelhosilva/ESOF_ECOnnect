@@ -3,8 +3,8 @@ import 'package:econnect/controller/session_controller.dart';
 import 'package:econnect/model/comment.dart';
 import 'package:econnect/model/post.dart';
 import 'package:econnect/model/user.dart';
-import 'package:econnect/view/commons/header_widget.dart';
-import 'package:econnect/view/home/widgets/post_widget.dart';
+import 'package:econnect/view/commons/main_header.dart';
+import 'package:econnect/view/home/widgets/post_card.dart';
 import 'package:econnect/view/post/post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -91,7 +91,7 @@ void main() {
       ),
     );
 
-    expect(find.byType(HeaderWidget), findsOneWidget);
+    expect(find.byType(MainHeader), findsOneWidget);
   });
 
   testWidgets('PostPage displays post widget', (WidgetTester tester) async {
@@ -105,6 +105,6 @@ void main() {
       ),
     );
 
-    expect(find.byType(PostWidget), findsOneWidget);
+    expect(find.byType(PostCard), findsOneWidget);
   });
 }
