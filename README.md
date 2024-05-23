@@ -77,7 +77,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 
 #### Features
 
-- **Student Login**: Students who want to use the app should be able to create an account through their academic e-mail
+- **User Login**: users who want to use the app should be able to create an account associated with their e-mail.
 - **Share Content**: Users will be able to upload pictures/videos to the app, or even take them through the camera, and share them with the community.
 - **Profile Page**: Users will be able to see information about other users on their respective profile pages, like profile pictures, contact information and previous posts.
 - **Follow Other Users**: Logged-in users will be able to follow other users, allowing them to be updated on their activity and prioritize their posts on the follower's feed.
@@ -85,6 +85,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are makin
 - **Sustainability Challenges**: Monthly challenges or initiatives related to sustainability will be available, to engage users in eco-friendly activities.
 - **Rating System**: Users who find other posts inspiring can give positive feedback to the original creator, allowing them to rank higher in challenges and be suggested to other people.
 - **Search Users**: Users should be able to search for other users, according to their interests.
+- **Comment Section**: Every post will have a section for users to comment and share their thoughts and ideas.
 
 #### Assumptions and Dependencies
 
