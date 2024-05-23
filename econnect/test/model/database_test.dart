@@ -533,10 +533,10 @@ void main() {
     const userId = 'user-id';
 
     when(firestore.collection('posts')).thenReturn(postsCollection);
-    when(postsCollection.where('user', whereIn: anyNamed('whereIn')))
+    when(postsCollection.orderBy('postDatetime', descending: true))
         .thenReturn(postsQuery1);
     when(postsQuery1.orderBy('user')).thenReturn(postsQuery2);
-    when(postsQuery2.orderBy('postDatetime', descending: true))
+    when(postsQuery2.where('user', whereIn: anyNamed('whereIn')))
         .thenReturn(postsQuery3);
     when(postsQuery3.limit(2)).thenReturn(postsQuery4);
     when(postsQuery4.get()).thenAnswer((_) async => querySnapshot);
@@ -607,10 +607,10 @@ void main() {
     const userId = 'user-id';
 
     when(firestore.collection('posts')).thenReturn(postsCollection);
-    when(postsCollection.where('user', whereNotIn: anyNamed('whereNotIn')))
+    when(postsCollection.orderBy('postDatetime', descending: true))
         .thenReturn(postsQuery1);
     when(postsQuery1.orderBy('user')).thenReturn(postsQuery2);
-    when(postsQuery2.orderBy('postDatetime', descending: true))
+    when(postsQuery2.where('user', whereNotIn: anyNamed('whereNotIn')))
         .thenReturn(postsQuery3);
     when(postsQuery3.limit(2)).thenReturn(postsQuery4);
     when(postsQuery4.get()).thenAnswer((_) async => querySnapshot);

@@ -115,9 +115,9 @@ class Database {
     }
 
     Query<Map<String, dynamic>> query = posts
-        .where('user', whereIn: following)
+        .orderBy('postDatetime', descending: true)
         .orderBy('user')
-        .orderBy('postDatetime', descending: true);
+        .where('user', whereIn: following);
     if (cursor != null) {
       final fromDoc = await posts.doc(cursor).get();
       query = query.startAfterDocument(fromDoc);
@@ -145,9 +145,9 @@ class Database {
 
     Query<Map<String, dynamic>> query = following.isNotEmpty
         ? posts
-            .where('user', whereNotIn: following)
-            .orderBy('user')
             .orderBy('postDatetime', descending: true)
+            .orderBy('user')
+            .where('user', whereNotIn: following)
         : posts.orderBy('postDatetime', descending: true);
 
     if (cursor != null) {
