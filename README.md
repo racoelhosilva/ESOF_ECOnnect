@@ -355,3 +355,9 @@ You can find below information and references related to the project management 
  - Features developed are tested and robust, they have visual queues for users already implemented, ...
  - Envision the product from the perspective of a larger audience (public or mass market)
  - Implementing all planned features and accomplishing all the objectives for the sprint (good estimation)
+
+---
+
+> Class: 2LEIC16 Group: T1    
+> Final Grade: 19.0 
+> Created in March 2024 for ESOF (Engenharia de Software) [FEUP-L.EIC017]  
