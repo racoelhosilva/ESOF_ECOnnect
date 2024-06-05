@@ -360,4 +360,5 @@ You can find below information and references related to the project management 
 
 > Class: 2LEIC16 Group: T1    
 > Final Grade: 19.0  
+> Professors: Tiago Boldt Sousa  
 > Created in March 2024 for ESOF (Engenharia de Software) [FEUP-L.EIC017]  
